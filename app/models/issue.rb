@@ -28,13 +28,21 @@ class Issue < ActiveRecord::Base
 
 	has_many :videos,:as => :video_attachment,:dependent => :destroy
 	has_many :images,:as => :image_attachment,:dependent => :destroy
-	has_one  :resolve,:dependent => :destroy ,:inverse_of => :issue
+	has_one  :resolve,:dependent => :destroy #,:inverse_of => :issue
 
 	default_scope { where(tenant_id: Tenant.current_id)  if Tenant.current_id }
 
 
 	state_machine :initial => :opened do  
-		before_transition any => :opened ,:do => :issue_opened_action
+		after_transition any  => :opened 					,:do => :issue_opened_action
+		after_transition any  => :verifying_resolve			,:do => :send_message_to_finder 
+		after_transition any  => :closed 					,:do => :send_message_to_responsible_person
+		after_transition  any  => :resolve_denied			,:do => :send_message_to_responsible_person
+		around_transition do |issue, transition, block|
+      		Rails.logger.debug "before #{transition.event}: #{issue.state}"
+      		block.call
+      		Rails.logger.debug "after #{transition.event}: #{issue.state}"
+    	end
 
 		state :opened do
 			transition :to => :opened ,:on => :change_responsible_person
@@ -55,13 +63,38 @@ class Issue < ActiveRecord::Base
 			transition :to => :verifying_resolve	,			:on => :commit_resolve
 			transition :to => :opened 				,			:on => :change_responsible_person
 			validates_presence_of :responsible_person
-
 		end
 	end
 
 	def issue_opened_action
-		self.resolve.destroy unless self.resolve.nil?
-		#send message to responsible person
+		#Rails.logger.debug(self.new_record?)
+		if not self.new_record?
+			self.resolve.destroy unless self.resolve.nil?
+		end
+		#Rails.logger.debug("=========================================#{self.state}")
+		self.send_message_to_responsible_person
+	end
+	def send_message_to_finder
+		self.message_for_finder=self.state #test
+		Rails.logger.debug("Send Message to finder #{self.finder.name}@#{self.finder.mobile}")
+	end
+	def send_message_to_responsible_person
+		self.message_for_responsible_person=self.state #test
+		Rails.logger.debug("Send Message to responsible_person #{self.responsible_person.name}@#{self.responsible_person.mobile}")
 	end
 
+	#for test
+	def message_for_responsible_person=(m)
+		@message_for_responsible_person=m
+	end
+	def message_for_responsible_person
+		@message_for_responsible_person
+	end
+
+	def message_for_finder=(m)
+		@message_for_finder=m
+	end
+	def message_for_finder
+		@message_for_finder
+	end
 end

@@ -12,6 +12,7 @@ FactoryGirl.define do
     factory :issue_with_resolve do
         after(:create) do |issue|
             FactoryGirl.create(:resolve,tenant: issue.tenant,issue: issue)
+            issue.commit_resolve
         end 
     end
   end

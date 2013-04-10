@@ -7,7 +7,7 @@ class Resolve < ActiveRecord::Base
 
 
 	belongs_to :submitter,:class_name => "User",:foreign_key => "submitter_id"
-	belongs_to :issue ,:inverse_of => :resolve
+	belongs_to :issue #,:inverse_of => :resolve
 	belongs_to :tenant
 	
 	has_many :videos,:as => :video_attachment,:dependent => :destroy

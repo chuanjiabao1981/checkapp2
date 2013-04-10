@@ -1,11 +1,11 @@
 
 require 'spec_helper'
 
-describe Issue  do
+describe Issue do
 	#let(:quick_report) {FactoryGirl.build(:quick_report)}
 	subject {@issue}
 	before do
-		@issue = FactoryGirl.build(:issue)
+		@issue = FactoryGirl.create(:issue)
 	end	
 	describe "Facotry Valid"  do
 		it "should valid" do
@@ -70,14 +70,17 @@ describe Issue  do
 			it {should be_opened}
 			it {should be_can_change_responsible_person}
 			it {should be_can_commit_resolve}
-			it "no responsible_person is valid"  do
+			it "no responsible_person is valid" do
+				@issue.message_for_responsible_person.should == "opened"
 				@issue.responsible_person = nil
 				@issue.should be_valid
 			end
 		end
-		describe "verifying_resolve" do
+		describe "verifying_resolve"  do
 			before do
+				@issue.message_for_finder.should be_nil
 				@issue.commit_resolve!
+				@issue.message_for_finder.should == "verifying_resolve"
 				@issue.should be_valid
 			end
 			it {should be_verifying_resolve}
@@ -101,28 +104,32 @@ describe Issue  do
 				@issue.should_not be_valid
 			end
 		end
-		describe "closed"  do
+		describe "closed"   do
 			before do
 				@issue.commit_resolve!
+				@issue.message_for_responsible_person.should == "opened"
 				@issue.close!
+				@issue.message_for_responsible_person.should == "closed"
 				@issue.should be_valid
 			end
+
 			it {should be_closed}
 			it {should be_can_reject_resolve}
 			it "should to resolve_denied" do
 				@issue.reject_resolve
 				@issue.should be_resolve_denied
 			end
-
 			it "no responsible_person is not valid" do
 				@issue.responsible_person = nil
 				@issue.should_not be_valid
 			end
 		end
-		describe "resolve_denied" do
+		describe "resolve_denied"  do
 			before do
 				@issue.commit_resolve!
+				@issue.message_for_responsible_person.should == "opened"
 				@issue.reject_resolve!
+				@issue.message_for_responsible_person.should == "resolve_denied"
 				@issue.should be_valid
 			end
 			it {should be_resolve_denied}
@@ -136,20 +143,13 @@ describe Issue  do
 				@issue.responsible_person = nil
 				@issue.should_not be_valid
 			end
-			describe "change responsible_person "  ,focus:true do
+			describe "change responsible_person "   do
 				before do
 					@issue =FactoryGirl.create(:issue_with_resolve)
-					#@issue =FactoryGirl.create(:issue)
-
-					#@issue.save!
-					#@issue.commit_resolve!
-					#@issue.should be_verifying_resolve
-
 				end
 				it "should destroy the resolve" do
 					expect {@issue.change_responsible_person!}.to change{Resolve.count}.by(-1)
 				end
-
 			end
 		end
 	end
