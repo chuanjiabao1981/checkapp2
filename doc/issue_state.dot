@@ -1,0 +1,11 @@
+digraph issue_state {
+	opened -> verifying_resolve[label="commit_resolve"]; 
+	opened -> opened[label="change_responsible_person"];
+	verifying_resolve -> resolve_denied[label="reject_resolve"];
+	verifying_resolve -> opened[label="change_responsible_person"];
+	resolve_denied -> verifying_resolve[label="commit_resolve"];
+	resolve_denied -> opened[label ="change_responsible_person"];
+	verifying_resolve -> closed[label="close"];
+	closed	->	resolve_denied[label="reject_resolve"];
+
+}

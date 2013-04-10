@@ -1,0 +1,8 @@
+cn:
+  activerecord:
+    models:
+      tenant: 域
+    attributes:
+      tenant:
+        name: 域名称
+        term: 域期限

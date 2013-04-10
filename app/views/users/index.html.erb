@@ -1,0 +1,11 @@
+<ul>
+	<% @users.each do |u| %>
+		<li><%= u.account %>|
+			<%=link_to I18n.t("views.text.destroy") ,
+			   user_path(u) ,
+			   method: :delete ,
+			   confirm: t('views.text.confirm',:model => t('activerecord.models.user')) 
+			%>
+		</li></br>
+	<% end %>
+</ul>

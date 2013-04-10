@@ -1,0 +1,4 @@
+<% @roles.each do |r| %>
+  <%= r.name %>:<%= r.level %> : <%= link_to t('views.text.edit'), edit_role_path(r) %> :
+  <%= link_to t('views.text.destroy'), role_path(r), method: :delete, confirm: t('views.text.confirm',:model => t('activerecord.models.role')) %><br/>
+<% end %>

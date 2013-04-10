@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Checkapp2</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<ul>
+		<% if signed_in? %>
+			<li><%= link_to current_user.name ,'#' %></li>
+			<li><%= link_to I18n.t('views.text.signout'),signout_path ,method: "delete" %></li>
+		<% else %>
+			<li>
+				<%= link_to I18n.t('views.text.signin'),signin_path %>
+			</li>
+		<% end %>
+	</ul>
+
+	<div>
+      <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
+      <%= yield %>
+      <%= debug(params) if Rails.env.development? %>
+    </div>
+
+</body>
+</html>

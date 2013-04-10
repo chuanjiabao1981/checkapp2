@@ -1,0 +1,13 @@
+cn:
+  helpers:
+    submit:
+      create: "创建%{model} "
+      update: "更新%{model} "
+  views:
+    text:
+      edit: 编辑
+      destroy: 删除
+      confirm: "确定删除此%{model}吗?"
+      signin: 登录
+      signout: 退出
+      unauthorized: 未授权的访问!

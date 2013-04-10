@@ -1,0 +1,7 @@
+<% @tenants.each do |t| %>
+<%= t.name %> | 
+<%= t.term %> | 
+<%= link_to t('views.text.edit') , edit_tenant_path(t) %> | 
+<%= link_to t('views.text.destroy'), tenant_path(t), method: :delete, confirm: t('views.text.confirm',:model => t('activerecord.models.tenant')) %><br/>
+
+<% end %>

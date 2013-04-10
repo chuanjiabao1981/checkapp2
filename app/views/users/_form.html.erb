@@ -1,0 +1,26 @@
+<%= form_for user do |f|%>
+	<%= render 'shared/error_messages' ,:object => f.object%>
+	<%= f.label :account %>
+	<%= f.text_field :account %>
+	<%= f.label :name %>
+	<%= f.text_field :name %>
+	<%= f.label :password %>
+	<%= f.password_field :password %>
+	<%= f.label :password_confirmation %>
+	<%= f.password_field :password_confirmation %>
+	<% if allow?(:user,:manager_id) %>
+		<%= f.label :manager_id %>
+		<%= f.select :manager_id, User.all.collect {|t| [t.name,t.id]} %>
+	<% end %>
+	<% if  allow?(:user,:tenant_id) %>
+		<%= f.label :tenant_id %>
+		<%= f.select :tenant_id, Tenant.all.collect {|t| [t.name,t.id]} %>
+	<% end %>
+	<% if allow?(:user,:role_id) %>
+	<%= f.label :role_id, Role.get_admin.name,value: Role.get_admin.id  %>
+	<%= f.radio_button :role_id ,Role.get_admin.id %>
+	<%= f.label :role_id,Role.get_member.name,value: Role.get_member.id  %>
+	<%= f.radio_button :role_id , Role.get_member.id %>
+	<% end %>
+	<%= f.submit %>
+<% end %>

@@ -1,0 +1,8 @@
+cn:
+  activerecord:
+    models:
+      role: 角色
+    attributes:
+      role:
+        name: 名称
+        level: 权重

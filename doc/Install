@@ -1,0 +1,8 @@
+1. validates_timeliness
+   需要运行 
+   rails generate validates_timeliness:install
+2. 测试的时候需要安装
+   rake role:init RAILS_ENV=test
+   rake role:init RAILS_ENV=development
+   生产环境
+   rake role:init RAILS_ENV=production

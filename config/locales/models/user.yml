@@ -1,0 +1,18 @@
+cn:
+  activerecord:
+    models:
+      user: 用户
+    attributes:
+      user:
+        account: 账户
+        password: 密码
+        password_confirmation: 重复
+        name: 姓名
+        mobile: 手机
+        tenant_id: 域
+        role_id: 角色
+        term: 承租期限
+        manager_id: 主管
+    errors:
+      messages:
+        tenant_not_match: 上级主管和成员所属域不匹配

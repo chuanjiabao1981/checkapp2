@@ -1,0 +1,6 @@
+cn:
+  helpers:
+    label:
+      session:
+        account: 账户
+        password: 密码
