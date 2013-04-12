@@ -4,9 +4,14 @@ describe Permissions::MemberPermission do
 	let(:user_as_member) 			{FactoryGirl.create(:user_as_member)}
 	let(:member)		 			{FactoryGirl.create(:user_as_member,tenant: user_as_member.tenant)}
 	let(:issue_of_the_member)		{FactoryGirl.create(:issue,tenant: user_as_member.tenant,finder: user_as_member)}
+	let(:issue_of_the_member_responsible) {FactoryGirl.create(:issue,tenant: user_as_member.tenant,responsible_person: user_as_member)}
 	let(:other_tenant_issue)		{FactoryGirl.create(:issue)}
 	let(:other_user_issue)			{FactoryGirl.create(:issue,tenant: user_as_member.tenant,finder: member)}
 	let(:other_tenant_member)		{FactoryGirl.create(:user_as_member)}
+	let(:resolve)					{FactoryGirl.create(:resolve_with_responsible_person,tenant: user_as_member.tenant,submitter: user_as_member)}
+	let(:other_resolve) 			{FactoryGirl.create(:resolve_with_responsible_person,tenant: member.tenant,submitter: member)}
+
+
 
 	subject				{Permissions.permission_for(user_as_member)}
 	it "allows users" do
@@ -66,4 +71,21 @@ describe Permissions::MemberPermission do
 		should allow_param(:issue,:responsible_person_id)
 		should allow_param(:issue,:state_event)
 	end
+	it "allows resolves"  do
+		should 		allow(:resolves,:new,issue_of_the_member_responsible)
+		should_not	allow(:resolves,:new,other_user_issue)
+		should 		allow(:resolves,:create,issue_of_the_member_responsible)
+		should_not 	allow(:resolves,:create,other_user_issue)
+		should 		allow(:resolves,:edit,resolve)
+		should_not 	allow(:resolves,:edit,other_resolve)
+		should 		allow(:resolves,:update,resolve)
+		should_not  allow(:resolves,:update,other_resolve)
+
+		should_not allow_param(:resolve,:submitter_id)
+		should_not allow_param(:resolve,:issue_id)
+		should_not allow_param(:resolve,:tenant_id)
+		should 	   allow_param(:resolve,:desc)
+
+	end
+
 end
