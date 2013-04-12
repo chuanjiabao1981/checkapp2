@@ -4,6 +4,7 @@ class CreateIssues < ActiveRecord::Migration
       t.string :state
       t.string :level
       t.text :desc
+      t.text :reject_reason
       t.date :deadline
       t.references :issuable,:polymorphic => true
       t.references :tenant

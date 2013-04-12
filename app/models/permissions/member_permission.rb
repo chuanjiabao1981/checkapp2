@@ -4,6 +4,11 @@ module Permissions
       allow :sessions,[:new,:create,:destroy]
       allow :users,[:index]
       allow :main,[:home]
+      allow :issues,[:index,:new,:create]
+      allow :issues,[:edit,:update,:destroy] do |i|
+      	i && i.tenant_id == user.tenant_id && i.finder_id == user.id
+      end
+      allow_param :issue,[:level,:desc,:reject_reason,:deadline,:responsible_person_id,:state_event]
     end
   end
 end

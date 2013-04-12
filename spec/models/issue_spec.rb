@@ -18,6 +18,7 @@ describe Issue do
 			should respond_to(:deadline)
 			should respond_to(:issuable)
 			should respond_to(:desc)
+			should respond_to(:reject_reason)
 
 		end
 	end
@@ -75,10 +76,19 @@ describe Issue do
 				@issue.responsible_person = nil
 				@issue.should be_valid
 			end
+			describe "no responsible person should not transition to verifying_resolve"  do
+				before do
+					@issue.responsible_person = nil
+					@issue.commit_resolve
+				end
+				it {should be_opened}
+
+			end
 		end
-		describe "verifying_resolve"  do
+		describe "verifying_resolve" do
 			before do
 				@issue.message_for_finder.should be_nil
+				@resolve = FactoryGirl.create(:resolve,issue:@issue,tenant:@issue.tenant)
 				@issue.commit_resolve!
 				@issue.message_for_finder.should == "verifying_resolve"
 				@issue.should be_valid
@@ -106,6 +116,7 @@ describe Issue do
 		end
 		describe "closed"   do
 			before do
+				@resolve = FactoryGirl.create(:resolve,issue:@issue,tenant:@issue.tenant)
 				@issue.commit_resolve!
 				@issue.message_for_responsible_person.should == "opened"
 				@issue.close!
@@ -126,6 +137,7 @@ describe Issue do
 		end
 		describe "resolve_denied"  do
 			before do
+				@resolve = FactoryGirl.create(:resolve,issue:@issue,tenant:@issue.tenant)
 				@issue.commit_resolve!
 				@issue.message_for_responsible_person.should == "opened"
 				@issue.reject_resolve!
@@ -145,7 +157,7 @@ describe Issue do
 			end
 			describe "change responsible_person "   do
 				before do
-					@issue =FactoryGirl.create(:issue_with_resolve)
+					@issue = FactoryGirl.create(:issue_with_resolve)
 				end
 				it "should destroy the resolve" do
 					expect {@issue.change_responsible_person!}.to change{Resolve.count}.by(-1)

@@ -29,4 +29,6 @@ describe Resolve do
 			it {should_not be_valid}
 		end
 	end
+	describe "commit a resolve" do 
+	end
 end

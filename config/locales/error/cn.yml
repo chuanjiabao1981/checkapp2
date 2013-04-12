@@ -25,3 +25,4 @@ cn:
         odd: "必须为单数"  
         even: "必须为双数"
         super_admin_with_tenant: 超级管理员不可以属于任何承租人
+        resolve_submitter_not_match: 无权限提交

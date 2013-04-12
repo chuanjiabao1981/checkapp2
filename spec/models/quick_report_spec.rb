@@ -31,8 +31,6 @@ describe QuickReport  do
 		before do
 			@quick_report = FactoryGirl.create(:quick_report_with_issue) 
 			@quick_report.should be_valid
-			pp @quick_report.issue
-
 		end
 		it "destroy issue" do
 			expect {@quick_report.destroy}.to change {Issue.count}.by(-1)

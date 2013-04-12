@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20130401130901) do
     t.string   "state"
     t.string   "level"
     t.text     "desc"
+    t.text     "reject_reason"
     t.date     "deadline"
     t.integer  "issuable_id"
     t.string   "issuable_type"

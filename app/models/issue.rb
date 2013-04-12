@@ -1,20 +1,16 @@
 #encoding:utf-8
 class Issue < ActiveRecord::Base
 
-	ISSUE_STATE_OPEN		= "未处理"
-	ISSUE_STATE_PROCESS		= "处理中"
 
-	ISSUE_STATE_SET=%w(未处理 处理中 解决)
 	ISSUE_LEVEL_SET=%W(高 中 低)
 
 	before_create :issue_opened_action
 
-	#validates :state,:inclusion => { :in => ISSUE_STATE_SET, 
-	#								 :message => "%{value} is not a valid state" }
-	#validates :level,:inclusion => { :in =>ISSUE_LEVEL_SET ,
-	#								 :message => "%{value} is not a valid "}
+	validates :level,:inclusion => { :in =>ISSUE_LEVEL_SET ,
+									 :message => "%{value} is not a valid "}
 
-	validates :desc,:length => {:maximum => 1024}
+	validates :desc 			,:length => {:maximum => 1024}
+	validates :reject_reason	,:length => {:maximum => 1024}
 	validates_date :deadline,:on_or_after => lambda { Date.current }
 	validates :issuable, :presence => true
 	validates :tenant, :presence => true
@@ -28,7 +24,7 @@ class Issue < ActiveRecord::Base
 
 	has_many :videos,:as => :video_attachment,:dependent => :destroy
 	has_many :images,:as => :image_attachment,:dependent => :destroy
-	has_one  :resolve,:dependent => :destroy #,:inverse_of => :issue
+	has_one  :resolve,:dependent => :destroy 
 
 	default_scope { where(tenant_id: Tenant.current_id)  if Tenant.current_id }
 
@@ -37,7 +33,7 @@ class Issue < ActiveRecord::Base
 		after_transition any  => :opened 					,:do => :issue_opened_action
 		after_transition any  => :verifying_resolve			,:do => :send_message_to_finder 
 		after_transition any  => :closed 					,:do => :send_message_to_responsible_person
-		after_transition  any  => :resolve_denied			,:do => :send_message_to_responsible_person
+		after_transition any  => :resolve_denied			,:do => :send_message_to_responsible_person
 		around_transition do |issue, transition, block|
       		Rails.logger.debug "before #{transition.event}: #{issue.state}"
       		block.call
@@ -53,11 +49,12 @@ class Issue < ActiveRecord::Base
 			transition :to => :closed 		 		,			:on => :close
 			transition :to => :resolve_denied		,			:on => :reject_resolve
 			validates_presence_of :responsible_person
+			validates_presence_of :resolve
 		end
 		state :closed do
 			transition :to => :resolve_denied		,			:on => :reject_resolve
 			validates_presence_of :responsible_person
-
+			validates_presence_of :resolve
 		end
 		state :resolve_denied do
 			transition :to => :verifying_resolve	,			:on => :commit_resolve
@@ -71,7 +68,6 @@ class Issue < ActiveRecord::Base
 		if not self.new_record?
 			self.resolve.destroy unless self.resolve.nil?
 		end
-		#Rails.logger.debug("=========================================#{self.state}")
 		self.send_message_to_responsible_person
 	end
 	def send_message_to_finder

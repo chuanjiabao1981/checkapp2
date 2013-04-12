@@ -1,15 +1,20 @@
 require "spec_helper"
 
-describe Permissions::SuperAdminPermission do
+describe Permissions::AdminPermission do
 	let(:user_as_admin) {FactoryGirl.create(:user_as_admin)}
 	let(:member)		{FactoryGirl.create(:user_as_member,tenant: user_as_admin.tenant)}
 	let(:other_member)  {FactoryGirl.create(:user_as_member)}
+	let(:issue)         {FactoryGirl.create(:issue,tenant: user_as_admin.tenant,responsible_person: user_as_admin)}
+	let(:resolve)		{FactoryGirl.create(:resolve_with_responsible_person,tenant: user_as_admin.tenant,submitter: user_as_admin)}
+	let(:other_resolve) {FactoryGirl.create(:resolve_with_responsible_person,tenant: user_as_admin.tenant,submitter: member)}
+	let(:other_issue)	{FactoryGirl.create(:issue)}
 	subject				{Permissions.permission_for(user_as_admin)}
 	it "allows users" do
 		should 		allow(:users,:new)
 		should 		allow(:users,:create)
 		should 		allow(:users,:destroy,member)
 		should 		allow(:users,:edit,member)
+		should 	    allow(:users,:update,member)
 		should 		allow(:users,:index)
 		should      allow_param(:user,:name)
 		should 		allow_param(:user,:mobile)
@@ -18,8 +23,8 @@ describe Permissions::SuperAdminPermission do
 		should 		allow_param(:user,:password_confirmation)
 		should_not  allow(:users,:edit,other_member)
 		should_not  allow(:users,:destroy,other_member)
-		should_not  allow_param(:user,:role)
-		should_not  allow_param(:user,:tenant)
+		should_not  allow_param(:user,:role_id)
+		should_not  allow_param(:user,:tenant_id)
 	end
 	it "allows sessions" do
 		should allow(:sessions,:new)
@@ -42,5 +47,45 @@ describe Permissions::SuperAdminPermission do
 	end
 	it "allows main" do
 		should allow(:main,:home)
+	end
+	it "allows issues" do
+		should allow(:issues,:new)
+		should allow(:issues,:show,issue)
+		should_not allow(:issues,:show,other_issue)
+		should allow(:issues,:create)
+		should allow(:issues,:edit,issue)
+		should allow(:issues,:update,issue)
+		should allow(:issues,:destroy,issue)
+		should_not allow(:issues,:edit,other_issue)
+		should_not allow(:issues,:update,other_issue)
+		should_not allow(:issues,:destroy,other_issue)
+		should_not allow_param(:issue,:tenant_id)
+		should_not allow_param(:issue,:finder_id)
+		should_not allow_param(:issue,:issuable_id)
+		should_not allow_param(:issue,:issuable_tpye)
+		should_not allow_param(:issue,:state)
+		should allow_param(:issue,:level)
+		should allow_param(:issue,:desc)
+		should allow_param(:issue,:reject_reason)
+		should allow_param(:issue,:deadline)
+		should allow_param(:issue,:responsible_person_id)
+		should allow_param(:issue,:state_event)
+	end
+
+	it "allows resolves"  do
+		should 		allow(:resolves,:new,issue)
+		should_not	allow(:resolves,:new,other_issue)
+		should 		allow(:resolves,:create,issue)
+		should_not 	allow(:resolves,:create,other_issue)
+		should 		allow(:resolves,:edit,resolve)
+		should_not 	allow(:resolves,:edit,other_resolve)
+		should 		allow(:resolves,:update,resolve)
+		should_not  allow(:resolves,:update,other_resolve)
+
+		should_not allow_param(:resolve,:submitter_id)
+		should_not allow_param(:resolve,:issue_id)
+		should_not allow_param(:resolve,:tenant_id)
+		should 	   allow_param(:resolve,:desc)
+
 	end
 end
