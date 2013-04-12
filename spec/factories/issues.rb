@@ -8,7 +8,7 @@ FactoryGirl.define do
     deadline 	{1.day.since.strftime("%Y-%m-%d")}
     responsible_person {FactoryGirl.build(:user_as_member,tenant:issuable.tenant)}
     issuable {FactoryGirl.build(:quick_report)}
-    finder {FactoryGirl.build(:user_as_member,tenant: issuable.tenant)}
+    submitter {FactoryGirl.build(:user_as_member,tenant: issuable.tenant)}
     tenant {issuable.tenant}
     factory :issue_with_resolve do
         after(:create) do |issue|

@@ -21,16 +21,29 @@ module Permissions
     def allow_param(resources, attributes)
       @allowed_params ||= {}
       Array(resources).each do |resource|
-        @allowed_params[resource] ||= []
-        @allowed_params[resource] += Array(attributes)
+        @allowed_params[resource]   ||= [[],[]]
+        @allowed_params[resource][0] += Array(attributes)
       end
     end
-
+    def allow_nested_param(resources,attribute,nested_attributes)
+      @allowed_params ||= {}
+      Array(resources).each do |resource|
+        @allowed_params[resource]    ||= [[],[]]
+        @allowed_params[resource][1]  += [{ attribute.to_sym => Array(nested_attributes).map(&:to_sym)}]
+      end
+    end
     def allow_param?(resource, attribute)
       if @allow_all
         true
+      elsif @allowed_params && @allowed_params[resource] 
+        @allowed_params[resource][0].include? attribute
+      end
+    end
+    def allow_nested_param?(resource,attribute,nested_attribute)
+      if @allow_all
+        true
       elsif @allowed_params && @allowed_params[resource]
-        @allowed_params[resource].include? attribute
+        @allowed_params[resource][1].any? {|s|  s[attribute] && s[attribute].include?(nested_attribute) }
       end
     end
 
@@ -40,7 +53,7 @@ module Permissions
       elsif @allowed_params
         @allowed_params.each do |resource, attributes|
           if params[resource].respond_to? :permit
-            params[resource] = params[resource].permit(*attributes)
+            params[resource] = params[resource].permit(*attributes.flatten)
           end
         end
       end

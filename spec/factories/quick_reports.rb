@@ -4,9 +4,24 @@ FactoryGirl.define do
   factory :quick_report do
     tenant {FactoryGirl.create(:tenant)}
 
+
   	factory :quick_report_with_issue  do
+      ignore do
+        submitter nil
+      end
+      tenant do 
+        if not submitter.nil?
+          submitter.tenant
+        else
+          FactoryGirl.create(:tenant)
+        end
+      end
   		after(:build) do |quick_report,evaluator|
-  			FactoryGirl.create(:issue,issuable: quick_report)
+  			if evaluator.submitter.nil? 
+  				FactoryGirl.create(:issue,issuable: quick_report,tenant: quick_report.tenant)
+  			else
+  				FactoryGirl.create(:issue,issuable: quick_report,submitter: evaluator.submitter,tenant: evaluator.submitter.tenant)
+  			end
   		end
   	end
   end

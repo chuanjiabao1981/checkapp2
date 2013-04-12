@@ -6,7 +6,7 @@ module Permissions
       allow :main,[:home]
       allow :issues,[:index,:new,:create]
       allow :issues,[:edit,:update,:destroy] do |i|
-      	i && i.tenant_id == user.tenant_id && i.finder_id == user.id
+      	i && i.tenant_id == user.tenant_id && i.submitter_id == user.id
       end
       allow :resolves,[:new,:create] do |issue|
         issue.tenant_id == user.tenant_id && issue && issue.responsible_person_id  == user.id

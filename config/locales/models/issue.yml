@@ -9,7 +9,7 @@ cn:
         desc: 问题描述
         deadline: 解决期限
         tenant_id: 域
-        finder_id: 提交者
+        submitter_id: 提交者
         responsible_person_id: 责任人
         term: 承租期限
         manager_id: 主管

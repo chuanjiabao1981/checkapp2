@@ -8,11 +8,11 @@ class CreateIssues < ActiveRecord::Migration
       t.date :deadline
       t.references :issuable,:polymorphic => true
       t.references :tenant
-      t.references :finder
+      t.references :submitter
       t.references :responsible_person 
       t.timestamps
     end
-    add_index :issues, :finder_id
+    add_index :issues, :submitter_id
     add_index :issues, :responsible_person_id
     add_index :issues, :issuable_id
     add_index :issues, :tenant_id

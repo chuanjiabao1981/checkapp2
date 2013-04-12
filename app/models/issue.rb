@@ -14,10 +14,10 @@ class Issue < ActiveRecord::Base
 	validates_date :deadline,:on_or_after => lambda { Date.current }
 	validates :issuable, :presence => true
 	validates :tenant, :presence => true
-	validates :finder,:presence => true
+	validates :submitter,:presence => true
 
 	belongs_to :responsible_person, 	:class_name=>"User",:foreign_key => "responsible_person_id"
-	belongs_to :finder,	:class_name=>"User",:foreign_key => "finder_id"
+	belongs_to :submitter,	:class_name=>"User",:foreign_key => "submitter_id"
 	belongs_to :issuable,:polymorphic => true
 	belongs_to :tenant
 
@@ -31,7 +31,7 @@ class Issue < ActiveRecord::Base
 
 	state_machine :initial => :opened do  
 		after_transition any  => :opened 					,:do => :issue_opened_action
-		after_transition any  => :verifying_resolve			,:do => :send_message_to_finder 
+		after_transition any  => :verifying_resolve			,:do => :send_message_to_submitter 
 		after_transition any  => :closed 					,:do => :send_message_to_responsible_person
 		after_transition any  => :resolve_denied			,:do => :send_message_to_responsible_person
 		around_transition do |issue, transition, block|
@@ -70,9 +70,9 @@ class Issue < ActiveRecord::Base
 		end
 		self.send_message_to_responsible_person
 	end
-	def send_message_to_finder
-		self.message_for_finder=self.state #test
-		Rails.logger.debug("Send Message to finder #{self.finder.name}@#{self.finder.mobile}")
+	def send_message_to_submitter
+		self.message_for_submitter=self.state #test
+		Rails.logger.debug("Send Message to submitter #{self.submitter.name}@#{self.submitter.mobile}")
 	end
 	def send_message_to_responsible_person
 		self.message_for_responsible_person=self.state #test
@@ -87,10 +87,10 @@ class Issue < ActiveRecord::Base
 		@message_for_responsible_person
 	end
 
-	def message_for_finder=(m)
-		@message_for_finder=m
+	def message_for_submitter=(m)
+		@message_for_submitter=m
 	end
-	def message_for_finder
-		@message_for_finder
+	def message_for_submitter
+		@message_for_submitter
 	end
 end

@@ -13,7 +13,7 @@ describe Issue do
 			should respond_to(:videos)
 			should respond_to(:images)
 			should respond_to(:resolve)
-			should respond_to(:finder)
+			should respond_to(:submitter)
 			should respond_to(:responsible_person)
 			should respond_to(:deadline)
 			should respond_to(:issuable)
@@ -59,9 +59,9 @@ describe Issue do
 			end
 			it {should_not be_valid}
 		end
-		describe "finder is nil" do
+		describe "submitter is nil" do
 			before do
-				@issue.finder = nil
+				@issue.submitter = nil
 			end
 			it {should_not be_valid}
 		end
@@ -87,10 +87,10 @@ describe Issue do
 		end
 		describe "verifying_resolve" do
 			before do
-				@issue.message_for_finder.should be_nil
+				@issue.message_for_submitter.should be_nil
 				@resolve = FactoryGirl.create(:resolve,issue:@issue,tenant:@issue.tenant)
 				@issue.commit_resolve!
-				@issue.message_for_finder.should == "verifying_resolve"
+				@issue.message_for_submitter.should == "verifying_resolve"
 				@issue.should be_valid
 			end
 			it {should be_verifying_resolve}

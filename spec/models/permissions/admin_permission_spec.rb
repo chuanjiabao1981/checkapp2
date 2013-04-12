@@ -8,6 +8,9 @@ describe Permissions::AdminPermission do
 	let(:resolve)		{FactoryGirl.create(:resolve_with_responsible_person,tenant: user_as_admin.tenant,submitter: user_as_admin)}
 	let(:other_resolve) {FactoryGirl.create(:resolve_with_responsible_person,tenant: user_as_admin.tenant,submitter: member)}
 	let(:other_issue)	{FactoryGirl.create(:issue)}
+	let(:quick_report_of_admin) 		{ FactoryGirl.create(:quick_report_with_issue,submitter: user_as_admin) }
+	let(:quick_report_of_member) 		{ FactoryGirl.create(:quick_report_with_issue,submitter:member)}
+	let(:quick_report_of_other_tenant)	{ FactoryGirl.create(:quick_report_with_issue)}
 	subject				{Permissions.permission_for(user_as_admin)}
 	it "allows users" do
 		should 		allow(:users,:new)
@@ -60,7 +63,7 @@ describe Permissions::AdminPermission do
 		should_not allow(:issues,:update,other_issue)
 		should_not allow(:issues,:destroy,other_issue)
 		should_not allow_param(:issue,:tenant_id)
-		should_not allow_param(:issue,:finder_id)
+		should_not allow_param(:issue,:submitter_id)
 		should_not allow_param(:issue,:issuable_id)
 		should_not allow_param(:issue,:issuable_tpye)
 		should_not allow_param(:issue,:state)
@@ -72,20 +75,47 @@ describe Permissions::AdminPermission do
 		should allow_param(:issue,:state_event)
 	end
 
-	it "allows resolves"  do
+	it "allows resolves" do
 		should 		allow(:resolves,:new,issue)
 		should_not	allow(:resolves,:new,other_issue)
 		should 		allow(:resolves,:create,issue)
 		should_not 	allow(:resolves,:create,other_issue)
 		should 		allow(:resolves,:edit,resolve)
-		should_not 	allow(:resolves,:edit,other_resolve)
+		should 		allow(:resolves,:edit,other_resolve)
 		should 		allow(:resolves,:update,resolve)
-		should_not  allow(:resolves,:update,other_resolve)
-
+		should  	allow(:resolves,:update,other_resolve)
 		should_not allow_param(:resolve,:submitter_id)
 		should_not allow_param(:resolve,:issue_id)
 		should_not allow_param(:resolve,:tenant_id)
 		should 	   allow_param(:resolve,:desc)
+	end
+	it "allows quick report" ,focus:true do
+		should 		allow(:quick_reports,:new)
+		should 		allow(:quick_reports,:index)
+		should 		allow(:quick_reports,:create)
+		should 		allow(:quick_reports,:edit,quick_report_of_admin)
+		should 		allow(:quick_reports,:edit,quick_report_of_member)
+		should 		allow(:quick_reports,:update,quick_report_of_admin)
+		should 		allow(:quick_reports,:update,quick_report_of_member)
+		should 		allow(:quick_reports,:destroy,quick_report_of_admin)
+		should 		allow(:quick_reports,:destroy,quick_report_of_member)
+		should_not 	allow(:quick_reports,:edit,quick_report_of_other_tenant)
+		should_not 	allow(:quick_reports,:update,quick_report_of_other_tenant)
+		should_not 	allow(:quick_reports,quick_report_of_other_tenant)
+
+		should 		allow_nested_param(:quick_report,:issue_attributes,:level)
+		should 		allow_nested_param(:quick_report,:issue_attributes,:desc)
+		should 		allow_nested_param(:quick_report,:issue_attributes,:reject_reason)
+		should 		allow_nested_param(:quick_report,:issue_attributes,:deadline)
+		should 		allow_nested_param(:quick_report,:issue_attributes,:responsible_person_id)
+		should 		allow_nested_param(:quick_report,:issue_attributes,:state_event)
+		should_not 	allow_nested_param(:quick_report,:issue_attributes,:tenant_id)
+		should_not 	allow_nested_param(:quick_report,:issue_attributes,:submitter_id)
+		should_not  allow_nested_param(:quick_report,:issue_attributes,:issuable_id)
+		should_not  allow_nested_param(:quick_report,:issue_attributes,:issuable_tpye)
+		should_not  allow_nested_param(:quick_report,:issue_attributes,:state)
+
+
 
 	end
 end

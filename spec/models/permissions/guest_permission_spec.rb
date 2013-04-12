@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe Permissions::GuestPermission do
-	describe "allow session"  ,focus:true do
+	describe "allow session"  do
 		it "not allows users" do
 			should_not allow(:users,:index)
 			should_not allow(:users,:create)

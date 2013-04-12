@@ -17,10 +17,16 @@ module Permissions
         issue.tenant_id == user.tenant_id && issue && issue.responsible_person_id  == user.id
       end
       allow :resolves,[:edit,:update] do |resolve|
-        resolve.tenant_id == user.tenant_id && resolve && resolve.submitter_id == user.id
+        resolve && resolve.tenant_id == user.tenant_id 
+      end
+
+      allow :quick_reports,[:index,:new,:create]
+      allow :quick_reports,[:edit,:update,:destroy]  do |quick_report|
+        quick_report && quick_report.tenant_id == user.tenant_id
       end
       allow_param :resolve,[:desc]
       allow_param :issue,[:level,:desc,:reject_reason,:deadline,:responsible_person_id,:state_event]
+      allow_nested_param :quick_report,:issue_attributes,[:level,:desc,:reject_reason,:deadline,:responsible_person_id,:state_event]
     end
   end
 end

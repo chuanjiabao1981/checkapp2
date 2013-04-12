@@ -3,10 +3,10 @@ require "spec_helper"
 describe Permissions::MemberPermission do
 	let(:user_as_member) 			{FactoryGirl.create(:user_as_member)}
 	let(:member)		 			{FactoryGirl.create(:user_as_member,tenant: user_as_member.tenant)}
-	let(:issue_of_the_member)		{FactoryGirl.create(:issue,tenant: user_as_member.tenant,finder: user_as_member)}
+	let(:issue_of_the_member)		{FactoryGirl.create(:issue,tenant: user_as_member.tenant,submitter: user_as_member)}
 	let(:issue_of_the_member_responsible) {FactoryGirl.create(:issue,tenant: user_as_member.tenant,responsible_person: user_as_member)}
 	let(:other_tenant_issue)		{FactoryGirl.create(:issue)}
-	let(:other_user_issue)			{FactoryGirl.create(:issue,tenant: user_as_member.tenant,finder: member)}
+	let(:other_user_issue)			{FactoryGirl.create(:issue,tenant: user_as_member.tenant,submitter: member)}
 	let(:other_tenant_member)		{FactoryGirl.create(:user_as_member)}
 	let(:resolve)					{FactoryGirl.create(:resolve_with_responsible_person,tenant: user_as_member.tenant,submitter: user_as_member)}
 	let(:other_resolve) 			{FactoryGirl.create(:resolve_with_responsible_person,tenant: member.tenant,submitter: member)}
@@ -60,7 +60,7 @@ describe Permissions::MemberPermission do
 		should_not allow(:issues,:update,other_user_issue)
 		should_not allow(:issues,:destroy,other_user_issue)
 		should_not allow_param(:issue,:tenant_id)
-		should_not allow_param(:issue,:finder_id)
+		should_not allow_param(:issue,:submitter_id)
 		should_not allow_param(:issue,:issuable_id)
 		should_not allow_param(:issue,:issuable_type)
 		should_not allow_param(:issue,:state)
