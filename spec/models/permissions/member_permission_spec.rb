@@ -10,6 +10,9 @@ describe Permissions::MemberPermission do
 	let(:other_tenant_member)		{FactoryGirl.create(:user_as_member)}
 	let(:resolve)					{FactoryGirl.create(:resolve_with_responsible_person,tenant: user_as_member.tenant,submitter: user_as_member)}
 	let(:other_resolve) 			{FactoryGirl.create(:resolve_with_responsible_person,tenant: member.tenant,submitter: member)}
+	let(:quick_report_of_member) 	{ FactoryGirl.create(:quick_report_with_issue,submitter: user_as_member) }
+	let(:quick_report_of_other_tenant)	{ FactoryGirl.create(:quick_report_with_issue)}
+
 
 
 
@@ -80,12 +83,20 @@ describe Permissions::MemberPermission do
 		should_not 	allow(:resolves,:edit,other_resolve)
 		should 		allow(:resolves,:update,resolve)
 		should_not  allow(:resolves,:update,other_resolve)
-
 		should_not allow_param(:resolve,:submitter_id)
 		should_not allow_param(:resolve,:issue_id)
 		should_not allow_param(:resolve,:tenant_id)
 		should 	   allow_param(:resolve,:desc)
+	end
 
+	describe "quick_report" do
+		it_behaves_like 'quick_report permission' do
+			let(:own_quick_report) {quick_report_of_member}
+			let(:other_tenant_quick_report) {quick_report_of_other_tenant}
+		end
+		it "allow report" do
+			should_not allow(:quick_reports,:destroy)
+		end
 	end
 
 end

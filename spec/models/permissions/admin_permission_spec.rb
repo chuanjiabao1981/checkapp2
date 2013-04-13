@@ -1,3 +1,4 @@
+#encoding:utf-8
 require "spec_helper"
 
 describe Permissions::AdminPermission do
@@ -89,33 +90,16 @@ describe Permissions::AdminPermission do
 		should_not allow_param(:resolve,:tenant_id)
 		should 	   allow_param(:resolve,:desc)
 	end
-	it "allows quick report" ,focus:true do
-		should 		allow(:quick_reports,:new)
-		should 		allow(:quick_reports,:index)
-		should 		allow(:quick_reports,:create)
-		should 		allow(:quick_reports,:edit,quick_report_of_admin)
-		should 		allow(:quick_reports,:edit,quick_report_of_member)
-		should 		allow(:quick_reports,:update,quick_report_of_admin)
-		should 		allow(:quick_reports,:update,quick_report_of_member)
-		should 		allow(:quick_reports,:destroy,quick_report_of_admin)
-		should 		allow(:quick_reports,:destroy,quick_report_of_member)
-		should_not 	allow(:quick_reports,:edit,quick_report_of_other_tenant)
-		should_not 	allow(:quick_reports,:update,quick_report_of_other_tenant)
-		should_not 	allow(:quick_reports,quick_report_of_other_tenant)
-
-		should 		allow_nested_param(:quick_report,:issue_attributes,:level)
-		should 		allow_nested_param(:quick_report,:issue_attributes,:desc)
-		should 		allow_nested_param(:quick_report,:issue_attributes,:reject_reason)
-		should 		allow_nested_param(:quick_report,:issue_attributes,:deadline)
-		should 		allow_nested_param(:quick_report,:issue_attributes,:responsible_person_id)
-		should 		allow_nested_param(:quick_report,:issue_attributes,:state_event)
-		should_not 	allow_nested_param(:quick_report,:issue_attributes,:tenant_id)
-		should_not 	allow_nested_param(:quick_report,:issue_attributes,:submitter_id)
-		should_not  allow_nested_param(:quick_report,:issue_attributes,:issuable_id)
-		should_not  allow_nested_param(:quick_report,:issue_attributes,:issuable_tpye)
-		should_not  allow_nested_param(:quick_report,:issue_attributes,:state)
-
-
-
+	describe "quick_report"  do
+		it_behaves_like 'quick_report permission' do
+			let(:own_quick_report) {quick_report_of_admin}
+			let(:other_tenant_quick_report) {quick_report_of_other_tenant}
+		end
+		it "allow quick report" do
+			should 		allow(:quick_reports,:destroy,quick_report_of_admin)
+			should 		allow(:quick_reports,:edit,quick_report_of_member)
+			should 		allow(:quick_reports,:update,quick_report_of_member)
+			should 		allow(:quick_reports,:destroy,quick_report_of_member)
+		end
 	end
 end
