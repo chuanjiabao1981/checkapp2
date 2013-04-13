@@ -65,38 +65,39 @@ class Issue < ActiveRecord::Base
 			validates_presence_of :responsible_person
 		end
 	end
-	
-	def issue_opened_action
-		#Rails.logger.debug(self.new_record?)
-		if not self.new_record?
-			self.resolve.destroy unless self.resolve.nil?
+	private 
+		def issue_opened_action
+			#Rails.logger.debug(self.new_record?)
+			if not self.new_record?
+				self.resolve.destroy unless self.resolve.nil?
+			end
+			send_message_to_responsible_person
 		end
-		self.send_message_to_responsible_person
-	end
-
-	def send_message_to_submitter
-		self.message_for_submitter=self.state #test
-		Rails.logger.debug("Send Message to submitter #{self.submitter.name}@#{self.submitter.mobile}")
-	end
-	def send_message_to_responsible_person
-		self.message_for_responsible_person=self.state #test
-		if self.responsible_person
-			Rails.logger.debug("Send Message to responsible_person #{self.responsible_person.name}@#{self.responsible_person.mobile}")
+		def send_message_to_submitter
+			self.message_for_submitter=self.state #test
+			Rails.logger.debug("Send Message to submitter #{self.submitter.name}@#{self.submitter.mobile}")
 		end
-	end
-
-	#for test
-	def message_for_responsible_person=(m)
-		@message_for_responsible_person=m
-	end
-	def message_for_responsible_person
-		@message_for_responsible_person
-	end
-
-	def message_for_submitter=(m)
-		@message_for_submitter=m
-	end
-	def message_for_submitter
-		@message_for_submitter
-	end
+		def send_message_to_responsible_person
+			self.message_for_responsible_person=self.state #test
+			if self.responsible_person
+				Rails.logger.debug("Send Message to responsible_person #{self.responsible_person.name}@#{self.responsible_person.mobile}")
+			end
+		end
+		def issue_responsible_person_change_detect
+			self.responsible_person_id.change?
+		end
+	public 
+		#for test
+		def message_for_responsible_person=(m)
+			@message_for_responsible_person=m
+		end
+		def message_for_responsible_person
+			@message_for_responsible_person
+		end
+		def message_for_submitter=(m)
+			@message_for_submitter=m
+		end
+		def message_for_submitter
+			@message_for_submitter
+		end
 end
