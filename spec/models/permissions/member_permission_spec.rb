@@ -10,7 +10,8 @@ describe Permissions::MemberPermission do
 	let(:other_tenant_member)		{FactoryGirl.create(:user_as_member)}
 	let(:resolve)					{FactoryGirl.create(:resolve_with_responsible_person,tenant: user_as_member.tenant,submitter: user_as_member)}
 	let(:other_resolve) 			{FactoryGirl.create(:resolve_with_responsible_person,tenant: member.tenant,submitter: member)}
-	let(:quick_report_of_member) 	{ FactoryGirl.create(:quick_report_with_issue,submitter: user_as_member) }
+	let(:quick_report_of_member) 		{ FactoryGirl.create(:quick_report_with_issue,submitter: user_as_member) }
+	let(:quick_report_of_other_member)	{ FactoryGirl.create(:quick_report_with_issue,submitter: member)}
 	let(:quick_report_of_other_tenant)	{ FactoryGirl.create(:quick_report_with_issue)}
 
 
@@ -49,53 +50,53 @@ describe Permissions::MemberPermission do
 	it "allows main" do
 		should allow(:main,:home)
 	end
-	it "allows issue" do
-		should allow(:issues,:new)
-		should allow(:issues,:create)
-		should allow(:issues,:index)
-		should allow(:issues,:edit,issue_of_the_member)
-		should allow(:issues,:update,issue_of_the_member)
-		should allow(:issues,:destroy,issue_of_the_member)
-		should_not allow(:issues,:edit,other_tenant_issue)
-		should_not allow(:issues,:update,other_tenant_issue)
-		should_not allow(:issues,:destroy,other_tenant_issue)
-		should_not allow(:issues,:edit,other_user_issue)
-		should_not allow(:issues,:update,other_user_issue)
-		should_not allow(:issues,:destroy,other_user_issue)
-		should_not allow_param(:issue,:tenant_id)
-		should_not allow_param(:issue,:submitter_id)
-		should_not allow_param(:issue,:issuable_id)
-		should_not allow_param(:issue,:issuable_type)
-		should_not allow_param(:issue,:state)
-		should allow_param(:issue,:level)
-		should allow_param(:issue,:desc)
-		should allow_param(:issue,:reject_reason)
-		should allow_param(:issue,:deadline)
-		should allow_param(:issue,:responsible_person_id)
-		should allow_param(:issue,:state_event)
+	#it "allows issue" do
+	#	should allow(:issues,:new)
+	#	should allow(:issues,:create)
+	#	should allow(:issues,:index)
+	#	should allow(:issues,:edit,issue_of_the_member)
+	#	should allow(:issues,:update,issue_of_the_member)
+	#	should allow(:issues,:destroy,issue_of_the_member)
+	#	should_not allow(:issues,:edit,other_tenant_issue)
+	#	should_not allow(:issues,:update,other_tenant_issue)
+	#	should_not allow(:issues,:destroy,other_tenant_issue)
+	#	should_not allow(:issues,:edit,other_user_issue)
+	#	should_not allow(:issues,:update,other_user_issue)
+	#	should_not allow(:issues,:destroy,other_user_issue)
+	#	should_not allow_param(:issue,:tenant_id)
+	#	should_not allow_param(:issue,:submitter_id)
+	#	should_not allow_param(:issue,:issuable_id)
+	#	should_not allow_param(:issue,:issuable_type)
+	#	should_not allow_param(:issue,:state)
+	#	should allow_param(:issue,:level)
+	#	should allow_param(:issue,:desc)
+	#	should allow_param(:issue,:reject_reason)
+	#	should allow_param(:issue,:deadline)
+	#	should allow_param(:issue,:responsible_person_id)
+	#	should allow_param(:issue,:state_event)
+	#end
+	describe "resovles" do
+		it_behaves_like 'resovles permission' do
+			let(:responsible_issue) {issue_of_the_member_responsible}
+			let(:own_resolve)		{resolve}
+			let(:not_responsible_issue)		{other_user_issue}
+		end
+		it "allows resolves"  do
+			should_not 	allow(:resolves,:edit,other_resolve)
+			should_not  allow(:resolves,:update,other_resolve)
+		end
 	end
-	it "allows resolves"  do
-		should 		allow(:resolves,:new,issue_of_the_member_responsible)
-		should_not	allow(:resolves,:new,other_user_issue)
-		should 		allow(:resolves,:create,issue_of_the_member_responsible)
-		should_not 	allow(:resolves,:create,other_user_issue)
-		should 		allow(:resolves,:edit,resolve)
-		should_not 	allow(:resolves,:edit,other_resolve)
-		should 		allow(:resolves,:update,resolve)
-		should_not  allow(:resolves,:update,other_resolve)
-		should_not allow_param(:resolve,:submitter_id)
-		should_not allow_param(:resolve,:issue_id)
-		should_not allow_param(:resolve,:tenant_id)
-		should 	   allow_param(:resolve,:desc)
-	end
-
+	
 	describe "quick_report" do
 		it_behaves_like 'quick_report permission' do
 			let(:own_quick_report) {quick_report_of_member}
 			let(:other_tenant_quick_report) {quick_report_of_other_tenant}
 		end
 		it "allow report" do
-			should_not allow(:quick_reports,:destroy)
+			should_not 		allow(:quick_reports,:destroy)
+			should_not 		allow(:quick_reports,:edit,quick_report_of_other_member)
+			should_not 		allow(:quick_reports,:update,quick_report_of_other_member)
+			should_not 		allow(:quick_reports,:destroy,quick_report_of_other_member)
 		end
 	end
 

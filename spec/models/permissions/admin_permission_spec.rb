@@ -52,44 +52,43 @@ describe Permissions::AdminPermission do
 	it "allows main" do
 		should allow(:main,:home)
 	end
-	it "allows issues" do
-		should allow(:issues,:new)
-		should allow(:issues,:show,issue)
-		should_not allow(:issues,:show,other_issue)
-		should allow(:issues,:create)
-		should allow(:issues,:edit,issue)
-		should allow(:issues,:update,issue)
-		should allow(:issues,:destroy,issue)
-		should_not allow(:issues,:edit,other_issue)
-		should_not allow(:issues,:update,other_issue)
-		should_not allow(:issues,:destroy,other_issue)
-		should_not allow_param(:issue,:tenant_id)
-		should_not allow_param(:issue,:submitter_id)
-		should_not allow_param(:issue,:issuable_id)
-		should_not allow_param(:issue,:issuable_tpye)
-		should_not allow_param(:issue,:state)
-		should allow_param(:issue,:level)
-		should allow_param(:issue,:desc)
-		should allow_param(:issue,:reject_reason)
-		should allow_param(:issue,:deadline)
-		should allow_param(:issue,:responsible_person_id)
-		should allow_param(:issue,:state_event)
+	#it "allows issues" do
+	#	should allow(:issues,:new)
+	#	should allow(:issues,:show,issue)
+	#	should_not allow(:issues,:show,other_issue)
+	#	should allow(:issues,:create)
+	#	should allow(:issues,:edit,issue)
+	#	should allow(:issues,:update,issue)
+	#	should allow(:issues,:destroy,issue)
+	#	should_not allow(:issues,:edit,other_issue)
+	#	should_not allow(:issues,:update,other_issue)
+	#	should_not allow(:issues,:destroy,other_issue)
+	#	should_not allow_param(:issue,:tenant_id)
+	#	should_not allow_param(:issue,:submitter_id)
+	#	should_not allow_param(:issue,:issuable_id)
+	#	should_not allow_param(:issue,:issuable_tpye)
+	#	should_not allow_param(:issue,:state)
+	#	should allow_param(:issue,:level)
+	#	should allow_param(:issue,:desc)
+	#	should allow_param(:issue,:reject_reason)
+	#	should allow_param(:issue,:deadline)
+	#	should allow_param(:issue,:responsible_person_id)
+	#	should allow_param(:issue,:state_event)
+	#end
+
+	describe "resolves", focus:true do
+		it_behaves_like 'resovles permission' do
+			let(:responsible_issue) {issue}
+			let(:own_resolve)		{resolve}
+			let(:not_responsible_issue)		{other_issue}
+		end
+		it "allows resolves" do
+			should 		allow(:resolves,:edit,other_resolve)
+			should  	allow(:resolves,:update,other_resolve)
+		end
 	end
 
-	it "allows resolves" do
-		should 		allow(:resolves,:new,issue)
-		should_not	allow(:resolves,:new,other_issue)
-		should 		allow(:resolves,:create,issue)
-		should_not 	allow(:resolves,:create,other_issue)
-		should 		allow(:resolves,:edit,resolve)
-		should 		allow(:resolves,:edit,other_resolve)
-		should 		allow(:resolves,:update,resolve)
-		should  	allow(:resolves,:update,other_resolve)
-		should_not allow_param(:resolve,:submitter_id)
-		should_not allow_param(:resolve,:issue_id)
-		should_not allow_param(:resolve,:tenant_id)
-		should 	   allow_param(:resolve,:desc)
-	end
+	
 	describe "quick_report"  do
 		it_behaves_like 'quick_report permission' do
 			let(:own_quick_report) {quick_report_of_admin}

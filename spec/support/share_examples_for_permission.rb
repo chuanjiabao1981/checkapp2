@@ -26,3 +26,20 @@ shared_examples "quick_report permission" do
 		should_not  allow_nested_param(:quick_report,:issue_attributes,:state)
 	end
 end
+
+shared_examples "resovles permission" do
+	it "allows actions" do
+		should 			allow(:resolves,:new,responsible_issue)
+		should 		    allow(:resolves,:create,responsible_issue)
+		should 			allow(:resolves,:edit,own_resolve)
+		should 			allow(:resolves,:update,own_resolve)
+		should_not		allow(:resolves,:new,not_responsible_issue)
+		should_not 		allow(:resolves,:create,not_responsible_issue)
+	end
+	it "allows params" do
+		should_not allow_param(:resolve,:submitter_id)
+		should_not allow_param(:resolve,:issue_id)
+		should_not allow_param(:resolve,:tenant_id)
+		should 	   allow_param(:resolve,:desc)
+	end
+end

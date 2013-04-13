@@ -12,9 +12,12 @@ class Issue < ActiveRecord::Base
 	validates :desc 			,:length => {:maximum => 1024}
 	validates :reject_reason	,:length => {:maximum => 1024}
 	validates_date :deadline,:on_or_after => lambda { Date.current }
-	validates :issuable, :presence => true
+	#validates :issuable, :presence => true
 	validates :tenant, :presence => true
 	validates :submitter,:presence => true
+
+	validates_presence_of :issuable_type
+
 
 	belongs_to :responsible_person, 	:class_name=>"User",:foreign_key => "responsible_person_id"
 	belongs_to :submitter,	:class_name=>"User",:foreign_key => "submitter_id"
@@ -62,7 +65,7 @@ class Issue < ActiveRecord::Base
 			validates_presence_of :responsible_person
 		end
 	end
-
+	
 	def issue_opened_action
 		#Rails.logger.debug(self.new_record?)
 		if not self.new_record?
@@ -70,13 +73,16 @@ class Issue < ActiveRecord::Base
 		end
 		self.send_message_to_responsible_person
 	end
+
 	def send_message_to_submitter
 		self.message_for_submitter=self.state #test
 		Rails.logger.debug("Send Message to submitter #{self.submitter.name}@#{self.submitter.mobile}")
 	end
 	def send_message_to_responsible_person
 		self.message_for_responsible_person=self.state #test
-		Rails.logger.debug("Send Message to responsible_person #{self.responsible_person.name}@#{self.responsible_person.mobile}")
+		if self.responsible_person
+			Rails.logger.debug("Send Message to responsible_person #{self.responsible_person.name}@#{self.responsible_person.mobile}")
+		end
 	end
 
 	#for test
