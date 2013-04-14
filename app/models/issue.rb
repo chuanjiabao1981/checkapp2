@@ -12,13 +12,9 @@ class Issue < ActiveRecord::Base
 	validates :desc 			,:length => {:maximum => 1024}
 	validates :reject_reason	,:length => {:maximum => 1024}
 	validates_date :deadline,:on_or_after => lambda { Date.current }
-	#validates :issuable, :presence => true
 	validates :tenant, :presence => true
 	validates :submitter,:presence => true
-
 	validates_presence_of :issuable_type
-
-
 	belongs_to :responsible_person, 	:class_name=>"User",:foreign_key => "responsible_person_id"
 	belongs_to :submitter,	:class_name=>"User",:foreign_key => "submitter_id"
 	belongs_to :issuable,:polymorphic => true
@@ -29,8 +25,9 @@ class Issue < ActiveRecord::Base
 	has_many :images,:as => :image_attachment,:dependent => :destroy
 	has_one  :resolve,:dependent => :destroy 
 
+	accepts_nested_attributes_for :images
+	
 	default_scope { where(tenant_id: Tenant.current_id)  if Tenant.current_id }
-
 
 	state_machine :initial => :opened do  
 		after_transition any  => :opened 					,:do => :issue_opened_action
@@ -65,6 +62,35 @@ class Issue < ActiveRecord::Base
 			validates_presence_of :responsible_person
 		end
 	end
+	public 
+		def check_change_responsible_person_event(attributes)
+			if not self.can_change_responsible_person?
+				attributes[:responsible_person_id] = self.responsible_person_id
+				#log something
+			else
+				if attributes[:responsible_person_id] != self.responsible_person_id
+					attributes[:state_event] = "change_responsible_person"
+				end
+			end
+			attributes
+		end
+		def build_a_resolve(attributes,current_user)
+			a = self.build_resolve(attributes)
+			a.submitter = current_user
+			if self.resolve.valid? && self.can_commit_resolve?
+				self.commit_resolve
+			end
+			a
+		end 
+	#def update_attributes(attributes)
+	#	Rails.logger.debug(attributes)
+	#	if self.responsible_person_id != attributes[:responsible_person_id] && self.can_change_responsible_person?
+	#		attributes[:state_event] = "change_responsible_person"
+	#	end
+	#	Rails.logger.debug(attributes)
+
+	#	super(attributes)
+	#end
 	private 
 		def issue_opened_action
 			#Rails.logger.debug(self.new_record?)
@@ -72,6 +98,7 @@ class Issue < ActiveRecord::Base
 				self.resolve.destroy unless self.resolve.nil?
 			end
 			send_message_to_responsible_person
+			true
 		end
 		def send_message_to_submitter
 			self.message_for_submitter=self.state #test
@@ -82,9 +109,6 @@ class Issue < ActiveRecord::Base
 			if self.responsible_person
 				Rails.logger.debug("Send Message to responsible_person #{self.responsible_person.name}@#{self.responsible_person.mobile}")
 			end
-		end
-		def issue_responsible_person_change_detect
-			self.responsible_person_id.change?
 		end
 	public 
 		#for test

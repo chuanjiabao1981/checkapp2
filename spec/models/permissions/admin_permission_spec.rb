@@ -76,7 +76,7 @@ describe Permissions::AdminPermission do
 	#	should allow_param(:issue,:state_event)
 	#end
 
-	describe "resolves", focus:true do
+	describe "resolves" do
 		it_behaves_like 'resovles permission' do
 			let(:responsible_issue) {issue}
 			let(:own_resolve)		{resolve}

@@ -12,7 +12,7 @@ FactoryGirl.define do
     tenant {issuable.tenant}
     factory :issue_with_resolve do
         after(:create) do |issue|
-            FactoryGirl.create(:resolve,tenant: issue.tenant,issue: issue)
+            FactoryGirl.create(:resolve,tenant: issue.tenant,issue: issue,submitter: issue.responsible_person)
             issue.commit_resolve
         end 
     end

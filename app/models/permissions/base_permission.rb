@@ -29,7 +29,8 @@ module Permissions
       @allowed_params ||= {}
       Array(resources).each do |resource|
         @allowed_params[resource]    ||= [[],[]]
-        @allowed_params[resource][1]  += [{ attribute.to_sym => Array(nested_attributes).map(&:to_sym)}]
+        #@allowed_params[resource][1]  += [{ attribute.to_sym => Array(nested_attributes).map(&:to_sym)}]
+        @allowed_params[resource][1]  += [{ attribute.to_sym => Array(nested_attributes) }]
       end
     end
     def allow_param?(resource, attribute)

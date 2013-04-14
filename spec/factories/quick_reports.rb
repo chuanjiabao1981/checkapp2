@@ -24,6 +24,21 @@ FactoryGirl.define do
   			end
   		end
   	end
+
+    factory :quick_report_with_issue_and_resolve do
+      ignore do
+        issue_submitter nil
+        responsible_person nil
+      end
+      tenant { issue_submitter.tenant }
+      after(:build) do | quick_report,evaluator| 
+        FactoryGirl.create(:issue_with_resolve,
+                           issuable:    quick_report,
+                           submitter:   evaluator.issue_submitter,
+                           responsible_person: evaluator.responsible_person
+                           )
+      end
+    end
   end
 #  factory :quick_report_with_issue ,class: QuickReport do
 #    tenant {FactoryGirl.create(:tenant)}

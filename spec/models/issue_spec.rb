@@ -85,6 +85,21 @@ describe Issue do
 
 			end
 		end
+		describe "change responsible person"  do
+			before do
+				@resolve =  FactoryGirl.create(:resolve,issue:@issue,tenant:@issue.tenant)
+				@issue.commit_resolve!
+				@other_member = FactoryGirl.create(:user_as_member,tenant: @issue.tenant)
+			end
+			it "should destroy old resolve" do
+				lambda do
+					@issue.update_attributes(
+												@issue.check_change_responsible_person_event({:responsible_person_id => @other_member.id})
+											)
+				end.should change(Resolve,:count).by(-1)
+				@issue.state.should == "opened"
+			end
+		end
 		describe "verifying_resolve" do
 			before do
 				@issue.message_for_submitter.should be_nil
@@ -165,5 +180,32 @@ describe Issue do
 			end
 		end
 	end
-
+	describe "build_a_resolve"  do
+		before do
+			@issue 		= FactoryGirl.create(:issue)
+		end
+		describe "not valid resolve" do 
+			before do
+				@member     = FactoryGirl.create(:user_as_member,:tenant => @issue.tenant)
+				@resolve 	= @issue.build_a_resolve({:desc=>"tttttt"},@member)
+			end
+			it "not have right submitter" do
+				@resolve.should_not be_valid
+				@issue.state.should == "opened"
+			end
+		end
+		describe "valid resovle"  do
+			before do
+				Tenant.current_id			= @issue.tenant.id
+				@resolve 	= @issue.build_a_resolve({:desc=>"tttttt"},@issue.responsible_person) 
+			end
+			after do
+				Tenant.current_id			= nil
+			end
+			it "valid" do
+				@resolve.should be_valid
+				@issue.state.should == "verifying_resolve"
+			end
+		end
+	end
 end
