@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :issue do
     level "高"
-    desc "MyText"
+    desc {Faker::Lorem::sentence(10)}
     reject_reason "MyRejectText"
     deadline 	{1.day.since.strftime("%Y-%m-%d")}
     responsible_person {FactoryGirl.build(:user_as_member,tenant:issuable.tenant)}

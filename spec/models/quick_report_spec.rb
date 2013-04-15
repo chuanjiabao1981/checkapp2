@@ -161,8 +161,9 @@ describe QuickReport  do
 				@qr = QuickReport.new_quick_report_and_issue(@quick_report_attribute[:quick_report],user_as_member)
 				@qr.save
 			end.should change(Image,:count).by(1)
+			@qr.issue.images[0].should_not be_nil
 		end
-		it "should create image" ,focus:true do
+		it "should create image"  do
 			user_permission=Permissions.permission_for(user_as_member)
 			user_permission.permit_params! @strong_quick_report_attribute
 			lambda do

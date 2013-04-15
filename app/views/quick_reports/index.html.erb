@@ -1,0 +1,23 @@
+<ul>
+	<% @quick_reports.each do |q| %>
+		<li><%=link_to q.issue.desc, quick_report_path(q) %></li>
+		<li><%= q.issue.submitter.name %></li>
+		<% if allow? :quick_reports,:edit , q %>
+			<li><%=link_to I18n.t('views.text.edit'), edit_quick_report_path(q) %></li>
+		<% end %>
+		<% if allow? :quick_reports,:destroy ,q %>
+			<li><%=link_to I18n.t('views.text.destroy'),
+					quick_report_path(q),
+					method: :delete ,  
+					confirm: I18n.t('views.text.confirm',:model => t('activerecord.models.quick_report')) 
+				%>
+			</li>
+		<% end %>
+		<li>
+			<%= q.issue.human_state_name %>
+		</li>
+		<li>
+			<%= q.issue.level %>
+		</li>
+	<% end %>
+</ul>

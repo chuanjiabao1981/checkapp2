@@ -1,0 +1,4 @@
+cn:
+  activerecord:
+    models:
+      quick_report: 走动巡查

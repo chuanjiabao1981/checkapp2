@@ -10,18 +10,24 @@ cn:
         deadline: 解决期限
         tenant_id: 域
         submitter_id: 提交者
+        state_event: 问题处理
         responsible_person_id: 责任人
+        responsible_person: 责任人
         term: 承租期限
-        manager_id: 主管
     errors:
       messages:
         state_not_match: 问题状态错误
         level_not_match: 严重程度错误
-  text:
-    issue:
-      state_open: 未处理
-      state_process: 处理中
-      state_close: 已解决
-      level_high: 高
-      level_medium: 中
-      level_low: 低
+    state_machines:
+      issue:
+        state:
+          states:
+            opened: 未处理
+            verifying_resolve: 措施审核中
+            resolve_denied: 重新处理
+            closed: 已解决
+          events:
+            change_responsible_person: 更换责任人
+            reject_resolve: 重新处理
+            commit_resolve: 提交措施
+            close: 确认

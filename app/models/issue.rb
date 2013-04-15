@@ -9,7 +9,7 @@ class Issue < ActiveRecord::Base
 	validates :level,:inclusion => { :in =>ISSUE_LEVEL_SET ,
 									 :message => "%{value} is not a valid "}
 
-	validates :desc 			,:length => {:maximum => 1024}
+	validates :desc 			,:length => {:maximum => 1024}, :presence => true
 	validates :reject_reason	,:length => {:maximum => 1024}
 	validates_date :deadline,:on_or_after => lambda { Date.current }
 	validates :tenant, :presence => true
@@ -82,6 +82,15 @@ class Issue < ActiveRecord::Base
 			end
 			a
 		end 
+		def state_event_collection
+			s = []
+			%W(close reject_resolve).each do |i|
+				if self.send ("can_"+i+"?").to_sym
+					s << [Issue.human_state_event_name(i),i]
+				end
+			end
+			s
+		end
 	#def update_attributes(attributes)
 	#	Rails.logger.debug(attributes)
 	#	if self.responsible_person_id != attributes[:responsible_person_id] && self.can_change_responsible_person?

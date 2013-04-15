@@ -10,7 +10,7 @@
 	<%= f.password_field :password_confirmation %>
 	<% if allow?(:user,:manager_id) %>
 		<%= f.label :manager_id %>
-		<%= f.select :manager_id, User.all.collect {|t| [t.name,t.id]} %>
+		<%= f.select :manager_id, User.all.collect {|t| [t.name,t.id]} ,:include_blank => true %>
 	<% end %>
 	<% if  allow?(:user,:tenant_id) %>
 		<%= f.label :tenant_id %>

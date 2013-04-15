@@ -1,0 +1,2 @@
+module QuickReportsHelper
+end

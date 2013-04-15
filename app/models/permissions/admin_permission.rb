@@ -25,8 +25,7 @@ module Permissions
         quick_report && quick_report.tenant_id == user.tenant_id
       end
       allow_param :resolve,[:desc]
-      #allow_param :issue,[:level,:desc,:reject_reason,:deadline,:responsible_person_id,:state_event]
-      allow_nested_param :quick_report,:issue_attributes,[:level,:desc,:reject_reason,:deadline,:responsible_person_id,:state_event]
+      allow_nested_param :quick_report,:issue_attributes,[:id,:level,:desc,:reject_reason,:deadline,:responsible_person_id,:state_event,:images_attributes=>[[:image],:id]]
     end
   end
 end

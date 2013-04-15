@@ -1,4 +1,6 @@
-source 'https://rubygems.org'
+#source 'https://rubygems.org'
+source 'http://ruby.taobao.org/'
+
 
 gem 'rails', '3.2.1'
 
@@ -14,11 +16,12 @@ gem 'state_machine','~> 1.2.0'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-
+  gem "less-rails"
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer'
+  gem 'therubyracer'
 
   gem 'uglifier', '>= 1.0.3'
+  gem "twitter-bootstrap-rails"
 end
 
 group :development,:test do
@@ -29,6 +32,7 @@ group :development,:test do
   gem 'guard-rspec'
   gem 'guard-livereload'
   gem 'launchy'
+  gem 'faker'
 end
 
 gem 'jquery-rails'
@@ -39,6 +43,8 @@ gem 'carrierwave'
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'simple_form'
+
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

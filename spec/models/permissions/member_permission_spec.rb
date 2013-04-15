@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Permissions::MemberPermission do
+describe Permissions::MemberPermission  do
 	let(:user_as_member) 			{FactoryGirl.create(:user_as_member)}
 	let(:member)		 			{FactoryGirl.create(:user_as_member,tenant: user_as_member.tenant)}
 	let(:issue_of_the_member)		{FactoryGirl.create(:issue,tenant: user_as_member.tenant,submitter: user_as_member)}
