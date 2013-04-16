@@ -9,11 +9,12 @@
 			<%= builder.association :responsible_person,
 						collection: User.all,
 						disabled:  ! @quick_report.issue.can_change_responsible_person? %>
-			<% if (not @quick_report.issue.new_record?) && (not @quick_report.issue.state_event_collection.empty?) %>
+			<% if not @quick_report.issue.state_event_collection.empty? %>
 				<%= builder.input :state_event,collection: @quick_report.issue.state_event_collection %>
 			<% end %>
+			<%= builder.error :base ,:error_method => :to_sentence %>
 		<% end %>
-  		<%= f.error :base %>
+  		<%= f.error :base , :error_method => :to_sentence %>
 		<div class="form-actions">
 			<%= f.button :submit , :class => 'btn btn-primary' %>
 			<%= link_to '取消', quick_reports_path, :class => 'btn' %>

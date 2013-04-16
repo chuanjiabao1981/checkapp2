@@ -89,7 +89,7 @@ describe "QuickReports" do
 				issue_submitter: user_as_member,
 				responsible_person: other_user_as_member)
 		}
-		describe "member"   do
+		describe "member"  do
 			it_behaves_like "quick_report edit and update" do
 				let(:user) {user_as_member}
  			end
@@ -108,4 +108,25 @@ describe "QuickReports" do
 			end
 		end
 	end
+	#describe "destroy" do
+	#	let!(:own_quick_reports) {
+	#		FactoryGirl.create_list(:quick_report_with_issue_and_resolve,5,
+	#			issue_submitter: user_as_member,
+	#			responsible_person: other_user_as_member)
+	#	}
+	#	let!(:other_quick_reports){
+	#		FactoryGirl.create_list(:quick_report_with_issue_and_resolve,5,
+	#			issue_submitter: other_user_as_member,
+	#			responsible_person: other_user_as_member
+	#			)
+	#	}
+	#	describe "member" ,focus:true do
+	#		before do
+	#			signin(user_as_member)
+	#			visit(quick_reports_path)
+	#			save_and_open_page
+	#			#find("a[href=\"#{quick_report_path(own_quick_reports[0])}\"]").click
+	#		end
+	#	end
+	#end
 end

@@ -35,12 +35,12 @@ describe Issue do
 		before do 
 			@issue.should be_valid
 		end
-		describe "DeadLine not valid"  do
-			before do
-				@issue.deadline = 1.day.ago.strftime("%Y-%m-%d")
-			end
-			it {should_not be_valid}
-		end
+		#describe "DeadLine not valid"  do
+		#	before do
+		#		@issue.deadline = 1.day.ago.strftime("%Y-%m-%d")
+		#	end
+		#	it {should_not be_valid}
+		#end
 		describe "State not valid"  do
 			before do
 				@issue.state ="111"

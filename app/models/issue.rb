@@ -1,4 +1,9 @@
 #encoding:utf-8
+#class TestValidator < ActiveModel::Validator
+#  def validate(record)
+#  	record.errors[:base] = "test"
+#  end
+#end
 class Issue < ActiveRecord::Base
 
 
@@ -11,7 +16,7 @@ class Issue < ActiveRecord::Base
 
 	validates :desc 			,:length => {:maximum => 1024}, :presence => true
 	validates :reject_reason	,:length => {:maximum => 1024}
-	validates_date :deadline,:on_or_after => lambda { Date.current }
+	validates_date :deadline,:on_or_after => lambda { Date.current } , :if => :new_record?
 	validates :tenant, :presence => true
 	validates :submitter,:presence => true
 	validates_presence_of :issuable_type
@@ -25,6 +30,8 @@ class Issue < ActiveRecord::Base
 	has_many :images,:as => :image_attachment,:dependent => :destroy
 	has_one  :resolve,:dependent => :destroy 
 
+	#validates_with TestValidator
+	
 	accepts_nested_attributes_for :images
 	
 	default_scope { where(tenant_id: Tenant.current_id)  if Tenant.current_id }

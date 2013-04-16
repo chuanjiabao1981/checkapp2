@@ -18,6 +18,11 @@ cn:
       messages:
         state_not_match: 问题状态错误
         level_not_match: 严重程度错误
+      models:
+        issue:
+          attributes:
+            state_event:
+              invalid_event: 无法更新当前问题状态
     state_machines:
       issue:
         state:

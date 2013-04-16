@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 def signin(user)
 	visit signin_path
 	fill_in I18n.t('helpers.label.session.account') 	,with: user.account
