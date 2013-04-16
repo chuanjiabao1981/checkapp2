@@ -91,6 +91,7 @@ describe Permissions::MemberPermission  do
 		it_behaves_like 'quick_report permission' do
 			let(:own_quick_report) {quick_report_of_member}
 			let(:other_tenant_quick_report) {quick_report_of_other_tenant}
+			let(:other_quick_report) {quick_report_of_other_member}
 		end
 		it "allow report" do
 			should_not 		allow(:quick_reports,:destroy)

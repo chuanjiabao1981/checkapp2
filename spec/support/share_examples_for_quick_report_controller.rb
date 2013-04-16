@@ -40,3 +40,74 @@ shared_examples "quick_report edit and update" do
 		should have_content Issue.human_state_name(:closed)
 	end
 end
+
+shared_examples "quick_report show" do
+	it "quick_report" do
+		should have_content a_quick_report.issue.desc
+		should have_content a_quick_report.issue.level
+		should have_content a_quick_report.issue.deadline
+		should have_content a_quick_report.issue.responsible_person.name
+		should have_content a_quick_report.issue.submitter.name
+	end
+end
+
+shared_examples "quick_report destroy" do
+	it "destroy link" do
+		page.should_not	have_link I18n.t('views.text.destroy')	if user.member?	
+		page.should     have_link I18n.t('views.text.destroy')  if user.admin?
+	end
+end
+
+shared_examples "quick_report show submitter" do
+	before do
+		signin(owner)
+		visit(quick_reports_path)
+		click_link own_quick_report.issue.desc
+	end
+	it_behaves_like "quick_report show" do
+		let(:a_quick_report) {own_quick_report}
+	end
+	it "should have link " do
+		should 		have_link I18n.t('views.text.edit',href: edit_quick_report_path(own_quick_report))
+		should_not 	have_link I18n.t('views.text.handle',href: new_issue_resolf_path(own_quick_report.issue))
+	end
+	it_behaves_like "quick_report destroy" do
+		let(:user) {owner}
+	end
+end
+
+shared_examples "quick_report show resolver" do
+	before do
+		signin(resolver)
+		visit(quick_reports_path)
+		click_link own_quick_report.issue.desc
+	end
+	it_behaves_like "quick_report show" do
+		let(:a_quick_report) {own_quick_report}
+	end
+	it "should have link " do
+		should_not 		have_link I18n.t('views.text.edit',href: edit_quick_report_path(own_quick_report))
+		should 			have_link I18n.t('views.text.handle',href: new_issue_resolf_path(own_quick_report.issue))
+	end
+	it_behaves_like "quick_report destroy" do
+		let(:user) {resolver}
+	end
+end
+
+shared_examples "quick_report show other" do
+	before do
+		signin(other)
+		visit(quick_reports_path)
+		click_link own_quick_report.issue.desc
+	end
+	it_behaves_like "quick_report show" do
+		let(:a_quick_report) {own_quick_report}
+	end
+	it "should have link " do
+		should_not 	have_link I18n.t('views.text.edit',href: edit_quick_report_path(quick_report))
+		should_not 	have_link I18n.t('views.text.handle',href: new_issue_resolf_path(quick_report.issue))
+	end
+	it_behaves_like "quick_report destroy" do
+		let(:user) {other}
+	end
+end

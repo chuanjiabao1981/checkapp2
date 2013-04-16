@@ -25,6 +25,14 @@ class QuickReportsController < ApplicationController
 			render 'edit'	
 		end
 	end
+	def destroy
+		@quick_report = current_resource
+		@quick_report.destroy
+		return redirect_to quick_reports_path
+	end
+	def show
+		@quick_report = current_resource
+	end
 	private 
 		def current_resource
     		@current_resource ||= QuickReport.find(params[:id]) if params[:id]

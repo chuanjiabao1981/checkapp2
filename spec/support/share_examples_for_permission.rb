@@ -3,11 +3,14 @@ shared_examples "quick_report permission" do
 		should 		allow(:quick_reports,:new)
 		should 		allow(:quick_reports,:index)
 		should 		allow(:quick_reports,:create)
+		should 		allow(:quick_reports,:show,own_quick_report)
+		should 		allow(:quick_reports,:show,other_quick_report)
 		should 		allow(:quick_reports,:edit,own_quick_report)
 		should 		allow(:quick_reports,:update,own_quick_report)
 		should_not 	allow(:quick_reports,:edit,other_tenant_quick_report)
 		should_not 	allow(:quick_reports,:update,other_tenant_quick_report)
 		should_not 	allow(:quick_reports,other_tenant_quick_report)
+		should_not 	allow(:quick_reports,:show,other_tenant_quick_report)
 	end
 	it "allows params" do
 		should_not  allow_param(:quick_report,:tenant)

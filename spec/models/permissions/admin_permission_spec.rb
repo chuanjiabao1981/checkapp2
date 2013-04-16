@@ -92,9 +92,11 @@ describe Permissions::AdminPermission do
 	describe "quick_report"  do
 		it_behaves_like 'quick_report permission' do
 			let(:own_quick_report) {quick_report_of_admin}
+			let(:other_quick_report) {quick_report_of_member}
 			let(:other_tenant_quick_report) {quick_report_of_other_tenant}
 		end
 		it "allow quick report" do
+
 			should 		allow(:quick_reports,:destroy,quick_report_of_admin)
 			should 		allow(:quick_reports,:edit,quick_report_of_member)
 			should 		allow(:quick_reports,:update,quick_report_of_member)

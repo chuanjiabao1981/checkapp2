@@ -108,25 +108,70 @@ describe "QuickReports" do
 			end
 		end
 	end
-	#describe "destroy" do
-	#	let!(:own_quick_reports) {
-	#		FactoryGirl.create_list(:quick_report_with_issue_and_resolve,5,
-	#			issue_submitter: user_as_member,
-	#			responsible_person: other_user_as_member)
-	#	}
-	#	let!(:other_quick_reports){
-	#		FactoryGirl.create_list(:quick_report_with_issue_and_resolve,5,
-	#			issue_submitter: other_user_as_member,
-	#			responsible_person: other_user_as_member
-	#			)
-	#	}
-	#	describe "member" ,focus:true do
-	#		before do
-	#			signin(user_as_member)
-	#			visit(quick_reports_path)
-	#			save_and_open_page
-	#			#find("a[href=\"#{quick_report_path(own_quick_reports[0])}\"]").click
-	#		end
-	#	end
-	#end
+	describe "destroy" do
+		let!(:own_quick_reports) {
+			FactoryGirl.create_list(:quick_report_with_issue_and_resolve,5,
+				issue_submitter: user_as_member,
+				responsible_person: other_user_as_member)
+		}
+		let!(:other_quick_reports){
+			FactoryGirl.create_list(:quick_report_with_issue_and_resolve,5,
+				issue_submitter: other_user_as_member,
+				responsible_person: other_user_as_member
+				)
+		}
+		describe "member" do
+			before do
+				signin(user_as_admin)
+				visit(quick_reports_path)
+				@old_issue_desc = own_quick_reports[0].issue.desc
+				page.should have_content @old_issue_desc
+				click_link '删除'
+			end
+			it "should not have content" do
+				should_not have_content @old_issue_desc
+			end
+		end
+	end
+	describe "show"  do
+		describe "member"  do
+			let!(:quick_report)  { FactoryGirl.create(:quick_report_with_issue,submitter: user_as_member)}
+			let!(:quick_report_with_issue){FactoryGirl.create(:quick_report_with_issue_and_resolve,
+															  issue_submitter: user_as_member,
+															  responsible_person: other_user_as_member)}
+			describe "quick_report submitter" do
+				it_behaves_like "quick_report show submitter" do
+					let(:owner) {user_as_member}
+					let(:own_quick_report) {quick_report}
+				end
+			end
+			describe "quick_report resolver",focus:true do
+				it_behaves_like "quick_report show resolver" do
+					let(:resolver) {quick_report.issue.responsible_person}
+					let(:own_quick_report) {quick_report}
+				end
+			end
+			describe "other person" ,foucs:true do
+				it_behaves_like "quick_report show other" do
+					let(:other) {other_user_as_member}
+					let(:own_quick_report){quick_report}
+				end
+			end
+			describe "quick_report resolver" do
+				before do
+					signin(quick_report_with_issue.issue.responsible_person)
+					visit quick_reports_path
+					click_link quick_report_with_issue.issue.desc
+				end
+				it_behaves_like "quick_report show" do
+					let(:a_quick_report) {quick_report_with_issue}
+					let(:user) {user_as_member}
+				end
+				it "should not have link" do
+					should_not have_link I18n.t('views.text.handle',href: new_issue_resolf_path(quick_report_with_issue.issue))
+				end
+			end
+
+		end
+	end
 end

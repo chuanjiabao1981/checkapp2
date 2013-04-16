@@ -14,14 +14,14 @@ module Permissions
       #  u && u.tenant == user.tenant
       #end
       allow :resolves,[:new,:create] do |issue|
-        issue.tenant_id == user.tenant_id && issue && issue.responsible_person_id  == user.id
+        issue.tenant_id == user.tenant_id && issue && issue.responsible_person_id  == user.id && issue.resolve.nil?
       end
       allow :resolves,[:edit,:update] do |resolve|
         resolve && resolve.tenant_id == user.tenant_id 
       end
 
       allow :quick_reports,[:index,:new,:create]
-      allow :quick_reports,[:edit,:update,:destroy]  do |quick_report|
+      allow :quick_reports,[:edit,:update,:destroy,:show]  do |quick_report|
         quick_report && quick_report.tenant_id == user.tenant_id
       end
       allow_param :resolve,[:desc]

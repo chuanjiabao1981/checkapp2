@@ -11,3 +11,4 @@ cn:
       signin: 登录
       signout: 退出
       unauthorized: 未授权的访问!
+      handle: 处理
