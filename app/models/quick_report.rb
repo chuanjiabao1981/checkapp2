@@ -11,4 +11,14 @@ class QuickReport < ActiveRecord::Base
 		a.issue.submitter = current_user
 		a
 	end
+	def update_attributes(attributes)
+		if self.issue
+			if self.issue.can_change_responsible_person? && attributes[:issue_attributes]
+				if attributes[:issue_attributes][:responsible_person_id].try(:to_i) != self.issue.responsible_person_id
+					attributes[:issue_attributes][:state_event] = "change_responsible_person"
+				end
+			end
+		end
+		super(attributes)
+	end
 end

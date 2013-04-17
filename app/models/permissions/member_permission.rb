@@ -9,10 +9,10 @@ module Permissions
       #	i && i.tenant_id == user.tenant_id && i.submitter_id == user.id
       #end
       allow :resolves,[:new,:create] do |issue|
-        issue.tenant_id == user.tenant_id && issue && issue.responsible_person_id  == user.id && issue.resolve.nil?
+        issue && issue.tenant_id == user.tenant_id && issue.responsible_person && issue.responsible_person.id == user.id && issue.resolve.nil?
       end
       allow :resolves,[:edit,:update] do |resolve|
-        resolve.tenant_id == user.tenant_id && resolve && resolve.submitter_id == user.id
+        resolve && resolve.tenant_id == user.tenant_id && resolve.submitter_id == user.id
       end
       allow :quick_reports,[:index,:new,:create]
       allow :quick_reports,[:show] do |quick_report|

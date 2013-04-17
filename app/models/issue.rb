@@ -73,7 +73,6 @@ class Issue < ActiveRecord::Base
 		def check_change_responsible_person_event(attributes)
 			if not self.can_change_responsible_person?
 				attributes[:responsible_person_id] = self.responsible_person_id
-				#log something
 			else
 				if attributes[:responsible_person_id] != self.responsible_person_id
 					attributes[:state_event] = "change_responsible_person"

@@ -1,0 +1,7 @@
+cn:
+  activerecord:
+    models:
+      resolve: 解决方案
+    attributes:
+      resolve:
+        desc: 方案描述

@@ -10,7 +10,7 @@ Checkapp2::Application.routes.draw do
   resources :users
   resources :quick_reports
   resources :issues,shallow:true,only:[] do
-    resources :resolves
+    resources :resolves,onlty:[:new,:create,:update,:edit]
   end
 
   

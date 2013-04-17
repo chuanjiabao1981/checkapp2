@@ -89,7 +89,7 @@ describe QuickReport  do
 			end.should_not change(Issue,:count).from(0)
 		end
 	end
-	describe "accepts_nested_attributes_for update issue"   do
+	describe "accepts_nested_attributes_for update issue"  do
 		before do
 			@issue_submitter 				=FactoryGirl.create(:user_as_member)
 			@responsible_person				=FactoryGirl.create(:user_as_member,tenant: @issue_submitter.tenant)

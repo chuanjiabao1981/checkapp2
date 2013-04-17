@@ -89,7 +89,7 @@ describe "QuickReports" do
 				issue_submitter: user_as_member,
 				responsible_person: other_user_as_member)
 		}
-		describe "member"  do
+		describe "member"   do
 			it_behaves_like "quick_report edit and update" do
 				let(:user) {user_as_member}
  			end
@@ -134,44 +134,65 @@ describe "QuickReports" do
 		end
 	end
 	describe "show"  do
-		describe "member"  do
+		describe "member" do
 			let!(:quick_report)  { FactoryGirl.create(:quick_report_with_issue,submitter: user_as_member)}
-			let!(:quick_report_with_issue){FactoryGirl.create(:quick_report_with_issue_and_resolve,
+			let!(:quick_report_with_resolve){FactoryGirl.create(:quick_report_with_issue_and_resolve,
 															  issue_submitter: user_as_member,
 															  responsible_person: other_user_as_member)}
 			describe "quick_report submitter" do
-				it_behaves_like "quick_report show submitter" do
+				it_behaves_like "submitter quick_report show"  do
 					let(:owner) {user_as_member}
 					let(:own_quick_report) {quick_report}
 				end
+				it_behaves_like "submitter quick_report show" do
+					let(:owner) {user_as_member}
+					let(:own_quick_report) {quick_report_with_resolve}
+				end
 			end
-			describe "quick_report resolver",focus:true do
-				it_behaves_like "quick_report show resolver" do
+			describe "resolver quick_report" do
+				it_behaves_like "resolver quick_report show" do
 					let(:resolver) {quick_report.issue.responsible_person}
 					let(:own_quick_report) {quick_report}
 				end
+				it_behaves_like "resolver quick_report show" do
+					let(:resolver) {quick_report_with_resolve.issue.responsible_person}
+					let(:own_quick_report) {quick_report_with_resolve}
+				end
 			end
-			describe "other person" ,foucs:true do
-				it_behaves_like "quick_report show other" do
+			describe "other person"  do
+				it_behaves_like "other quick_report show" do
 					let(:other) {other_user_as_member}
 					let(:own_quick_report){quick_report}
 				end
 			end
-			describe "quick_report resolver" do
-				before do
-					signin(quick_report_with_issue.issue.responsible_person)
-					visit quick_reports_path
-					click_link quick_report_with_issue.issue.desc
-				end
-				it_behaves_like "quick_report show" do
-					let(:a_quick_report) {quick_report_with_issue}
-					let(:user) {user_as_member}
-				end
-				it "should not have link" do
-					should_not have_link I18n.t('views.text.handle',href: new_issue_resolf_path(quick_report_with_issue.issue))
+		end
+		describe "admin"  do
+			let!(:quick_report)  { FactoryGirl.create(:quick_report_with_issue,submitter: user_as_admin)}
+			let!(:quick_report_with_resolve){FactoryGirl.create(:quick_report_with_issue_and_resolve,
+															  issue_submitter: user_as_admin,
+															  responsible_person: other_user_as_member)}
+			describe "quick_report submitter" do
+				it_behaves_like "submitter quick_report show"  do
+					let(:owner) {user_as_admin}
+					let(:own_quick_report) {quick_report}
 				end
 			end
-
+			describe "quick_report resolver" do
+				it_behaves_like "resolver quick_report show" do
+					let(:resolver) {quick_report.issue.responsible_person}
+					let(:own_quick_report) {quick_report}
+				end
+				it_behaves_like "resolver quick_report show" do
+					let(:resolver) {quick_report_with_resolve.issue.responsible_person}
+					let(:own_quick_report) {quick_report_with_resolve}
+				end
+			end
+			describe "other person"  do
+				it_behaves_like "other quick_report show" do
+					let(:other) {other_user_as_member}
+					let(:own_quick_report){quick_report}
+				end
+			end
 		end
 	end
 end
