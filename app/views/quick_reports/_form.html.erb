@@ -2,22 +2,12 @@
 	<%= f.error_notification %>
 	<fieldset>
 		<%= f.simple_fields_for :issue do |builder| %>
-
-			<%= builder.input :desc %>
-			<%= builder.input :level,collection: Issue::ISSUE_LEVEL_SET,:include_blank => false %>
-			<%= builder.input :deadline %>
-			<%= builder.association :responsible_person,
-						collection: User.all,
-						disabled:  ! @quick_report.issue.can_change_responsible_person? %>
-			<% if not @quick_report.issue.state_event_collection.empty? %>
-				<%= builder.input :state_event,collection: @quick_report.issue.state_event_collection %>
-			<% end %>
-			<%= builder.error :base ,:error_method => :to_sentence %>
+			<%= render 'shared/issue_fields', f: builder , issue: @quick_report.issue %>
 		<% end %>
   		<%= f.error :base , :error_method => :to_sentence %>
-		<div class="form-actions">
-			<%= f.button :submit , :class => 'btn btn-primary' %>
-			<%= link_to '取消', quick_reports_path, :class => 'btn' %>
-		</div>
-	</fieldset>
+  	</fieldset>
+  	<div class="form-actions">
+  		<%= f.button :submit , :class => 'btn btn-primary' %>
+  		<%= link_to '取消', quick_reports_path, :class => 'btn' %>
+  	</div>
 <% end %>

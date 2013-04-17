@@ -7,7 +7,7 @@ class ResolvesController < ApplicationController
 		@issue 		= current_resource
 		@resolve 	= @issue.build_a_resolve(params[:resolve],current_user)
 		if @resolve.save
-			return redirect_to quick_report_path(@issue.issuable)
+			return redirect_to send("#{@issue.issuable_type.underscore}_path",@issue.issuable)
 		else
 			render 'new'
 		end

@@ -1,13 +1,19 @@
 <%= render @quick_report %>
+
 <% if allow? :quick_reports,:edit,@quick_report %>
 	<%=link_to I18n.t('views.text.edit'), edit_quick_report_path(@quick_report) %>
 <% end %>
-<% if allow? :quick_reports,:destroy , @quick_report.issue %>
-	<%=link_to I18n.t('views.text.destroy'), quick_report_path(@quick_report.issue) %>
+<% if allow? :quick_reports,:destroy , @quick_report %>
+	<%=link_to I18n.t('views.text.destroy'), 
+	   quick_report_path(@quick_report),
+	   method: :delete ,
+	   confirm: I18n.t('views.text.confirm',:model => t('activerecord.models.quick_report')) 
+	%>
 <% end %>
 <% if allow? :resolves,:new , @quick_report.issue %>
 	<%=link_to I18n.t('views.text.handle'), new_issue_resolf_path(@quick_report.issue) %>
 <% end %>
+
 <% if @quick_report.issue and @quick_report.issue.resolve %>
 	<% if allow? :resolves,:edit , @quick_report.issue.resolve %>
 		<%=link_to I18n.t('views.text.edit'), edit_resolf_path(@quick_report.issue.resolve) %>

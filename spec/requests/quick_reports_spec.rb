@@ -194,5 +194,14 @@ describe "QuickReports" do
 				end
 			end
 		end
+		describe "guest"  do
+			let!(:quick_report)  { FactoryGirl.create(:quick_report_with_issue,submitter: user_as_member)}
+			before do
+				visit quick_report_path(quick_report)
+			end
+			it "should no permission" do
+				should have_content I18n.t('views.text.unauthorized')
+			end
+		end
 	end
 end

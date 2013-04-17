@@ -1,0 +1,9 @@
+<%= f.input :desc %>
+<%= f.input :level,collection: Issue::ISSUE_LEVEL_SET,:include_blank => false %>
+<%= f.input :deadline %>
+<%= f.association :responsible_person, collection: User.all,
+			disabled:  ! issue.can_change_responsible_person? %>
+<% if not issue.state_event_collection.empty? %>
+	<%= f.input :state_event,collection: issue.state_event_collection %>
+<% end %>
+<%= f.error :base ,:error_method => :to_sentence %>
