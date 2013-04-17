@@ -12,6 +12,17 @@ class ResolvesController < ApplicationController
 			render 'new'
 		end
 	end
+	def edit
+		@resolve = current_resource
+	end
+	def update
+		@resolve = current_resource
+		if @resolve.update_attributes(params[:resolve])
+			return redirect_to send("#{@resolve.issue.issuable_type.underscore}_path",@resolve.issue.issuable)
+		else
+			render 'edit'
+		end
+	end
 private
 	def current_resource
 		if params[:issue_id]

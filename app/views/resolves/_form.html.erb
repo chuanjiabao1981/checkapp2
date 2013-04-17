@@ -1,0 +1,13 @@
+<%= render partial: "#{issue.issuable_type.underscore.pluralize}/#{issue.issuable_type.underscore}", 
+		   :locals => {issue.issuable_type.underscore.to_sym => issue.issuable } %>
+<%= simple_form_for resolve  ,url:post_url, :html => { :class => 'form-horizontal' } do |f| %>
+	<%= f.error_notification %>
+	<fieldset>
+		<%= f.input :desc %>
+		<%= f.error :base , :error_method => :to_sentence %>
+		<div class="form-actions">
+			<%= f.button :submit , :class => 'btn btn-primary' %>
+			<%= link_to '取消', send("#{issue.issuable_type.underscore}_path",issue.issuable), :class => 'btn' %>
+		</div>
+	</fieldset>
+<% end %>
