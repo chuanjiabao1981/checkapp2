@@ -86,6 +86,18 @@ describe Permissions::AdminPermission do
 			should 		allow(:resolves,:edit,other_resolve)
 			should  	allow(:resolves,:update,other_resolve)
 		end
+		describe "close issue resovle" do
+			let(:quick_report) {FactoryGirl.create(:quick_report_with_issue_and_resolve,
+											 issue_submitter:user_as_admin,
+											 responsible_person: user_as_admin)}
+			before do
+				quick_report.issue.close
+			end
+			it "allow resolve" do
+				should allow(:resolves,:edit,quick_report.issue.resolve)
+				should allow(:resolves,:update,quick_report.issue.resolve)
+			end
+		end
 	end
 
 	

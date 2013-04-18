@@ -1,0 +1,9 @@
+cn:
+  activerecord:
+    models:
+      location: 地理位置
+    attributes:
+      location:
+        name: 位置名称
+        lng: 经度
+        lat: 纬度

@@ -28,7 +28,7 @@ class Issue < ActiveRecord::Base
 
 	has_many :videos,:as => :video_attachment,:dependent => :destroy
 	has_many :images,:as => :image_attachment,:dependent => :destroy
-	has_one  :resolve,:dependent => :destroy 
+	has_one  :resolve,:dependent => :destroy ,:inverse_of => :issue
 
 	#validates_with TestValidator
 	

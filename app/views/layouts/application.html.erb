@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <script src="http://api.map.baidu.com/api?v=1.5&ak=96fae1b51460b6910217e1b09658fb40" type="text/javascript"></script>
 </head>
 <body>
 	<ul>
@@ -18,13 +19,22 @@
 		<% end %>
 	</ul>
 
-	<div>
-      <% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %>"><%= value %></div>
-      <% end %>
-      <%= yield %>
-      <%= debug(params) if Rails.env.development? %>
-    </div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span2">
+				<!--Sidebar content-->
+			</div>
+			<div class="span10">
+				<!--Body content-->
+				<% flash.each do |key, value| %>
+					<div class="alert alert-<%= key %>"><%= value %></div>
+				<% end %>
+				<%= yield %>
+			</div>
+		</div>
+	</div>
+
+	<!--%= debug(params) if Rails.env.development? %-->
 
 </body>
 </html>

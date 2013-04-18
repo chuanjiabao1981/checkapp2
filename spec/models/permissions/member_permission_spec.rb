@@ -85,6 +85,17 @@ describe Permissions::MemberPermission  do
 			should_not 	allow(:resolves,:edit,other_resolve)
 			should_not  allow(:resolves,:update,other_resolve)
 		end
+		describe "close issue resovle"  do
+			let(:quick_report) {FactoryGirl.create(:quick_report_with_issue_and_resolve,
+											 issue_submitter:user_as_member,
+											 responsible_person: user_as_member)}
+			before do
+				quick_report.issue.close
+			end
+			it "not allow resolve" do
+				should_not allow(:resolves,:edit,quick_report.issue.resolve)
+			end
+		end
 	end
 	
 	describe "quick_report" do

@@ -24,6 +24,9 @@ module Permissions
       allow :quick_reports,[:edit,:update,:destroy,:show]  do |quick_report|
         quick_report && quick_report.tenant_id == user.tenant_id
       end
+      allow :locations,[:index,:new,:create] 
+      allow_param :location,[:name,:lat,:lng]
+
       allow_param :resolve,[:desc]
       allow_nested_param :quick_report,:issue_attributes,[:id,:level,:desc,:reject_reason,:deadline,:responsible_person_id,:state_event,:images_attributes=>[[:image],:id]]
     end

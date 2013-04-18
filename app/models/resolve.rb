@@ -15,7 +15,7 @@ class Resolve < ActiveRecord::Base
 
 
 	belongs_to :submitter,:class_name => "User",:foreign_key => "submitter_id"
-	belongs_to :issue 
+	belongs_to :issue ,:inverse_of => :resolve
 	belongs_to :tenant
 	
 	has_many :videos,:as => :video_attachment,:dependent => :destroy
@@ -26,6 +26,14 @@ class Resolve < ActiveRecord::Base
 	default_scope { where(tenant_id: Tenant.current_id)  if Tenant.current_id }
 
 	validates_with SubmitterValidator
+
+	def update_attributes(options)
+		a = super(options)
+		if self.valid? && self.issue && self.issue.resolve_denied? 
+			self.issue.commit_resolve
+		end
+		a
+	end
 
 end
 

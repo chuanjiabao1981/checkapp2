@@ -30,7 +30,7 @@ describe "Resolves" do
 			end
 		end
 	end
-	describe "edit && update" ,focus:true do
+	describe "edit && update" do
 		let!(:quick_report) {FactoryGirl.create(:quick_report_with_issue_and_resolve,
 													issue_submitter: other_user_as_member,
 													responsible_person: user_as_member)}
@@ -46,7 +46,6 @@ describe "Resolves" do
 		end
 		it "have content" do
 			should have_content 'do it xxxx;do it xxxx.'
-			save_and_open_page
 		end
 	end
 end
