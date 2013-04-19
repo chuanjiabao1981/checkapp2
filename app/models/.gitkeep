@@ -1,0 +1,22 @@
+1. SAPService框架搭建（Role Replica Instance)模型
+   1 。可以启动SAP Container即可
+2. 控制命令通道的打通。
+   1. 支持传输如下控制命令
+      Stop,Restart,update,Rollback
+   2. 自动化单元测试、集成测试方式确定。
+3. 心跳通道。
+   1. master和sapcontainer之间建立心跳通道
+   2. 完成心跳lost恢复策略
+4. SCheduler 策略优化
+   1. locality  
+   2. 在如下两种情况下，优化调度，使得sap container尽量”分散“
+       a. 一列多行
+       b. 多列多行
+5. FailOver
+	1. 配合Yarn、resouce manager的调整（这个工作量待定）
+	2. Master FailOver 
+6. 外围脚本工具的规范，服务的发布
+7. 尝试初步上线
+8. Dynamic Scheduler
+    支持可扩展和收缩的Replica调度模型
+

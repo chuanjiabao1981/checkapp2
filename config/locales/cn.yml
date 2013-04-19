@@ -5,6 +5,7 @@ cn:
       update: "更新%{model} "
   views:
     text:
+      new: 新建
       edit: 编辑
       destroy: 删除
       confirm: "确定删除此%{model}吗?"
@@ -12,3 +13,4 @@ cn:
       signout: 退出
       unauthorized: 未授权的访问!
       handle: 处理
+      action: 操作

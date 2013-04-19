@@ -1,6 +1,10 @@
 class LocationsController < ApplicationController
 	def index
-		@locations = Location.all
+		if params[:search]
+			@locations = Location.where("name like ?","%#{params[:search][:name]}%")
+		else
+			@locations = Location.all
+		end
 	end
 	def new
 		@location = Location.new
@@ -13,4 +17,24 @@ class LocationsController < ApplicationController
 			render 'new'
 		end
 	end
+	def edit
+		@location = current_resource
+	end
+	def update
+		@location = current_resource
+		if @location.update_attributes(params[:location])
+			return redirect_to locations_path
+		else
+			render 'edit'
+		end
+	end
+	def destroy
+		@location = current_resource
+		@location.destroy
+		return redirect_to locations_path
+	end
+	private 
+	def current_resource
+    		@current_resource ||= Location.find(params[:id]) if params[:id]
+    end
 end
