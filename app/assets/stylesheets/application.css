@@ -8,6 +8,59 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+/*
  *= require_self
  *= require_tree .
+ *= require core-admin/bootstrap_include
+ *= require core-admin/uniform_default
+ *= require core-admin/base
+ *= require core-admin/box
+ *= require core-admin/message_box
+ *= require core-admin/dropdowns
+ *= require core-admin/font-awesome
+ *= require core-admin/responsive-tables
+ *= require core-admin/fullcalendar
+ *= require core-admin/gritter
+ *= require core-admin/numeric_stats
+ *= require core-admin/form_elements
+ *= require core-admin/tags
+ *= require core-admin/navigation
+ *= require core-admin/sidebar
+ *= require core-admin/breadcrumbs
+ *= require core-admin/triangle_button
+ *= require core-admin/tooltips
+ *= require core-admin/buttons
+ *= require core-admin/action_nav
+ *= require core-admin/stats
+ *= require core-admin/ibutton
+ *= require core-admin/content_progress
+ *= require core-admin/charts
+ *= require core-admin/select2
+ *= require core-admin/select2_overrides
+ *= require core-admin/ui_custom
+ *= require core-admin/icheck_blue
+ *= require core-admin/xcharts
+ *= require core-admin/justgage
+ *= require core-admin/easy_pie_chart
+ *= require core-admin/sparkline_box
+ *= require core-admin/chat-box
+ *= require core-admin/dataTables
+ *= require core-admin/accordion
+ *= require core-admin/bootstrap_alerts
+ *= require core-admin/pagination
+ *= require core-admin/modal
+ *= require core-admin/touchTouch
+ *= require core-admin/tables
+ *= require core-admin/scrollable
+ *= require core-admin/news
+ *= require core-admin/badges
+ *= require core-admin/bootstrap-wizard
+ *= require core-admin/error_pages
+ *= require core-admin/bootstrap-wysihtml5
+ *= require core-admin/validation_engine
+ *= require core-admin/bootstrap-editable
+ *= require core-admin/bootstrap-editable-fix
+ *= require core-admin/responsive979
+ *= require core-admin/responsive768
+ *= require core-admin/responsive480
 */

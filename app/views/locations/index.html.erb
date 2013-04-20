@@ -3,44 +3,62 @@
 <% end %>
 <%= content_tag "div", id: "current-location" do%>
 <% end %>
-<%=link_to I18n.t('views.text.new') ,new_location_path ,class: 'btn-small btn'%>
-<%=link_to 'aa',locations_path,class: 'link'%>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th><%=I18n.t('activerecord.attributes.location.name')%></th>
-			<th><%=I18n.t('activerecord.attributes.location.lng')%></th>
-			<th><%=I18n.t('activerecord.attributes.location.lat')%></th>
-			<th><%=I18n.t('views.text.action')%></th>
-		</tr>
-	</thead>
-	<tbody>
-		<%@locations.each do |l| %>
+<div class="box">
+	<div class="box-header">
+		<span class="title">地理位置列表</span>
+		<ul class="box-toolbar">
+			<li class="toolbar-link">
+				<a href="#" data-toggle="dropdown"><i class="icon-cog"></i></a>
+				<% if allow? :locations,:new %>
+					<ul class="dropdown-menu">
+						<li>
+							<%=link_to new_location_path do %>
+								<i class="icon-plus-sign"></i> Add
+							<% end %>
+						</li> 
+					</ul>
+				<% end %>
+			</li>
+		</ul>
+	</div>
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th><%=I18n.t('activerecord.attributes.location.name')%></th>
+				<th><%=I18n.t('activerecord.attributes.location.lng')%></th>
+				<th><%=I18n.t('activerecord.attributes.location.lat')%></th>
+				<th><%=I18n.t('views.text.action')%></th>
+			</tr>
+		</thead>
+		<tbody>
+			<%@locations.each do |l| %>
 			<tr>
 				<td><%= l.name%></td>
 				<td><%= l.lng %></td>
 				<td><%= l.lat %></td>
 				<% if allow? :locations,:edit,l %>
-					<td>
-						<%= link_to I18n.t('views.text.edit'), 
-									edit_location_path(l), 
-									:class => 'btn btn-mini' %>
-						<%= link_to I18n.t('views.text.destroy'), 
-									location_path(l), 
-									:method => :delete, 
-									:confirm => I18n.t('views.text.confirm',:model => I18n.t('activerecord.models.location')), 
-									:class => 'btn btn-mini btn-danger' %>
-					</td>
+				<td>
+					<%= link_to I18n.t('views.text.edit'), 
+					edit_location_path(l), 
+					:class => 'btn btn-mini' %>
+					<%= link_to I18n.t('views.text.destroy'), 
+					location_path(l), 
+					:method => :delete, 
+					:confirm => I18n.t('views.text.confirm',:model => I18n.t('activerecord.models.location')), 
+					:class => 'btn btn-mini btn-danger' %>
+				</td>
 				<%else%>
-					<td>N/A</td>
+				<td>N/A</td>
 				<%end%>
 			</tr>
-		<% end %>
-	</tbody>
-</table>
+			<% end %>
+		</tbody>
+	</table>
+</div>
 <%= simple_form_for :search, :method => 'get', 
-    :html => { :class => 'form-search' } do |f| %>
-  <%= f.input_field :name, :placeholder => I18n.t('activerecord.attributes.location.name'), 
-      :class => "input-medium search-query" %>
-  <%= f.submit "查询", :class => "btn btn-small" %>
+:html => { :class => 'form-search' } do |f| %>
+<%= f.input_field :name, :placeholder => I18n.t('activerecord.attributes.location.name'), 
+:class => "input-medium search-query" %>
+<%= f.submit "查询", :class => "btn btn-small" %>
 <% end %>
