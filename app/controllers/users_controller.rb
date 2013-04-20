@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 	def index
-		@users = User.all
+		@users = User.includes(:organization).all
 	end
 	def new
 		@user  = User.new

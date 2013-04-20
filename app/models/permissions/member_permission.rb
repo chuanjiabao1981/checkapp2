@@ -22,6 +22,7 @@ module Permissions
         quick_report && quick_report.tenant == user.tenant && quick_report.issue && quick_report.issue.submitter_id == user.id
       end
       allow :locations,[:index] 
+      allow :organizations,[:index]
       allow_param :location,[:search]
 
       #allow_param :issue,[:level,:desc,:reject_reason,:deadline,:responsible_person_id,:state_event]

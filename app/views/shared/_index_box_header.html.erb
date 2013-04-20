@@ -1,0 +1,15 @@
+<div class="box-header">
+	<span class="title"><%= I18n.t("activerecord.models.#{model}") + '列表'%></span>
+	<ul class="box-toolbar">
+		<li class="toolbar-link">
+			<a href="#" data-toggle="dropdown"><i class="icon-cog"></i></a>
+			<ul class="dropdown-menu">
+				<li>
+					<%=link_to send("new_#{model}_path") do %>
+					<i class="icon-plus-sign"></i> Add
+					<% end %>
+				</li> 
+			</ul>
+		</li>
+	</ul>
+</div>

@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
 
 	has_secure_password
 
-  validates :name    ,:length => {:maximum => 50}
+  validates :name    ,:length => {:maximum => 50} ,presence: true
   validates :mobile  ,:length => {:is => 11 },format: {with:VALID_MOBILE_REGEX} , :unless => "mobile.nil? || mobile.length == 0"
   validates :account ,:length => {:maximum => 50},:presence => true,:uniqueness => true,format:{with:VALID_NAME_REGEX}
   validates :password,presence:true,:on => :create
@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
   belongs_to  :role
 	has_many 	  :subordinates, :class_name => "User", :foreign_key => "manager_id",:dependent => :destroy
 	belongs_to  :manager,:class_name =>"User"
+  has_one     :organization, :class_name => "Organization",:foreign_key => "manager_id",:dependent => :destroy,:inverse_of=> :manager
   belongs_to  :tenant
 
 
@@ -73,6 +74,14 @@ class User < ActiveRecord::Base
     end
     def super_admin?
     	is_role?(Role::SuperAdmin)
+    end
+    def organization_name
+      if self.organization
+        return self.organization.name
+      elsif self.manager
+        return self.manager.organization_name
+      end
+      '-'
     end
 
   	private 

@@ -1,0 +1,9 @@
+cn:
+  activerecord:
+    models:
+      organization: 机构
+    attributes:
+      organization:
+        name: 机构名称
+        address: 机构地址
+        manager: 机构负责人

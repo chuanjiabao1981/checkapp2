@@ -30,6 +30,13 @@ module Permissions
       end
       allow_param :location,[:name,:lat,:lng,:search]
 
+      allow :organizations,[:index,:new,:create]
+      allow :organizations,[:edit,:update,:destroy] do |organization|
+        organization && organization.tenant_id == user.tenant_id
+      end
+      allow_param :organization ,[:name,:address,:manager_id]
+
+
       allow_param :resolve,[:desc]
       allow_nested_param :quick_report,:issue_attributes,[:id,:level,:desc,:reject_reason,:deadline,:responsible_person_id,:state_event,:images_attributes=>[[:image],:id]]
     end

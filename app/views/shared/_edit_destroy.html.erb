@@ -1,0 +1,10 @@
+<%=link_to I18n.t('views.text.edit'),
+		   send("edit_#{model}_path", r),
+		   :class=>"btn btn-mini btn-green" 
+%> 
+<%=link_to I18n.t('views.text.destroy'), 
+		   send("#{model}_path",r),
+			:method => :delete, 
+			:confirm => I18n.t('views.text.confirm',:model => I18n.t("activerecord.models.#{model}")), 
+			:class => 'btn btn-mini btn-red'
+%>

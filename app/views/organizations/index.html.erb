@@ -1,0 +1,25 @@
+<div class="box">
+		<%= render :partial=>'shared/index_box_header',:locals=>{:model => 'organization'} %>
+		<table id="organizations">
+		<thead>
+			<tr>
+				<th><%= I18n.t('activerecord.attributes.organization.name')%></th>
+				<th><%= I18n.t('activerecord.attributes.organization.manager')%></th>
+				<th><%= I18n.t('activerecord.attributes.organization.address')%></th>
+				<th><%= I18n.t('views.text.action')%></th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @organizations.each do |o| %>
+			<tr>
+				<td><%= o.name %></td>
+				<td><%= o.manager.name %></td>
+				<td><%= o.address %></td>
+				<td>
+					<%= render :partial=>'shared/edit_destroy',:locals=>{:model=>'organization',:r=>o}%>
+				</td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

@@ -13,6 +13,7 @@ Checkapp2::Application.routes.draw do
     resources :resolves,only:[:new,:create,:update,:edit]
   end
   resources :locations
+  resources :organizations
 
   
   match '/signin',  to: 'sessions#new'
