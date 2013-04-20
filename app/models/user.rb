@@ -24,9 +24,9 @@ class User < ActiveRecord::Base
 	has_secure_password
 
   validates :name    ,:length => {:maximum => 50}
-  validates :mobile  ,:length => {:is => 11 },format: {with:VALID_MOBILE_REGEX} , :unless => "mobile.nil?"
+  validates :mobile  ,:length => {:is => 11 },format: {with:VALID_MOBILE_REGEX} , :unless => "mobile.nil? || mobile.length == 0"
   validates :account ,:length => {:maximum => 50},:presence => true,:uniqueness => true,format:{with:VALID_NAME_REGEX}
- 	#validates :password_confirmation,presence:true,:unless=>"password==''"
+  validates :password,presence:true,:on => :create
   validates :role    ,presence: true
 	validates :tenant  ,presence: true, :unless => Proc.new {|u| u.role && u.role.name == Role::SuperAdmin}
 

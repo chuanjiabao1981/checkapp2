@@ -1,9 +1,9 @@
 class LocationsController < ApplicationController
 	def index
 		if params[:search]
-			@locations = Location.where("name like ?","%#{params[:search][:name]}%")
+			@locations = Location.where("name like ?","%#{params[:search][:name]}%").paginate(:page => params[:page],:per_page => 2)
 		else
-			@locations = Location.all
+			@locations = Location.paginate(:page => params[:page],:per_page => 2)
 		end
 	end
 	def new

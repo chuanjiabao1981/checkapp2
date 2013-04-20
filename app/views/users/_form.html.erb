@@ -1,26 +1,33 @@
-<%= form_for user do |f|%>
-	<%= render 'shared/error_messages' ,:object => f.object%>
-	<%= f.label :account %>
-	<%= f.text_field :account %>
-	<%= f.label :name %>
-	<%= f.text_field :name %>
-	<%= f.label :password %>
-	<%= f.password_field :password %>
-	<%= f.label :password_confirmation %>
-	<%= f.password_field :password_confirmation %>
-	<% if allow?(:user,:manager_id) %>
-		<%= f.label :manager_id %>
-		<%= f.select :manager_id, User.all.collect {|t| [t.name,t.id]} ,:include_blank => true %>
-	<% end %>
-	<% if  allow?(:user,:tenant_id) %>
-		<%= f.label :tenant_id %>
-		<%= f.select :tenant_id, Tenant.all.collect {|t| [t.name,t.id]} %>
-	<% end %>
-	<% if allow?(:user,:role_id) %>
-	<%= f.label :role_id, Role.get_admin.name,value: Role.get_admin.id  %>
-	<%= f.radio_button :role_id ,Role.get_admin.id %>
-	<%= f.label :role_id,Role.get_member.name,value: Role.get_member.id  %>
-	<%= f.radio_button :role_id , Role.get_member.id %>
-	<% end %>
-	<%= f.submit %>
-<% end %>
+<div class="box"%>
+	<div class="box-header">
+		<span class="title"><%= I18n.t('views.text.new') + I18n.t('activerecord.models.user')%></span>
+	</div>
+	<div class="box-content">
+		<%= simple_form_for user ,:html => { :class => 'form-horizontal'  } do |f|%>
+		<div class="padded separate-sections">
+			<%= f.error_notification %>
+			<fieldset>
+				<%= f.input :account %>
+				<%= f.input :name %>
+				<%= f.input :mobile %>
+				<%= f.input :password %>
+				<%= f.input :password_confirmation %>
+				<% if allow_param?(:user,:manager_id) %>
+				<%= f.association :manager, collection: User.all.collect {|t| [t.name,t.id]} ,:include_blank => true %>
+				<% end %>
+				<% if  allow_param?(:user,:tenant_id) %>
+				<%= f.association :tenant, collection: Tenant.all.collect {|t| [t.name,t.id]} %>
+				<% end %>
+				<% if allow_param?(:user,:role_id) %>
+				<%= f.association :role ,collection:[[ Role.get_admin.name, Role.get_admin.id],[Role.get_member.name,Role.get_member.id]] ,:include_blank => false %>
+				<% end %>
+				<%= f.error :base %>
+			</fieldset>
+		</div>
+		<div class="form-actions">
+			<%= f.button :submit , :class => 'btn btn-primary' %>
+			<%= link_to I18n.t('views.text.cancel'), users_path, :class => 'btn btn-gray' %>
+		</div>
+		<% end %>
+	</div>
+</div>

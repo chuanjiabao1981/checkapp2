@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130418134205) do
+ActiveRecord::Schema.define(:version => 20130420071342) do
 
   create_table "images", :force => true do |t|
     t.string   "image"
@@ -56,6 +56,18 @@ ActiveRecord::Schema.define(:version => 20130418134205) do
   end
 
   add_index "locations", ["tenant_id"], :name => "index_locations_on_tenant_id"
+
+  create_table "organizations", :force => true do |t|
+    t.string   "name"
+    t.string   "address"
+    t.integer  "tenant_id"
+    t.integer  "manager_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "organizations", ["manager_id"], :name => "index_organizations_on_manager_id"
+  add_index "organizations", ["tenant_id"], :name => "index_organizations_on_tenant_id"
 
   create_table "quick_reports", :force => true do |t|
     t.integer  "tenant_id"

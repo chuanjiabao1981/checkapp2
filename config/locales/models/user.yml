@@ -6,13 +6,15 @@ cn:
       user:
         account: 账户
         password: 密码
-        password_confirmation: 重复
+        password_confirmation: 确认
         name: 姓名
         mobile: 手机
         tenant_id: 域
+        tenant: 域
         role_id: 角色
-        term: 承租期限
+        role: 角色
         manager_id: 主管
+        manager: 主管
     errors:
       messages:
         tenant_not_match: 上级主管和成员所属域不匹配

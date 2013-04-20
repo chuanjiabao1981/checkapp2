@@ -10,11 +10,10 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
+//= require core-admin/vendor/jquery-182
 //= require jquery_ujs
+//= require core-admin/vendor/jqueryui1102
 //= require bootstrap
-//= require jquery.ui.all
-//= require_tree .
 //= require core-admin/vendor/fullcalendar/fullcalendar
 //= require core-admin/vendor/jquery_gritter
 //= require core-admin/vendor/sparkline
@@ -47,4 +46,6 @@
 //= require core-admin/charts/sparkline_samples
 //= require core-admin/generic
 //= require core-admin/custom_actions
+//= require_tree .
+
 

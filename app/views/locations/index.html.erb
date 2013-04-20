@@ -55,10 +55,16 @@
 			<% end %>
 		</tbody>
 	</table>
+	<div class="box-footer">
+		<%= will_paginate @locations ,class: "pagination pagination-centered pagination-mini"%>
+	</div>
 </div>
+
 <%= simple_form_for :search, :method => 'get', 
 :html => { :class => 'form-search' } do |f| %>
 <%= f.input_field :name, :placeholder => I18n.t('activerecord.attributes.location.name'), 
 :class => "input-medium search-query" %>
 <%= f.submit "查询", :class => "btn btn-small" %>
+<%= link_to '取消', locations_path, :class => 'btn btn-small' %>
+
 <% end %>

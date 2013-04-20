@@ -14,3 +14,4 @@ cn:
       unauthorized: 未授权的访问!
       handle: 处理
       action: 操作
+      cancel: 取消

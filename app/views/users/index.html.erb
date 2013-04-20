@@ -1,11 +1,46 @@
-<ul>
-	<% @users.each do |u| %>
-		<li><%= u.account %>|
-			<%=link_to I18n.t("views.text.destroy") ,
-			   user_path(u) ,
-			   method: :delete ,
-			   confirm: t('views.text.confirm',:model => t('activerecord.models.user')) 
-			%>
-		</li></br>
-	<% end %>
-</ul>
+<div class="box">
+	<div class="box-header">
+		<span class="title"><%= I18n.t('activerecord.models.user') + '列表'%></span>
+		<ul class="box-toolbar">
+			<li class="toolbar-link">
+				<a href="#" data-toggle="dropdown"><i class="icon-cog"></i></a>
+					<ul class="dropdown-menu">
+						<li>
+							<%=link_to new_user_path do %>
+								<i class="icon-plus-sign"></i> Add
+							<% end %>
+						</li> 
+					</ul>
+			</li>
+		</ul>
+	</div>
+	<table id="users">
+		<thead>
+			<tr>
+				<th><%= I18n.t('activerecord.attributes.user.name')%></th>
+				<th><%= I18n.t('activerecord.attributes.user.account')%></th>
+				<th><%= I18n.t('activerecord.attributes.user.mobile')%></th>
+				<th><%= I18n.t('activerecord.attributes.user.manager')%></th>
+				<th><%= I18n.t('views.text.action')%></th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @users.each do |u| %>
+			<tr>
+				<td><%= u.name.nil? ? '-' : u.name%></td>
+				<td><%= u.account %></td>
+				<td><%= u.mobile.nil?  ? '-' : u.mobile %></td>
+				<td><%= u.manager.nil? ? '-' : (u.manager.name.nil? ? '-' :  u.manager.name )  %></td>
+				<td>
+					<%=link_to I18n.t('views.text.edit'),edit_user_path(u),:class=>"btn btn-mini btn-green" %> 
+					<%= link_to I18n.t('views.text.destroy'), 
+					user_path(u), 
+					:method => :delete, 
+					:confirm => I18n.t('views.text.confirm',:model => I18n.t('activerecord.models.user')), 
+					:class => 'btn btn-mini btn-red' %>
+				</td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

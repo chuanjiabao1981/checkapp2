@@ -71,7 +71,7 @@ describe "Users" do
         fill_in I18n.t("activerecord.attributes.user.password_confirmation"),with: "123456"
         select users_as_member[0].name,from: I18n.t("activerecord.attributes.user.manager_id")
         select user_as_admin.tenant.name,from: I18n.t("activerecord.attributes.user.tenant_id")
-        choose(Role.get_member.name)
+        select Role.get_member.name,from: I18n.t("activerecord.attributes.user.role_id")
         click_button I18n.t("helpers.submit.create",model: I18n.t("activerecord.models.user"))
       end
       it 'should'  do

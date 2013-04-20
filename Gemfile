@@ -10,6 +10,8 @@ gem 'rails', '3.2.1'
 gem 'pg'
 gem 'validates_timeliness', '~> 3.0'
 gem 'state_machine','~> 1.2.0'
+gem 'will_paginate', '~> 3.0'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -23,7 +25,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'bootstrap-sass', '~> 2.3.1.0'
   gem 'compass-rails'
-  gem 'jquery-ui-rails'
+  #gem 'jquery-ui-rails'
 end
 
 
