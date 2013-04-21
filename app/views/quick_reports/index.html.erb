@@ -1,23 +1,43 @@
-<ul>
-	<% @quick_reports.each do |q| %>
-		<li><%=link_to q.issue.desc, quick_report_path(q) %></li>
-		<li><%= q.issue.submitter.name %></li>
-		<% if allow? :quick_reports,:edit , q %>
-			<li><%=link_to I18n.t('views.text.edit'), edit_quick_report_path(q) %></li>
-		<% end %>
-		<% if allow? :quick_reports,:destroy ,q %>
-			<li><%=link_to I18n.t('views.text.destroy'),
-					quick_report_path(q),
-					method: :delete ,  
-					confirm: I18n.t('views.text.confirm',:model => t('activerecord.models.quick_report')) 
-				%>
-			</li>
-		<% end %>
-		<li>
-			<%= q.issue.human_state_name %>
-		</li>
-		<li>
-			<%= q.issue.level %>
-		</li>
-	<% end %>
-</ul>
+<div class="span9">
+	<div class="box">
+		<div class="box-header">
+			<span class="title">News with avatars (scrollable box)</span>
+		</div>
+		<div class="box-content">
+			<% @quick_reports.each do |q| %>
+				<div class="box-section news with-icons">
+					<%= render partial:'shared/issue_state_icon',locals:{issue:q.issue} %>
+					<div class="news-time">
+						<span><%=q.created_at.day%></span><%=I18n.t("date.month_names")[q.created_at.month]%>
+					</div>
+					<div class="news-content">
+						<div class="news-title"> 
+								<p>
+									<%=link_to q.issue.desc, quick_report_path(q) %>
+								</p>
+						</div>
+
+						<div style="float:right">
+							<% if allow? :quick_reports,:edit , q %>
+							<%=link_to I18n.t('views.text.edit'), edit_quick_report_path(q) ,:class=> "btn  btn-blue btn-mini"%>
+							<% end %>
+							<% if allow? :quick_reports,:destroy ,q %>
+							<%=link_to I18n.t('views.text.destroy'),
+							quick_report_path(q),
+							method: :delete ,  
+							confirm: I18n.t('views.text.confirm',:model => t('activerecord.models.quick_report')) ,
+							:class=> "btn  btn-red btn-mini" %>
+							<% end %>
+						</div>
+						<div style="margin-right:150px">
+							<span class="label label-green"><%=  q.issue.human_state_name %></span>
+							<span class="label label-purple"><%= q.issue.responsible_person.nil? ? '-': q.issue.responsible_person.name %></span>
+							<span class="label label-dark-red"><%= q.issue.deadline%></span>
+							<%= render partial: 'shared/issue_level',locals:{issue:q.issue} %>
+						</div>
+					</div>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>

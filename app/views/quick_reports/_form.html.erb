@@ -1,13 +1,24 @@
-<%= simple_form_for @quick_report  ,:html => { :class => 'form-horizontal' } do |f| %>
-	<%= f.error_notification %>
-	<fieldset>
-		<%= f.simple_fields_for :issue do |builder| %>
-			<%= render 'shared/issue_fields', f: builder , issue: @quick_report.issue %>
-		<% end %>
-  		<%= f.error :base , :error_method => :to_sentence %>
-  	</fieldset>
-  	<div class="form-actions">
-  		<%= f.button :submit , :class => 'btn btn-primary' %>
-  		<%= link_to '取消', quick_reports_path, :class => 'btn' %>
-  	</div>
-<% end %>
+<div class="box">
+  <div class="box-header">
+    <span class="title"><%= 
+          (@quick_report.new_record? ?  I18n.t('views.text.new') : I18n.t('views.text.edit')) +
+          I18n.t('activerecord.models.quick_report')%></span>
+  </div>
+  <div class="box-content">
+    <%= simple_form_for @quick_report  ,:html => { :class => 'form-horizontal' } do |f| %>
+      <div class="padded separate-sections">
+        <%= f.error_notification %>
+        <fieldset>
+          <%= f.simple_fields_for :issue do |builder| %>
+            <%= render 'shared/issue_fields', f: builder , issue: @quick_report.issue %>
+          <% end %>
+          <%= f.error :base , :error_method => :to_sentence %>
+        </fieldset>
+      </div>
+      <div class="form-actions">
+        <%= f.button :submit , :class => 'btn btn-primary' %>
+        <%= link_to '取消', quick_reports_path, :class => 'btn' %>
+      </div>
+    <% end %>
+  </div>
+</div>

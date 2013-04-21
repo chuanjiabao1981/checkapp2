@@ -1,0 +1,17 @@
+<% if issue.closed? %>
+	<div class="avatar blue">
+		<i class="icon-ok icon-2x"></i>
+	</div>
+<% elsif issue.verifying_resolve? %>
+	<div class="avatar green">
+		<i class="icon-lightbulb icon-2x"></i>
+	</div>
+<% elsif issue.resolve_denied? %>
+	<div class="avatar purple">
+		<i class="icon-exchange icon-2x"></i>
+	</div>
+<% else %>
+	<div class="avatar cyan">
+		<i class="icon-bolt icon-2x"></i>
+	</div>
+<% end %>

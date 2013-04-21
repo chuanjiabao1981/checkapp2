@@ -10,9 +10,11 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require core-admin/vendor/jquery-182
+//= require jquery
+//= require jquery-migrate-min
 //= require jquery_ujs
-//= require core-admin/vendor/jqueryui1102
+//= require jquery.ui.all
+//= require jquery.ui.datepicker-zh-CN
 //= require bootstrap
 //= require core-admin/vendor/fullcalendar/fullcalendar
 //= require core-admin/vendor/jquery_gritter
@@ -35,8 +37,6 @@
 //= require core-admin/vendor/validation/jquery.validationEngine-en
 //= require core-admin/vendor/validation/jquery.validationEngine
 //= require core-admin/vendor/fullcalendar/calendar_events
-//= require core-admin/vendor/bootstrap-editable
-//= require core-admin/vendor/editable/editable_demo
 //= require core-admin/vendor/ibutton
 //= require core-admin/gritter
 //= require core-admin/calendar

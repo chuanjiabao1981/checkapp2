@@ -11,6 +11,7 @@
 /*
  *= require_self
  *= require_tree .
+ *= require jquery.ui.datepicker
  *= require core-admin/bootstrap_include
  *= require core-admin/uniform_default
  *= require core-admin/base

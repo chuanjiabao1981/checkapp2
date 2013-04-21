@@ -8,6 +8,9 @@ class Issue < ActiveRecord::Base
 
 
 	ISSUE_LEVEL_SET=%W(高 中 低)
+	ISSUE_STAR_NUM = {"高"=> 3,
+					  "中"=>2,
+					  "低"=>1}
 
 	before_create :issue_opened_action
 
@@ -66,6 +69,7 @@ class Issue < ActiveRecord::Base
 		state :resolve_denied do
 			transition :to => :verifying_resolve	,			:on => :commit_resolve
 			transition :to => :opened 				,			:on => :change_responsible_person
+			transition :to => :closed				,			:on => :close
 			validates_presence_of :responsible_person
 		end
 	end

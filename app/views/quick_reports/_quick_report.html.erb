@@ -1,1 +1,25 @@
-<%= render :partial => "shared/issue", :locals => { :issue => quick_report.issue } %>
+<div class="box">
+	<%= render :partial => "shared/issue", :locals => { :issue => quick_report.issue } %>
+	<div class="box-footer flat">
+		<p style="margin:4px">
+			<% if allow? :quick_reports,:edit,quick_report %>
+			<%=link_to I18n.t('views.text.edit'), 
+			edit_quick_report_path(quick_report),
+			:class=>"btn btn-mini btn-green"%>
+			<% end %>
+			<% if allow? :quick_reports,:destroy , quick_report %>
+			<%=link_to I18n.t('views.text.destroy'), 
+			quick_report_path(quick_report),
+			method: :delete ,
+			confirm: I18n.t('views.text.confirm',:model => t('activerecord.models.quick_report')),
+			:class=>"btn btn-mini btn-red" 
+			%>
+			<% end %>
+			<% if allow? :resolves,:new , quick_report.issue %>
+			<%=link_to I18n.t('views.text.handle'), 
+			new_issue_resolf_path(quick_report.issue) ,
+			:class=>"btn btn-mini btn-blue"%>
+			<% end %>
+		</p>
+	</div>
+</div>
