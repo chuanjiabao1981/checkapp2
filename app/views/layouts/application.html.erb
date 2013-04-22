@@ -9,7 +9,7 @@
   <script src="http://api.map.baidu.com/api?v=1.5&ak=96fae1b51460b6910217e1b09658fb40" type="text/javascript"></script>
 </head>
 <body>
-	<ul>
+	<!--ul>
 		<% if signed_in? %>
 			<li><%= link_to current_user.name ,'#' %></li>
 			<li><%= link_to I18n.t('views.text.signout'),signout_path ,method: "delete" %></li>
@@ -18,7 +18,9 @@
 				<%= link_to I18n.t('views.text.signin'),signin_path %>
 			</li>
 		<% end %>
-	</ul>
+	</ul-->
+
+	<%= render 'shared/top_navigation' %>
 
 	<div class="container-fluid">
 		<div class="row-fluid">

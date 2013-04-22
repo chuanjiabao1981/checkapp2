@@ -1,0 +1,96 @@
+<div class="navbar navbar-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+
+      <a class="brand" href="#">Cloud Check</a>
+
+      <!-- the new toggle buttons -->
+
+      <ul class="nav pull-right">
+
+        <li class="toggle-primary-sidebar hidden-desktop" data-toggle="collapse" data-target=".nav-collapse-primary"><a><i class="icon-th-list"></i></a></li>
+
+        <li class="collapsed hidden-desktop" data-toggle="collapse" data-target=".nav-collapse-top"><a><i class="icon-align-justify"></i></a></li>
+
+      </ul>
+
+      <% if current_user %>
+          <%# we're not showing these on some pages (ex: login). these pages define a no-controls variable %>
+
+          <div class="nav-collapse nav-collapse-top">
+
+            <ul class="nav full pull-right">
+              <li class="dropdown user-avatar">
+
+                <!-- the dropdown has a custom user-avatar class, this is the small avatar with the badge -->
+
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <span>
+                    <%= image_tag "avatars/avatar1.jpg", class: "menu-avatar" %> <span><%= current_user.name %> <i class="icon-caret-down"></i></span>
+                    <span class="badge badge-dark-red">5</span>
+                  </span>
+                </a>
+
+                <ul class="dropdown-menu">
+
+                  <!-- the first element is the one with the big avatar, add a with-image class to it -->
+
+                  <li class="with-image">
+                    <div class="avatar">
+                      <%= image_tag "avatars/avatar1.jpg" %>
+                    </div>
+                    <span><%= current_user.name %></span>
+                  </li>
+
+                  <li class="divider"></li>
+                  <li><a href="#"><i class="icon-envelope"></i> <span>Messages</span> <span class="label label-dark-red pull-right">5</span></a></li>
+                  <li>
+                    <%= link_to signout_path ,method: "delete" do %>
+                      <i class="icon-off"></i> <span><%= I18n.t('views.text.signout')%></span>
+                    <% end %>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+            <ul class="nav pull-right">
+              <li class="active">
+                  <%=link_to root_path do%>
+                    <i class="icon-home"></i> 首页
+                  <% end %>
+                </li>
+              <li>
+                <%= link_to users_path  do %>
+                  <i class="icon-user"></i> <%=I18n.t('activerecord.models.user') + I18n.t('views.text.index')%>
+                <%end %>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">常用功能<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <%= link_to I18n.t('activerecord.models.location'),locations_path %>
+                  </li>
+                  <li>
+                    <%= link_to I18n.t('activerecord.models.organization'),organizations_path %>
+                  </li>
+                  <li><%= link_to I18n.t('activerecord.models.quick_report'),quick_reports_path %></li>
+                </ul>
+              </li>
+
+
+            </ul>
+
+          </div>
+      <% else %>
+        <div class="nav-collapse nav-collapse-top">
+          <ul class="nav full pull-right">
+            <li>
+              <%= link_to I18n.t('views.text.signin'),signin_path %>
+            </li>
+          </ul>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>
