@@ -10,6 +10,7 @@ class CreateIssues < ActiveRecord::Migration
       t.references :tenant
       t.references :submitter
       t.references :responsible_person 
+      t.references :location
       t.timestamps
     end
     add_index :issues, :submitter_id
@@ -17,5 +18,6 @@ class CreateIssues < ActiveRecord::Migration
     add_index :issues, :issuable_id
     add_index :issues, :tenant_id
     add_index :issues, :deadline
+    add_index :issues, :location_id
   end
 end

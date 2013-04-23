@@ -5,6 +5,8 @@
 	<%= content_tag "div", id: "current-location",data:{:"current-location" => location} do %>
 	<% end %>
 <% end %>
+<%= content_tag "div", id: "map-config",data:{:"show-click-postion" => true} do %>
+<% end %>
 <div class="box">
 	<div class="box-header">
 		<span class="title"><%= I18n.t('views.text.new') + I18n.t('activerecord.models.location')%></span>

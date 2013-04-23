@@ -8,7 +8,7 @@ module Permissions
       allow_param :user ,[:name,:mobile,:account,:password_confirmation,:password,:manager_id]
 
       allow :sessions,[:new,:create,:destroy]
-      allow :main,[:home]
+      allow :main,[:overview]
       #allow :issues,[:index,:new,:create]
       #allow :issues, [:show,:edit,:update,:destroy,] do |u|
       #  u && u.tenant == user.tenant
@@ -38,7 +38,7 @@ module Permissions
 
 
       allow_param :resolve,[:desc]
-      allow_nested_param :quick_report,:issue_attributes,[:id,:level,:desc,:reject_reason,:deadline,:responsible_person_id,:state_event,:images_attributes=>[[:image],:id]]
+      allow_nested_param :quick_report,:issue_attributes,[:id,:level,:desc,:reject_reason,:deadline,:responsible_person_id,:location_id,:state_event,:images_attributes=>[[:image],:id]]
     end
   end
 end

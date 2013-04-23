@@ -4,11 +4,19 @@
 <div class="box-content">
 	<table class="table table-normal">
 		<tr>
-			<td width="10%">
+			<td width="25%">
 				<%= I18n.t('activerecord.attributes.issue.desc') %>
 			</td>
 			<td>
 				<%= issue.desc %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= I18n.t('activerecord.attributes.issue.location') %>
+			</td>
+			<td>
+				<%= issue.location.name if issue.location%>
 			</td>
 		</tr>
 		<tr>

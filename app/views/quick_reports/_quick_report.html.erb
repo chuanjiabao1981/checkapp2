@@ -1,6 +1,6 @@
 <div class="box">
 	<%= render :partial => "shared/issue", :locals => { :issue => quick_report.issue } %>
-	<div class="box-footer flat">
+	<div class="box-footer">
 		<p style="margin:4px">
 			<% if allow? :quick_reports,:edit,quick_report %>
 			<%=link_to I18n.t('views.text.edit'), 

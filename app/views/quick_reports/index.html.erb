@@ -18,8 +18,13 @@
 						</div>
 
 						<div style="float:right">
+							<% if allow? :resolves,:new , q.issue %>
+								<%=link_to I18n.t('views.text.handle'), 
+									new_issue_resolf_path(q.issue) ,
+									:class=>"btn btn-mini btn-blue"%>
+							<% end %>
 							<% if allow? :quick_reports,:edit , q %>
-							<%=link_to I18n.t('views.text.edit'), edit_quick_report_path(q) ,:class=> "btn  btn-blue btn-mini"%>
+							<%=link_to I18n.t('views.text.edit'), edit_quick_report_path(q) ,:class=> "btn  btn-green btn-mini"%>
 							<% end %>
 							<% if allow? :quick_reports,:destroy ,q %>
 							<%=link_to I18n.t('views.text.destroy'),
@@ -36,7 +41,7 @@
 							<span class="hidden-phone">
 								<%= render partial: 'shared/issue_level',locals:{issue:q.issue} %>
 							</span>
-							<span class="label label-dark-red"><%= q.issue.level %></span> 
+							<span class="hidden-desktop badge badge-red"><%= q.issue.level %></span> 
 						</div>
 					</div>
 				</div>

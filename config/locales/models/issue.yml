@@ -10,6 +10,8 @@ cn:
         deadline: 解决期限
         tenant_id: 域
         submitter_id: 提交者
+        location: 位置
+        location_id: 位置
         submitter: 提交者
         state_event: 问题处理
         responsible_person_id: 责任人

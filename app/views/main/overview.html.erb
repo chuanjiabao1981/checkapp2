@@ -1,0 +1,9 @@
+<div class="row-fluid">
+	<!--div class="span7"-->
+		<%=render 'locations/map' %>
+		<%= content_tag "div", id: "map-config",data:{:"show-click-postion" => false} do %>
+		<% end %>
+	<!--/div-->
+	<%= content_tag "div", id: "location-list",data:{:"location-list" => @locations_of_not_closed_issue} do %>
+	<% end %>
+</div>

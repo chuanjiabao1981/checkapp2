@@ -3,17 +3,40 @@ module ApplicationHelper
 	## 默认所有的action都会出现在breadcrumb
 	## 但是并不是所有的都会出现在sidebar中
 	def menu
-		return {
+		 return  {
 			main:{
-					primary:{icon: "icon-home", label: "概况",link: root_path},
+					primary:{icon: "icon-bar-chart", label: "概况",link: root_path},
 					items: {
-						home: {
-								icon: 		"icon-home", 
+						overview: {
+								icon: 		"icon-bar-chart", 
 								label: 		"概况", 
 								link: 		root_path, 
 								side_nav: 	true
 							  }
 					}
+			},
+			tenants:{
+					primary:{icon: 'icon-qrcode', label: I18n.t('activerecord.models.tenant'),link: tenants_path},
+					items: {
+						index: {
+								 icon: 		'icon-sitemap',
+								 label: 	I18n.t('activerecord.models.tenant') + I18n.t('views.text.index'),
+								 link: 		tenants_path,
+								 side_nav:  true
+							   },
+						new:   {
+								 icon:      'icon-list-alt',
+								 label:     I18n.t('views.text.new') + I18n.t('activerecord.models.tenant'),
+								 link: 		new_tenant_path,
+								 side_nav:  true
+							   },
+						edit:  {
+								 icon: 		'icon-file',
+								 label: 	I18n.t('views.text.edit') + I18n.t('activerecord.models.user'),
+								 side_nav:   false
+						}
+					}
+
 			},
 			users:{
 				primary:{icon: "icon-user",label:I18n.t('activerecord.models.user')},

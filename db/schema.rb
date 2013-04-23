@@ -36,12 +36,14 @@ ActiveRecord::Schema.define(:version => 20130420071342) do
     t.integer  "tenant_id"
     t.integer  "submitter_id"
     t.integer  "responsible_person_id"
+    t.integer  "location_id"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
   end
 
   add_index "issues", ["deadline"], :name => "index_issues_on_deadline"
   add_index "issues", ["issuable_id"], :name => "index_issues_on_issuable_id"
+  add_index "issues", ["location_id"], :name => "index_issues_on_location_id"
   add_index "issues", ["responsible_person_id"], :name => "index_issues_on_responsible_person_id"
   add_index "issues", ["submitter_id"], :name => "index_issues_on_submitter_id"
   add_index "issues", ["tenant_id"], :name => "index_issues_on_tenant_id"

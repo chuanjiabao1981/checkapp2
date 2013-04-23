@@ -3,6 +3,7 @@
 <%= f.input :deadline ,as: :string %>
 <%= f.association :responsible_person, collection: User.all,
 			disabled:  ! issue.can_change_responsible_person? %>
+<%= f.association :location, collection: Location.all,:include_blank => true %>
 <%= f.input :state,:disabled=>true,:input_html => {:value => f.object.human_state_name} %>
 <% if not issue.state_event_collection.empty? %>
 	<%= f.input :state_event,collection: issue.state_event_collection %>

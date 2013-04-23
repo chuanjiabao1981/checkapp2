@@ -27,6 +27,7 @@ class Issue < ActiveRecord::Base
 	belongs_to :submitter,	:class_name=>"User",:foreign_key => "submitter_id"
 	belongs_to :issuable,:polymorphic => true
 	belongs_to :tenant
+	belongs_to :location
 
 
 	has_many :videos,:as => :video_attachment,:dependent => :destroy
