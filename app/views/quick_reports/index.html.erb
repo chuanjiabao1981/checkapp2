@@ -30,10 +30,13 @@
 							<% end %>
 						</div>
 						<div style="margin-right:150px">
-							<span class="label label-green"><%=  q.issue.human_state_name %></span>
-							<span class="label label-purple"><%= q.issue.responsible_person.nil? ? '-': q.issue.responsible_person.name %></span>
-							<span class="label label-dark-red"><%= q.issue.deadline%></span>
-							<%= render partial: 'shared/issue_level',locals:{issue:q.issue} %>
+							<span class="label label-green hidden-phone"><%=  q.issue.human_state_name %></span>
+							<span class="label label-purple hidden-phone"><%= q.issue.responsible_person.nil? ? '-': q.issue.responsible_person.name %></span>
+							<span class="label label-dark-red hidden-phone"><%= q.issue.deadline%></span>
+							<span class="hidden-phone">
+								<%= render partial: 'shared/issue_level',locals:{issue:q.issue} %>
+							</span>
+							<span class="label label-dark-red"><%= q.issue.level %></span> 
 						</div>
 					</div>
 				</div>
