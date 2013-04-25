@@ -14,7 +14,7 @@ module Permissions
       allow :resolves,[:edit,:update] do |resolve|
         resolve && resolve.tenant_id == user.tenant_id && resolve.submitter_id == user.id && resolve.issue && !resolve.issue.closed?
       end
-      allow :quick_reports,[:index,:new,:create]
+      allow :quick_reports,[:index,:new,:create,:search]
       allow :quick_reports,[:show] do |quick_report|
         quick_report && quick_report.tenant == user.tenant
       end

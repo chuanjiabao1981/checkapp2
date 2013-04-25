@@ -30,7 +30,18 @@ module ApplicationHelper
 								 link: 		new_tenant_path,
 								 side_nav:  true
 							   },
+						create:   {
+								 icon:      'icon-list-alt',
+								 label:     I18n.t('views.text.new') + I18n.t('activerecord.models.tenant'),
+								 link: 		new_tenant_path,
+								 side_nav:  false
+							   },
 						edit:  {
+								 icon: 		'icon-file',
+								 label: 	I18n.t('views.text.edit') + I18n.t('activerecord.models.user'),
+								 side_nav:   false
+						},
+						update:  {
 								 icon: 		'icon-file',
 								 label: 	I18n.t('views.text.edit') + I18n.t('activerecord.models.user'),
 								 side_nav:   false
@@ -53,12 +64,23 @@ module ApplicationHelper
 							  link:      new_user_path,
 							  side_nav:  true
 							},
+					create:   {
+							  icon: 	'icon-user-md', 
+							  label:     I18n.t('views.text.new') + I18n.t('activerecord.models.user'),
+							  link:      new_user_path,
+							  side_nav:  false
+							},
 					show:  { 
 							  icon: 		'icon-file-alt',
 							  label:      I18n.t('views.text.show') + I18n.t('activerecord.models.user')	,
 							  side_nav:   false
 						},
 					edit:{
+								icon: 		'icon-file',
+								label: 		I18n.t('views.text.edit') + I18n.t('activerecord.models.user'),
+								side_nav:   false
+						},
+					update:{
 								icon: 		'icon-file',
 								label: 		I18n.t('views.text.edit') + I18n.t('activerecord.models.user'),
 								side_nav:   false
@@ -81,7 +103,18 @@ module ApplicationHelper
 							link:   	new_organization_path,
 							side_nav:   true
 						  },
+					create:  {
+							icon:   	'icon-plus-sign',
+							label:  	I18n.t('views.text.new') + I18n.t('activerecord.models.organization'),
+							link:   	new_organization_path,
+							side_nav:   false
+						  },
 					edit:{
+								icon: 		'icon-file',
+								label: 		I18n.t('views.text.edit') + I18n.t('activerecord.models.organization'),
+								side_nav:   false
+						},
+					update:{
 								icon: 		'icon-file',
 								label: 		I18n.t('views.text.edit') + I18n.t('activerecord.models.organization'),
 								side_nav:   false
@@ -103,16 +136,33 @@ module ApplicationHelper
 								link: 		new_quick_report_path,
 								side_nav: 	true
 							},
+						create: {
+								icon: 		'icon-magic', 
+								label: 		I18n.t('views.text.new') + I18n.t('activerecord.models.quick_report'),
+								link: 		new_quick_report_path,
+								side_nav: 	false
+						},
 						show: {
 								icon: 		'icon-file-alt',
 								label:      I18n.t('views.text.show') + I18n.t('activerecord.models.quick_report')	,
 								side_nav:   false
 							},
 						edit:{
-								icon: 		' icon-file',
+								icon: 		'icon-file',
 								label: 		I18n.t('views.text.edit') + I18n.t('activerecord.models.quick_report'),
 								side_nav:   false
-							}
+							},
+						update:{
+								icon: 		'icon-file',
+								label: 		I18n.t('views.text.edit') + I18n.t('activerecord.models.quick_report'),
+								side_nav:   false
+							},
+						search:{
+								icon: 		'icon-search',
+								label: 		I18n.t('views.text.search'),
+								link: 		search_quick_reports_path,
+								side_nav:   true
+						}
 				}
 			},
 			resolves:{
@@ -123,12 +173,22 @@ module ApplicationHelper
 								label: 		I18n.t('views.text.new') + I18n.t('activerecord.models.resolve'),
 								side_nav:   false
 						},
+						create:  {
+								icon: 		'icon-magic',
+								label: 		I18n.t('views.text.new') + I18n.t('activerecord.models.resolve'),
+								side_nav:   false
+						},
 						show: {
 								icon: 		'icon-file-alt',
 								label: 		I18n.t('views.text.show') + I18n.t('activerecord.models.resolve'),
 								side_nav:   false
 							},
 						edit:{
+								icon: 		'icon-file',
+								label: 		I18n.t('views.text.edit') + I18n.t('activerecord.models.resolve'),
+								side_nav: 	false
+							},
+						update:{
 								icon: 		'icon-file',
 								label: 		I18n.t('views.text.edit') + I18n.t('activerecord.models.resolve'),
 								side_nav: 	false
@@ -150,7 +210,18 @@ module ApplicationHelper
 								link: 		new_location_path,
 								side_nav: 	true
 							},
+						create: {
+							icon: 		"icon-pushpin" ,
+							label: 		I18n.t('views.text.new') + I18n.t('activerecord.models.location'),
+							link: 		new_location_path,
+							side_nav: 	false
+						},
 						edit:{
+								icon: 		'icon-file',
+								label: 		I18n.t('views.text.edit') + I18n.t('activerecord.models.location'),
+								side_nav:   false
+						},
+						update:{
 								icon: 		'icon-file',
 								label: 		I18n.t('views.text.edit') + I18n.t('activerecord.models.location'),
 								side_nav:   false

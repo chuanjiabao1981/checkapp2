@@ -8,7 +8,7 @@ end
 
 class Resolve < ActiveRecord::Base
 
-	validates :desc				,:length => {:maximum => 1024}
+	validates :desc				,:length => {:maximum => 1024},presence: true
 	validates :submitter		,presence: true
 	validates :issue			,presence: true
 	validates :tenant 			,presence: true

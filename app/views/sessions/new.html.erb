@@ -1,7 +1,42 @@
-<%=form_for(:session, :url => sessions_path) do |f| %>
-<%=f.label :account %>
-<%=f.text_field :account %>
-<%=f.label :password %>
-<%=f.password_field :password%>
-<%=f.submit I18n.t('views.text.signin')%>
-<% end %>
+<div class="span4 offset4">
+	<div class="padded">
+		<div class="login box" style="margin-top: 80px;">
+
+			<div class="box-header">
+				<span class="title">Login</span>
+			</div>
+
+			<div class="box-content padded">
+				<%= form_for(:session, :url => sessions_path, :html=>{class: "separate-sections"}) do |f| %>
+				<div class="input-prepend">
+					<span class="add-on" href="#">
+						<i class="icon-user"></i>
+					</span>
+					<%= f.text_field :account %>
+				</div>
+
+				<div class="input-prepend">
+					<span class="add-on" href="#">
+						<i class="icon-key"></i>
+					</span>
+					<%=f.password_field :password%>
+				</div>
+
+				<div>
+					<%=  button_tag(:type => 'submit', :class => 'btn btn-primary btn-block')  do %>
+					 Login<i class="icon-signin"></i>
+					 
+					<% end %>
+				</div>
+
+				<% end %>
+
+				<div>
+					<% link_to "/pages/other/sign_up.html", relative: true do %>
+					Don't have an account? <strong>Sign Up</strong>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

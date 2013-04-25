@@ -38,9 +38,11 @@
       <div class="area-top clearfix">
         <div class="pull-left header">
           <h3 class="title">
+            <i class="<%= menu[controller_name.to_sym][:items][action_name.to_sym][:icon] %>"></i>
+            <%= menu[controller_name.to_sym][:items][action_name.to_sym][:label] %>
           </h3>
           <h5>
-            A subtitle can be added here
+            <%= current_user.tenant.name if current_user.tenant %>
           </h5>
         </div>
 

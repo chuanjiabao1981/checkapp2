@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
 	def new
+		render layout:'only_topbar'
 	end
 	
 	def create
@@ -9,7 +10,7 @@ class SessionsController < ApplicationController
 			return redirect_to root_path
 		else
 			flash.now[:error] = I18n.t('session.errors.account_or_password')
-			render 'new'
+			render 'new',layout:'only_topbar'
 		end
 	end
 	def destroy

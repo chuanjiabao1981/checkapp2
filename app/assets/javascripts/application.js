@@ -40,9 +40,6 @@
 //= require core-admin/vendor/ibutton
 //= require core-admin/gritter
 //= require core-admin/calendar
-//= require core-admin/charts/xcharts_left_sine
-//= require core-admin/charts/xcharts_sine
-//= require core-admin/charts/xcharts_bar
 //= require core-admin/charts/sparkline_samples
 //= require core-admin/generic
 //= require core-admin/custom_actions

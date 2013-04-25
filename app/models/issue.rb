@@ -102,6 +102,16 @@ class Issue < ActiveRecord::Base
 			end
 			s
 		end
+		def self.all_state_collection
+			s = []
+			%W(opened verifying_resolve resolve_denied closed).each do |i|
+				s<<[Issue.human_state_name(i),i]
+			end
+			s
+		end
+		def self.all_level_collection
+			s = [['高','高'],['中','中'],['低','低']]
+		end
 	#def update_attributes(attributes)
 	#	Rails.logger.debug(attributes)
 	#	if self.responsible_person_id != attributes[:responsible_person_id] && self.can_change_responsible_person?

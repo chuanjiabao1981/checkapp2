@@ -17,3 +17,11 @@ cn:
       cancel: 取消
       index: 列表
       show: 查看
+      search: 查询
+  simple_form:
+    labels:
+      search:
+        location: 位置
+        is_closed: 问题是否被处理
+        state: 问题状态
+        level: 严重程度

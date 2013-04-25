@@ -35,11 +35,23 @@ newPosition = (e) ->
   $("input#location_lng").val e.point.lng
   $("input#location_lat").val e.point.lat
 
+getLocationIssueInfoWindow = (location) ->
+  return null  unless location?
+  if location.issue_info?
+    infoWindow = new BMap.InfoWindow(location.issue_info,
+      title: "<div style='border-bottom:2px dotted'>" + location.name + "</div>"
+      height: 0
+      width: 0
+    )
+    return infoWindow
+  null
+
 showLocation = (map, location) ->
   label = undefined
   marker = undefined
   return  unless location?
   marker = new BMap.Marker(new BMap.Point(location.lng, location.lat))
+  marker.location_info = getLocationIssueInfoWindow(location)
   label = undefined
   if location.name?
     label = new BMap.Label(location.name)
@@ -58,6 +70,9 @@ showLocation = (map, location) ->
 
   marker.addEventListener "mouseout", (e) ->
     e.target.setTop false
+
+  marker.addEventListener "click", (e) ->
+    e.target.openInfoWindow e.target.location_info  if e.target.location_info?
 
   map.addOverlay marker
 

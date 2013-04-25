@@ -33,6 +33,14 @@ class QuickReportsController < ApplicationController
 	def show
 		@quick_report = current_resource
 	end
+	def search 
+		if params[:search] and not params[:search].values.all? {|v| v.length == 0}
+			@quick_reports = QuickReport.search(params["search"])
+		else
+			params[:search] = {}
+			@quick_reports = []
+		end
+	end
 	private 
 		def current_resource
     		@current_resource ||= QuickReport.find(params[:id]) if params[:id]

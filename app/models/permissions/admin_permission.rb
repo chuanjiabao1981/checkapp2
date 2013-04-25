@@ -20,7 +20,7 @@ module Permissions
         resolve && resolve.tenant_id == user.tenant_id 
       end
 
-      allow :quick_reports,[:index,:new,:create]
+      allow :quick_reports,[:index,:new,:create,:search]
       allow :quick_reports,[:edit,:update,:destroy,:show]  do |quick_report|
         quick_report && quick_report.tenant_id == user.tenant_id
       end
