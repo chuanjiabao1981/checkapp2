@@ -20,6 +20,7 @@ class Issue < ActiveRecord::Base
 	validates :desc 			,:length => {:maximum => 1024}, :presence => true
 	validates :reject_reason	,:length => {:maximum => 1024}
 	validates_date :deadline,:on_or_after => lambda { Date.current } , :if => :new_record?
+	validates_date :deadline
 	validates :tenant, :presence => true
 	validates :submitter,:presence => true
 	validates_presence_of :issuable_type

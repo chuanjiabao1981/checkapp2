@@ -12,6 +12,13 @@
 					<%= resolve.desc %>
 				</td>
 			</tr>
+			<% if (not resolve.images.nil?) and (resolve.images.size != 0)%>
+			<tr>
+				<td colspan="2">
+					<%= render partial:'shared/images',locals:{images:resolve.images,carousel_id:random_string} %>
+				</td>
+			</tr>
+		<% end %>
 		</table>
 	</div>
 	<div class="box-footer">

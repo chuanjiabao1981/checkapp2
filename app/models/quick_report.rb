@@ -28,7 +28,7 @@ class QuickReport < ActiveRecord::Base
 	#最近d天的
 	scope :last_day ,lambda {|d| joins(:issue).where('issues.created_at >?',d.day.ago.beginning_of_day)}
 
-	scope :latest_quick_report,lambda { joins(:issue).order('issues.created_at DESC').limit(10)}
+	scope :latest_quick_report,lambda { order('quick_reports.created_at DESC').limit(10)}
 
 	def self.new_quick_report_and_issue(params,current_user)
 		a = QuickReport.new(params)

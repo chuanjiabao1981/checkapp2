@@ -1,6 +1,7 @@
 #encoding:utf-8
 class ApplicationController < ActionController::Base
 	include SessionsHelper
+  include QuickReportsHelper
   protect_from_forgery
   before_filter :authorize
 

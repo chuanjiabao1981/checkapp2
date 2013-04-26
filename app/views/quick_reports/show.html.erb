@@ -1,6 +1,7 @@
+<%= render @quick_report %>
+
 <% if @quick_report.issue and @quick_report.issue.resolve %>
 	<%= render :partial => "resolves/resolve", :locals => { :resolve => @quick_report.issue.resolve } %>
 <% end %>
-<%= render @quick_report %>
 
 

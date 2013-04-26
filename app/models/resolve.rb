@@ -21,6 +21,7 @@ class Resolve < ActiveRecord::Base
 	has_many :videos,:as => :video_attachment,:dependent => :destroy
 	has_many :images,:as => :image_attachment,:dependent => :destroy
 
+	accepts_nested_attributes_for :images
 
 
 	default_scope { where(tenant_id: Tenant.current_id)  if Tenant.current_id }

@@ -56,7 +56,6 @@ module Permissions
         @allowed_params.each do |resource, attributes|
           if params[resource].respond_to? :permit
             params[resource] = params[resource].permit(*attributes.flatten)
-            Rails.logger.debug(*attributes.flatten)
           end
         end
       end

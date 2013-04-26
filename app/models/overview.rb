@@ -1,7 +1,7 @@
 #encoding:utf-8
 module Overview
 	def self.not_closed_issues
-		Issue.joins(:location).find(:all,:conditions=>["state!=? and location_id is not null","closed"])
+		Issue.includes(:location).find(:all,:conditions=>["state!=? and location_id is not null","closed"])
 	end
 
 	def self.locations_of_not_closed_issue
@@ -48,7 +48,6 @@ module Overview
 	def self.unclosed_quick_reports_group_by_level
 		s=QuickReport.group_by_level.closed_state('false')
 		Issue::ISSUE_LEVEL_SET.inject({}) do |result,level|
-			Rails.logger.debug(result)
 			r = s.find {|q| q.level == level}
 			if r.nil?
 				result[level] = 0
@@ -59,6 +58,6 @@ module Overview
 		end
 	end
 	def self.latest_created_quick_report
-		QuickReport.latest_quick_report
+		QuickReport.includes(:issue=>[:resolve,:submitter,:responsible_person]).latest_quick_report
 	end
 end
