@@ -1,0 +1,22 @@
+<div id="<%=carousel_id%>" class="carousel slide">
+  <ol class="carousel-indicators">
+    <% images.each_with_index do |img,i| %>
+      <li data-target="#<%=carousel_id%>" data-slide-to="<%=i%> <%= "active" if i ==0 %>"></li>
+    <% end %>
+  </ol>
+
+  <div class="carousel-inner">
+    <% images.each_with_index do |img,i| %>
+      <div class="item <%= "active" if i ==0 %>">
+        <img src=<%= img.image.url%>/>
+        <div class="carousel-caption">
+          <h4>图片上传时间</h4>
+          <p><%= img.updated_at %><p>
+        </div>
+      </div>
+   <% end %>
+  </div>
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#<%=carousel_id%>" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#<%=carousel_id%>" data-slide="next">&rsaquo;</a>
+</div>

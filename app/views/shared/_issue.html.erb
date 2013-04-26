@@ -62,5 +62,12 @@
 				<%= issue.responsible_person.name if issue.responsible_person %>
 			</td>
 		</tr>
+		<% if (not issue.images.nil?) and (issue.images.size != 0)%>
+			<tr>
+				<td colspan="2">
+					<%= render partial:'shared/images',locals:{images:issue.images,carousel_id:random_string} %>
+				</td>
+			</tr>
+		<% end %>
 	</table>
 </div>

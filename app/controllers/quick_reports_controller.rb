@@ -4,7 +4,10 @@ class QuickReportsController < ApplicationController
 	end
 	def new
 		@quick_report = QuickReport.new
-		@quick_report.build_issue
+		issue 		  = @quick_report.build_issue
+		issue.images.build
+		issue.images.build
+		issue.images.build
 	end
 	def create
 		@quick_report = QuickReport.new_quick_report_and_issue(params[:quick_report],current_user)

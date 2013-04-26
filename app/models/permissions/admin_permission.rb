@@ -38,7 +38,7 @@ module Permissions
 
 
       allow_param :resolve,[:desc]
-      allow_nested_param :quick_report,:issue_attributes,[:id,:level,:desc,:reject_reason,:deadline,:responsible_person_id,:location_id,:state_event,:images_attributes=>[[:image],:id]]
+      allow_nested_param :quick_report,:issue_attributes,[:id,:level,:desc,:reject_reason,:deadline,:responsible_person_id,:location_id,:state_event,:images_attributes=>[:image,:id]]
     end
   end
 end

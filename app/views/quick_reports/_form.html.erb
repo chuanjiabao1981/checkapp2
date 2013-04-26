@@ -5,18 +5,20 @@
           I18n.t('activerecord.models.quick_report')%></span>
   </div>
   <div class="box-content">
-    <%= simple_form_for @quick_report  ,:html => { :class => 'form-horizontal' } do |f| %>
+    <%= simple_form_for @quick_report  ,:html => { :class => 'form-horizontal fill-up' } do |f| %>
       <div class="padded separate-sections">
         <%= f.error_notification %>
         <fieldset>
-          <%= f.simple_fields_for :issue do |builder| %>
-            <%= render 'shared/issue_fields', f: builder , issue: @quick_report.issue %>
-          <% end %>
-          <%= f.error :base , :error_method => :to_sentence %>
+          <div class="row-fluid">
+            <%= f.simple_fields_for :issue do |builder| %>
+              <%= render 'shared/issue_fields', f: builder , issue: @quick_report.issue %>
+            <% end %>
+            <%= f.error :base , :error_method => :to_sentence %>
+          </div>
         </fieldset>
       </div>
       <div class="form-actions">
-        <%= f.button :submit , :class => 'btn btn-primary' %>
+        <%= button_tag "提交" , :class => 'btn btn-blue' %>
         <%= link_to '取消', quick_reports_path, :class => 'btn' %>
       </div>
     <% end %>
