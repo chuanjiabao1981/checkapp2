@@ -4,46 +4,10 @@
 		</div>
 		<div class="box-content">
 			<% quick_reports.each do |q| %>
-				<div class="box-section news with-icons">
-					<%= render partial:'shared/issue_state_icon',locals:{issue:q.issue} %>
-					<div class="news-time">
-						<span><%=q.created_at.day%></span><%=I18n.t("date.month_names")[q.created_at.month]%>
-					</div>
-					<div class="news-content">
-						<div class="news-title"> 
-								<p>
-									<%=link_to q.issue.desc, quick_report_path(q) %>
-								</p>
-						</div>
-
-						<div style="float:right">
-							<% if allow? :resolves,:new , q.issue %>
-								<%=link_to I18n.t('views.text.handle'), 
-									new_issue_resolf_path(q.issue) ,
-									:class=>"btn btn-mini btn-blue"%>
-							<% end %>
-							<% if allow? :quick_reports,:edit , q %>
-							<%=link_to I18n.t('views.text.edit'), edit_quick_report_path(q) ,:class=> "btn  btn-green btn-mini"%>
-							<% end %>
-							<% if allow? :quick_reports,:destroy ,q %>
-							<%=link_to I18n.t('views.text.destroy'),
-							quick_report_path(q),
-							method: :delete ,  
-							confirm: I18n.t('views.text.confirm',:model => t('activerecord.models.quick_report')) ,
-							:class=> "btn  btn-red btn-mini" %>
-							<% end %>
-						</div>
-						<div style="float:left">
-							<span class="label label-green hidden-phone"><%=  q.issue.human_state_name %></span>
-							<span class="label label-purple hidden-phone"><%= q.issue.responsible_person.nil? ? '-': q.issue.responsible_person.name %></span>
-							<span class="label label-dark-red hidden-phone"><%= q.issue.deadline%></span>
-							<span class="hidden-phone">
-								<%= render partial: 'shared/issue_level',locals:{issue:q.issue} %>
-							</span>
-							<span class="hidden-desktop label label-red"><%= q.issue.level %></span> 
-						</div>
-					</div>
-				</div>
+				<%= render partial:'index_item',locals:{q: q,only_time:false} %>
 			<% end %>
 		</div>
+		<div class="box-footer">
+		<%= will_paginate quick_reports ,class: "pagination pagination-centered pagination-mini"%>
+	</div>
 	</div>

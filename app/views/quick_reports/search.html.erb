@@ -20,4 +20,6 @@
     <% end %>
   </div>
 </div>
+<% if @quick_reports.size > 0 %>
 <%= render partial: 'quick_reports',locals:{quick_reports: @quick_reports} %>
+<% end %>

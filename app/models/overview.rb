@@ -44,4 +44,21 @@ module Overview
 				}
 			]
 	end
+
+	def self.unclosed_quick_reports_group_by_level
+		s=QuickReport.group_by_level.closed_state('false')
+		Issue::ISSUE_LEVEL_SET.inject({}) do |result,level|
+			Rails.logger.debug(result)
+			r = s.find {|q| q.level == level}
+			if r.nil?
+				result[level] = 0
+			else
+				result[level] = r.num
+			end
+			result
+		end
+	end
+	def self.latest_created_quick_report
+		QuickReport.latest_quick_report
+	end
 end

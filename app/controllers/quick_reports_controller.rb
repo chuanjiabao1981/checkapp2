@@ -1,6 +1,6 @@
 class QuickReportsController < ApplicationController
 	def index
-		@quick_reports = QuickReport.all
+		@quick_reports = QuickReport.joins(:issue).order('issues.created_at DESC').paginate(:page => params[:page])
 	end
 	def new
 		@quick_report = QuickReport.new
@@ -35,7 +35,7 @@ class QuickReportsController < ApplicationController
 	end
 	def search 
 		if params[:search] and not params[:search].values.all? {|v| v.length == 0}
-			@quick_reports = QuickReport.search(params["search"])
+			@quick_reports = QuickReport.search(params["search"]).paginate(:page => params[:page])
 		else
 			params[:search] = {}
 			@quick_reports = []

@@ -20,11 +20,15 @@ class QuickReport < ActiveRecord::Base
 
 	scope :by_state, lambda {|state| joins(:issue).where('issues.state = ?',state) unless state.nil? or state.empty? }
 	scope :by_level, lambda {|level| joins(:issue).where('issues.level = ?',level) unless level.nil? or level.empty? }
+	#截至到d天前
 	scope :day_ago, lambda {|d| joins(:issue).where('issues.created_at < ?',d.day.ago.beginning_of_day) unless d.nil? or d == 0}
 	scope :exceed_deadline ,lambda { joins(:issue).where('issues.deadline is not null and issues.deadline < ? and issues.state != ? ',Date.current,"closed")}
 	scope :group_by_created,lambda { joins(:issue).select('count(*) as num, DATE(issues.created_at) as issue_created_at_date').group('DATE(issues.created_at)')}
+	scope :group_by_level, lambda  { joins(:issue).select('count(*) as num, issues.level as level').group('issues.level')}
 	#最近d天的
 	scope :last_day ,lambda {|d| joins(:issue).where('issues.created_at >?',d.day.ago.beginning_of_day)}
+
+	scope :latest_quick_report,lambda { joins(:issue).order('issues.created_at DESC').limit(10)}
 
 	def self.new_quick_report_and_issue(params,current_user)
 		a = QuickReport.new(params)
