@@ -148,6 +148,7 @@ GEM
     rb-fsevent (0.9.3)
     rdoc (3.12.2)
       json (~> 1.4)
+    rmagick (2.13.1)
     rspec (2.9.0)
       rspec-core (~> 2.9.0)
       rspec-expectations (~> 2.9.0)
@@ -223,6 +224,7 @@ DEPENDENCIES
   pg
   rails (= 3.2.1)
   rb-fsevent
+  rmagick
   rspec-rails (~> 2.0)
   sass-rails (~> 3.2.3)
   simple_form

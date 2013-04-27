@@ -1,6 +1,6 @@
 class QuickReportsController < ApplicationController
 	def index
-		@quick_reports = QuickReport.joins(:issue).order('issues.created_at DESC').paginate(:page => params[:page])
+		@quick_reports = QuickReport.includes(:issue=>[:submitter,:responsible_person,:resolve]).paginate(:page => params[:page]).order('quick_reports.created_at DESC')
 	end
 	def new
 		@quick_report = QuickReport.new

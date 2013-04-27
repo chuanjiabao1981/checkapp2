@@ -9,7 +9,7 @@ $ ->
     paddingRight: 10
     axisPaddingTop: 5
     axisPaddingLeft: 5
-    tickHintY: $("div#xcharts-data").data("y-distinct-value-num") 
+    tickHintY: $("div#xcharts-data").data("y-distinct-value-num") + 1 
     dataFormatX: (x) ->
       d3.time.format("%Y-%m-%d").parse x
 

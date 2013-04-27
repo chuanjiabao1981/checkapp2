@@ -43,6 +43,7 @@ end
 
 gem 'jquery-rails'
 gem 'strong_parameters'
+gem 'rmagick'
 gem 'carrierwave'
 
 

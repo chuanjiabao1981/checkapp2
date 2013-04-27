@@ -8,9 +8,9 @@
 <% if not issue.state_event_collection.empty? %>
 	<%= f.input :state_event,collection: issue.state_event_collection %>
 <% end %>
+<%= f.input :desc ,:input_html => {:rows=>5 }%>
 </div>
 <div class="span6">
-<%= f.input :desc ,:input_html => {:rows=>5 }%>
 <%= render partial:'shared/image_fields',locals:{f: f} %>
 </div>
 <%= f.error :base ,:error_method => :to_sentence %>

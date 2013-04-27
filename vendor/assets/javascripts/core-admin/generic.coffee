@@ -156,7 +156,6 @@ $ ->
 
 
   #initialize photo gallery
-  $('#thumbs a').touchTouch();
 
   #block all links with #. this is for demo purposes only. remove it in production
   $("a[href='#']").click (e) -> e.preventDefault()

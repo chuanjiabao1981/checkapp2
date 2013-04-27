@@ -1,3 +1,8 @@
 <%= f.simple_fields_for :images do |builder| %>
-	<%= builder.input :image ,as: :file ,:placeholder => "Placeholder" %>
+<%= builder.input :image, :as => :image_preview, :input_html => {:preview_version => :small_thumb} %>
+<% if not builder.object.new_record? %>
+	<ul>
+		<%= builder.input :_destroy ,:as => :boolean ,:wrapper => :inline_checkbox,:label=>"删除" %>
+	</ul>
+<% end %>
 <% end %>

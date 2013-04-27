@@ -19,8 +19,8 @@ class Issue < ActiveRecord::Base
 
 	validates :desc 			,:length => {:maximum => 1024}, :presence => true
 	validates :reject_reason	,:length => {:maximum => 1024}
-	validates_date :deadline,:on_or_after => lambda { Date.current } , :if => :new_record?
-	validates_date :deadline
+	validates_date :deadline,:on_or_after => lambda { Date.current } , :on => :create,:allow_nil => true,:allow_blank=>true
+	validates_date :deadline,:allow_nil => true,:allow_blank=>true
 	validates :tenant, :presence => true
 	validates :submitter,:presence => true
 	validates_presence_of :issuable_type
@@ -37,7 +37,7 @@ class Issue < ActiveRecord::Base
 
 	#validates_with TestValidator
 	
-	accepts_nested_attributes_for :images
+	accepts_nested_attributes_for :images, allow_destroy: true
 	
 	default_scope { where(tenant_id: Tenant.current_id)  if Tenant.current_id }
 

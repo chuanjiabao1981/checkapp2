@@ -1,3 +1,13 @@
 // Place all the styles related to the QuickReports controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.form-horizontal {
+  div.checkbox.inline {
+    .control-label {
+      text-align: left;
+    }
+    .control-label input{
+      width: 20%
+    }
+  }
+}
