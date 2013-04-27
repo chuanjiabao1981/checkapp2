@@ -18,7 +18,13 @@ class QuickReport < ActiveRecord::Base
 
 	scope :by_location, lambda {|location| joins(:issue).where("issues.location_id = ?",location) unless location.nil? or location.empty? }
 
-	scope :by_state, lambda {|state| joins(:issue).where('issues.state = ?',state) unless state.nil? or state.empty? }
+	scope :by_state, lambda {|state| 
+		if state == 'needed_verify'
+			joins(:issue).where("issues.state =? ", 'verifying_resolve')
+		elsif state == 'needed_resolve'
+			joins(:issue).where("issues.state = ? or issues.state = ?", "opened","resolve_denied")
+		end
+	}
 	scope :by_level, lambda {|level| joins(:issue).where('issues.level = ?',level) unless level.nil? or level.empty? }
 	#截至到d天前
 	scope :day_ago, lambda {|d| joins(:issue).where('issues.created_at < ?',d.day.ago.beginning_of_day) unless d.nil? or d == 0}
@@ -29,6 +35,24 @@ class QuickReport < ActiveRecord::Base
 	scope :last_day ,lambda {|d| joins(:issue).where('issues.created_at >?',d.day.ago.beginning_of_day)}
 
 	scope :latest_quick_report,lambda { order('quick_reports.created_at DESC').limit(10)}
+	scope :by_responsible_person,lambda {|responsible_person_id|
+		joins(:issue).
+		where("issues.responsible_person_id = ?" , responsible_person_id) unless responsible_person_id.nil? or responsible_person_id.empty?
+	}
+	scope :by_submitter,lambda {|submitter|
+		joins(:issue).
+		where("issues.submitter_id = ?",submitter) unless submitter.nil? or submitter.empty?
+	}
+	scope :needed_resolve,
+	lambda {|needed_resolve| 
+		joins(:issue).
+		where("issues.state = ? or issues.state = ?", "opened","resolve_denied") unless needed_resolve.nil? or needed_resolve =="0"
+	}
+	scope :needed_verify,
+	lambda {|needed_verify|
+		joins(:issue).
+		where("issues.state =? ", 'verifying_resolve') unless needed_verify.nil? or needed_verify == "0"
+	}
 
 	def self.new_quick_report_and_issue(params,current_user)
 		a = QuickReport.new(params)
@@ -47,6 +71,11 @@ class QuickReport < ActiveRecord::Base
 	end
 
 	def self.search(options)
-		QuickReport.closed_state(options["is_closed"]).by_location(options[:location]).by_state(options[:state]).by_level(options[:level]).day_ago(options[:day].to_i)
+		QuickReport.includes(:issue=>[:submitter,:responsible_person,:resolve]).closed_state(options["is_closed"]).
+					by_location(options[:location]).
+					by_state(options[:state]).
+					by_level(options[:level]).
+					by_responsible_person(options[:responsible_person]).
+					by_submitter(options[:submitter])
 	end
 end

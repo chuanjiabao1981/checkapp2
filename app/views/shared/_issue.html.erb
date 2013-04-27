@@ -11,17 +11,7 @@
 				<%= issue.desc %>
 			</td>
 		</tr>
-		<tr>
-			<td>
-				<%= I18n.t('activerecord.attributes.issue.location') %>
-			</td>
-			<td>
-
-				<% if issue.location %>
-				<img src="http://api.map.baidu.com/staticimage?center=<%=issue.location.lng%>,<%=issue.location.lat%>&width=480&height=270&zoom=15&labels=<%=issue.location.lng%>,<%=issue.location.lat %>&labelStyles=<%=issue.location.name%>,1,25,0x990099,0xff00,1&dpiType=ph" />
-				<% end %>
-			</td>
-		</tr>
+		
 		<tr>
 			<td>
 				<%= I18n.t('activerecord.attributes.issue.state') %>
@@ -60,6 +50,17 @@
 			</td>
 			<td>
 				<%= issue.responsible_person.name if issue.responsible_person %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= I18n.t('activerecord.attributes.issue.location') %>
+			</td>
+			<td>
+
+				<% if issue.location %>
+				<img src="http://api.map.baidu.com/staticimage?center=<%=issue.location.lng%>,<%=issue.location.lat%>&width=480&height=270&zoom=15&labels=<%=issue.location.lng%>,<%=issue.location.lat %>&labelStyles=<%=issue.location.name%>,1,25,0x990099,0xff00,1&dpiType=ph" />
+				<% end %>
 			</td>
 		</tr>
 		<% if (not issue.images.nil?) and (issue.images.size != 0)%>

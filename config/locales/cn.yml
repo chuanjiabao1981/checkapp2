@@ -13,6 +13,7 @@ cn:
       signout: 退出
       unauthorized: 未授权的访问!
       handle: 处理
+      rehandle: 重新处理
       action: 操作
       cancel: 取消
       index: 列表
@@ -25,3 +26,7 @@ cn:
         is_closed: 问题是否被处理
         state: 问题状态
         level: 严重程度
+        responsible_person: 问题责任人
+        submitter: 问题提交人
+        needed_resolve: 等待解决
+        needed_verify: 等待审核

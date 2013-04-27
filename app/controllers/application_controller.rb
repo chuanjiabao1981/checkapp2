@@ -2,6 +2,8 @@
 class ApplicationController < ActionController::Base
 	include SessionsHelper
   include QuickReportsHelper
+  include MainHelper
+
   protect_from_forgery
   before_filter :authorize
 

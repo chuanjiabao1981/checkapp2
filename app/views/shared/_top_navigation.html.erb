@@ -14,7 +14,7 @@
 
       </ul>
 
-      <% unless defined? @no_controls %>
+      <% unless current_user.nil? %>
           <%# we're not showing these on some pages (ex: login). these pages define a no-controls variable %>
           <div class="nav-collapse nav-collapse-top">
 
@@ -25,8 +25,8 @@
 
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <span>
-                    <%= image_tag "avatars/avatar1.jpg", class: "menu-avatar" %> <span>John Smith <i class="icon-caret-down"></i></span>
-                    <span class="badge badge-dark-red">5</span>
+                    <%= image_tag "avatars/avatar1.jpg", class: "menu-avatar" %> <span><%=current_user.name %> <i class="icon-caret-down"></i></span>
+                    <span class="badge badge-dark-red"><%= total_needed_handle_quick_report_num %></span>
                   </span>
                 </a>
 
@@ -38,34 +38,34 @@
                     <div class="avatar">
                       <%= image_tag "avatars/avatar1.jpg" %>
                     </div>
-                    <span>John Smith</span>
+                    <span><%=current_user.name %> </span>
                   </li>
 
                   <li class="divider"></li>
 
-                  <li><a href="#"><i class="icon-user"></i> <span>Profile</span></a></li>
-                  <li><a href="#"><i class="icon-cog"></i> <span>Settings</span></a></li>
-                  <li><a href="#"><i class="icon-envelope"></i> <span>Messages</span> <span class="label label-dark-red pull-right">5</span></a></li>
-                  <li><a href="#"><i class="icon-off"></i> <span>Logout</span></a></li>
+                  <li>
+                    <%=link_to search_quick_reports_path({:search=>{:state=>"needed_resolve",:responsible_person=>current_user.id}}) do %>
+                     <i class="icon-envelope"></i> <span>待处理</span> <span class="label label-dark-red pull-right"><%=needed_resolve_quick_report_num%></span> 
+                    <% end %>
+                  </li>
+                  <li><%=link_to search_quick_reports_path({:search=>{:state=>"needed_verify",:submitter=>current_user.id}}) do %>
+                    <i class="icon-envelope"></i> <span>待审核</span> <span class="label label-dark-red pull-right"><%=needed_verify_quick_report_num%></span>
+                    <% end %>
+                  </li>
+                  <li><%=link_to signout_path,method: 'delete'  do %><i class="icon-off"></i> <span>Logout</span><% end %></li>
                 </ul>
               </li>
             </ul>
 
-            <form class="navbar-search pull-right">
-              <input type="text" class="search-query animated" placeholder="Search">
-              <i class="icon-search"></i>
-            </form>
 
             <ul class="nav pull-right">
-              <li class="active"><a href="#" title="Go home"><i class="icon-home"></i> Home</a></li>
-              <li><a href="#" title="Manage users"><i class="icon-user"></i> Users</a></li>
+              <li class="active"><%=link_to root_path do %><i class="icon-home"></i> 首页<%end%></li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">常用功能 <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Some link</a></li>
-                  <li><a href="#">One more separated link</a></li>
+                  <li><%= link_to I18n.t('views.text.new') + I18n.t('activerecord.models.quick_report') ,new_quick_report_path %></li>
+                  <li><%= link_to I18n.t('activerecord.models.location')+I18n.t('views.text.index'),locations_path %> </li>
+                  <li><%= link_to I18n.t('activerecord.models.user')+I18n.t('views.text.index'),users_path%></li>
                 </ul>
               </li>
 

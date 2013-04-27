@@ -4,7 +4,7 @@ class ImagePreviewInput < SimpleForm::Inputs::FileInput
     version = input_html_options.delete(:preview_version)
     out = '' # the output string we're going to build
     # check if there's an uploaded file (eg: edit mode or form not saved)
-    if object.send("#{attribute_name}?")
+    if object.send("#{attribute_name}?") and not object.new_record?
       # append preview image to output
       out << template.image_tag(object.send(attribute_name).tap {|o| break o.send(version) if version}.send('url'))
     end
