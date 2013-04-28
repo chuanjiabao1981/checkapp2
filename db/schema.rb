@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130420071342) do
+ActiveRecord::Schema.define(:version => 20130428074847) do
 
   create_table "images", :force => true do |t|
     t.string   "image"
@@ -102,8 +102,11 @@ ActiveRecord::Schema.define(:version => 20130420071342) do
   create_table "tenants", :force => true do |t|
     t.string   "name"
     t.date     "term"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.float    "lng",        :default => 116.404
+    t.float    "lat",        :default => 39.915
+    t.integer  "zoom",       :default => 15
   end
 
   create_table "users", :force => true do |t|

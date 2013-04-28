@@ -1,0 +1,11 @@
+<%= content_tag "div", 
+				id: "map-config",
+				data:{
+					:"show-click-postion" => (defined?(show_position).nil? || show_position.nil?) ? false : show_position,
+					:"input" => (defined?(input).nil? || input.nil?) ? {} : input,
+					:"current-location" => (defined?(location).nil? || location.lat.nil? || location.lng.nil? ) ? "null" : {:lat=>location.lat,:lng=>location.lng, :name => location.name},
+					:"center-lng" => (defined?(location) and not location.lng.nil?) ? location.lng : (current_user.tenant.nil? ? 116.404 : current_user.tenant.lng),
+					:"center-lat" => (defined?(location) and not location.lat.nil?) ? location.lat : (current_user.tenant.nil? ? 39.915  : current_user.tenant.lat),
+					:"zoom"       => current_user.tenant.nil? ? 15: current_user.tenant.zoom
+				} do%>
+<% end %>

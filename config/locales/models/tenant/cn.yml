@@ -6,3 +6,6 @@ cn:
       tenant:
         name: 域名称
         term: 域期限
+        lng: 域中心点纬度
+        lat: 域中心点经度
+        zoom: 域地图的缩放级别

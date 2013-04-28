@@ -1,9 +1,34 @@
-<%= form_for tenant do |f| %>
-<%= render 'shared/error_messages' ,:object => f.object%>
-<%= f.label :name %>
-<%= f.text_field :name %>
-<%= f.label :term %>
-<%= f.text_field :term %>
-<%= f.submit %>
+<%=render partial:"locations/map"%>
+<%= render partial: 'locations/map_config',
+		  locals: {
+		  			input:{"lng"=>"input#tenant_lng","lat"=>"input#tenant_lat","zoom"=>"input#tenant_zoom"},
+		  			location: tenant,
+		  			show_position: true
+				  }
+%>
 
-<% end %>
+
+<div class="box"%>
+	<div class="box-header">
+		<span class="title"><%= I18n.t('views.text.new') + I18n.t('activerecord.models.user')%></span>
+	</div>
+	<div class="box-content">
+		<%= simple_form_for tenant ,:html => { :class => 'form-horizontal'  } do |f|%>
+		<div class="padded separate-sections">
+			<%= f.error_notification %>
+			<fieldset>
+				<%= f.input :name %>
+				<%= f.input :term ,as: :string%>
+				<%= f.input :lng ,as: :string%>
+				<%= f.input :lat ,as: :string%>
+				<%= f.input :zoom,as: :string %>
+				<%= f.error :base %>
+			</fieldset>
+		</div>
+		<div class="form-actions">
+			<%= f.button :submit , :class => 'btn btn-primary' %>
+			<%= link_to I18n.t('views.text.cancel'), tenants_path, :class => 'btn btn-gray' %>
+		</div>
+		<% end %>
+	</div>
+</div>
