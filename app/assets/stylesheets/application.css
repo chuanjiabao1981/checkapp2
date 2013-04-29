@@ -20,6 +20,7 @@
  *= require core-admin/dropdowns
  *= require core-admin/font-awesome
  *= require core-admin/responsive-tables
+ *= require core-admin/fullcalendar
  *= require core-admin/gritter
  *= require core-admin/numeric_stats
  *= require core-admin/form_elements
