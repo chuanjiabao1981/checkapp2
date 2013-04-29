@@ -3,10 +3,6 @@ class @Theme
 
 $ ->
 
-  $('.icheck').iCheck
-    checkboxClass: 'icheckbox_flat-aero'
-    radioClass: 'iradio_flat-aero'
-
   $.uniform.options.fileBtnText = "+"
 
   #top sidebar (secondary) sparkline
@@ -35,22 +31,11 @@ $ ->
   #tag inputs
   $('.tags').tagsInput(width:'100%');
 
-  #validation engine
-  $("form.validatable").validationEngine
-    promptPosition: "topLeft",
-
+  
   #initializing the select2 plugin for select boxes
   $(".chzn-select").select2()
 
-  $('.textarea-html5').wysihtml5
-    "font-styles": true
-    "emphasis": true
-    "lists": true
-    "html": false
-    "link": true
-    "image": true
-    "color": false
-    stylesheets: false
+ 
 
 
   $.extend( $.fn.dataTableExt.oStdClasses,
@@ -176,67 +161,6 @@ $ ->
   #we're adding the gauges in an array to get them to refresh (for demo purposes) in a setInterval, after they are created
   gauges = []
 
-  $(".justgage").each ->
+  
 
-    #getting some custom params from html
-    showMinMax = $(@).attr("data-labels") || true
-    gaugeWidthScale = $(@).attr("data-gauge-width-scale") || 1
-    refreshAnimationType = $(@).attr("data-animation-type") || "linear"
-
-    #building the gauges
-    gauges.push new JustGage
-      id: $(@).attr("id")
-      min: 0
-      max: 100
-      title: $(@).attr("data-title")
-      #this value is set for demo purpose only. in production you should add it without random, via a data-attribute
-      value: getRandomInt(1,80)
-      label: ""
-      levelColorsGradient: false
-      showMinMax: showMinMax
-      gaugeWidthScale: gaugeWidthScale
-      startAnimationTime: 1000
-      startAnimationType: ">"
-      refreshAnimationTime: 1000
-      refreshAnimationType: refreshAnimationType
-      levelColors: [Theme.colors.green, Theme.colors.orange, Theme.colors.red]
-
-  setInterval ->
-    $(gauges).each -> @.refresh(getRandomInt(0,80))
-  , 2500
-
-  $(".easy-pie-chart").each ->
-    el = $(@)
-    $(@).easyPieChart
-      lineWidth: 10
-      size: 150
-      lineCap: "square"
-      barColor: Theme.colors[el.data("color")] || Theme.colors.red
-      scaleColor: Theme.colors.gray
-      animate: 1000
-
-  $(".easy-pie-chart-small").each ->
-    el = $(@)
-    $(@).easyPieChart
-      lineWidth: 4
-      size: 40
-      lineCap: "square"
-      barColor: Theme.colors[el.attr("data-color")] || Theme.colors.red
-      animate: 1000
-
-  $(".easy-pie-chart-percent").easyPieChart
-    animate: 1000,
-    trackColor:	"#444"
-    scaleColor:	"#444"
-    lineCap: 'square'
-    lineWidth: 15
-    size: 150
-    barColor: (percent) ->
-      "rgb(" + Math.round(200 * percent/100) + ", " + Math.round(200 * (1-percent/100)) + ", 0)"
-
-  setInterval ->
-    $(".easy-pie-chart, .easy-pie-chart-percent").each ->
-      val = getRandomInt(0,80)
-      $(@).data("easyPieChart").update(val)
-      $(@).find("span").text("#{val}%")
-  , 2500
+  
