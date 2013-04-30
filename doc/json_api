@@ -1,0 +1,45 @@
+curl -i -H "Content-Type: application/json" -X POST -d "{\"session\":{\"account\":\"sh_0000\",\"password\":\"8\"}}" http://v2.365check.net/api/v1/sessions
+
+登录api有两个地方要修改
+地址改为: http://v2.365check.net/api/v1/sessions
+内容改为: {"session":{"account":"sh_0000","password":"8"}}
+例子
+curl -i -H "Content-Type: application/json" -X POST -d "{\"session\":{\"account\":\"sh_0000\",\"password\":\"8\"}}" http://v2.365check.net/api/v1/sessions
+
+
+
+
+trackpoint
+lat float
+lng float
+radius float
+coortype string 
+tenant_id references
+user_id references
+generated_time_of_client_version datetime
+generated_time_of_server_version datetime
+
+
+rails g model TrackPoint lat:float lng:float radius:float coortype:string tenant:references user:references generated_time_of_client_version:datetime generated_time_of_server_verion:datetime
+
+
+p interval 默认为0 否则
+
+lat
+lng
+radius
+coortype
+user_id
+
+建立索引
+
+1. 发完了要删除，不要重复发送
+2. 每次发送都要重新计算 interval
+3. latitude 绝对值不大于90度
+
+
+
+curl -i -H "Content-Type: application/json" -X POST -d "{\"track_points\":[]}" -H "Cookie: remember_token=LXHzhQwMIw30pE5vLMDstw" http://localhost:3000/api/v1/track_points 
+
+
+

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130428074847) do
+ActiveRecord::Schema.define(:version => 20130430073959) do
 
   create_table "images", :force => true do |t|
     t.string   "image"
@@ -108,6 +108,24 @@ ActiveRecord::Schema.define(:version => 20130428074847) do
     t.float    "lat",        :default => 39.915
     t.integer  "zoom",       :default => 15
   end
+
+  create_table "track_points", :force => true do |t|
+    t.float    "lat"
+    t.float    "lng"
+    t.float    "radius"
+    t.string   "coortype"
+    t.integer  "tenant_id"
+    t.integer  "user_id"
+    t.integer  "interval_time_between_generate_and_submit"
+    t.datetime "generated_time_of_client_version"
+    t.datetime "generated_time_of_server_version"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+  end
+
+  add_index "track_points", ["generated_time_of_server_version"], :name => "index_track_points_on_generated_time_of_server_version"
+  add_index "track_points", ["tenant_id"], :name => "index_track_points_on_tenant_id"
+  add_index "track_points", ["user_id"], :name => "index_track_points_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "account"

@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
 	belongs_to  :manager,:class_name =>"User"
   has_one     :organization, :class_name => "Organization",:foreign_key => "manager_id",:dependent => :destroy,:inverse_of=> :manager
   belongs_to  :tenant
+  has_many    :track_points,:dependent => :destroy
 
 
   default_scope { where(tenant_id: Tenant.current_id)  if Tenant.current_id }

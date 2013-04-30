@@ -9,6 +9,7 @@ module Permissions
 
       allow :sessions,[:new,:create,:destroy]
       allow "api/v1/sessions",[:create,:destroy]
+      allow "api/v1/track_points",[:create]
 
       allow :main,[:overview]
       #allow :issues,[:index,:new,:create]

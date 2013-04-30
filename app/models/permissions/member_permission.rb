@@ -3,6 +3,7 @@ module Permissions
     def initialize(user)
       allow :sessions,[:new,:create,:destroy]
       allow "api/v1/sessions",[:create,:destroy]
+      allow "api/v1/track_points",[:create]
 
       allow :users,[:index]
       allow :main,[:overview]

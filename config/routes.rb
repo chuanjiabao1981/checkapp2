@@ -27,6 +27,7 @@ Checkapp2::Application.routes.draw do
   namespace :api ,defaults: {format: 'json'} do
     namespace :v1 do
       resources :sessions, only: [:create,:destroy]
+      resources :track_points, only: [:create]
     end
   end
 

@@ -43,6 +43,9 @@ module Api
 				json_add_data(JSON_PAGINATE_PER_PAGE,collection.per_page)
 				json_add_data(JSON_PAGINATE_TOTAL_ENTRIES,collection.total_entries)
 			end
+			def json_response_ok
+				json_add_data(:response,:ok)
+			end
 		end
 	end
 end
