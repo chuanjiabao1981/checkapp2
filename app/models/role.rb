@@ -15,4 +15,7 @@ class Role < ActiveRecord::Base
 	def self.get_admin
 		Role.where(:name => Role::Admin).first_or_create!(:level => Role::AdminLevel)
 	end
+	def self.get_super_admin
+		Role.where(:name => Role::SuperAdmin).first_or_create!(:level => Role::SuperAdmin)
+	end
 end

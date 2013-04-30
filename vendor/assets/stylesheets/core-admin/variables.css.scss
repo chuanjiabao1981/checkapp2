@@ -5,18 +5,18 @@ $header-gradient-bottom: #eaeaea;
 //every color array has the base color class name in the left, and the actual color on the right
 $triangleColors: red #aa433a, green #8fae53, blue #7fb3d4, orange #CF6E20;
 $buttonColors:
-  default $header-gradient-top,
-  red #c57979,
-  green #96c161,
-  blue #5ba5cb,
-  gray #8c97a6,
-  black #838383,
-  lightblue #6db5d5,
-  gold #d5a44c,
-  sea #5a837e,
-  brown #bb934f,
-  twitter lighten(#4099ff, 10),
-  facebook (lighten(#35508F, 10));
+  'default' $header-gradient-top,
+  'red' #c57979,
+  'green' #96c161,
+  'blue' #5ba5cb,
+  'gray' #8c97a6,
+  'black' #838383,
+  'lightblue' #6db5d5,
+  'gold' #d5a44c,
+  'sea' #5a837e,
+  'brown' #bb934f,
+  'twitter' lighten(#4099ff, 10),
+  'facebook' (lighten(#35508F, 10));
 
 
 $news-colors: blue #7FB3D4, green #8CC079, cyan #81BABD, purple #AEA7CF;

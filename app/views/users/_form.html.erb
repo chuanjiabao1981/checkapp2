@@ -19,7 +19,10 @@
 				<%= f.association :tenant, collection: Tenant.all.collect {|t| [t.name,t.id]} %>
 				<% end %>
 				<% if allow_param?(:user,:role_id) %>
-				<%= f.association :role ,collection:[[ Role.get_admin.name, Role.get_admin.id],[Role.get_member.name,Role.get_member.id]] ,:include_blank => false %>
+				<%= f.association :role ,collection:[
+													  [Role.get_super_admin.name,Role.get_super_admin.id],
+													  [Role.get_admin.name, Role.get_admin.id],
+													  [Role.get_member.name,Role.get_member.id]] ,:include_blank => false %>
 				<% end %>
 				<%= f.error :base %>
 			</fieldset>
