@@ -8,6 +8,8 @@ module Permissions
       allow_param :user ,[:name,:mobile,:account,:password_confirmation,:password,:manager_id]
 
       allow :sessions,[:new,:create,:destroy]
+      allow "api/v1/sessions",[:create,:destroy]
+
       allow :main,[:overview]
       #allow :issues,[:index,:new,:create]
       #allow :issues, [:show,:edit,:update,:destroy,] do |u|

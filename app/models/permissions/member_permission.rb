@@ -2,6 +2,8 @@ module Permissions
   class MemberPermission < BasePermission
     def initialize(user)
       allow :sessions,[:new,:create,:destroy]
+      allow "api/v1/sessions",[:create,:destroy]
+
       allow :users,[:index]
       allow :main,[:overview]
       #allow :issues,[:index,:new,:create]

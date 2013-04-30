@@ -23,6 +23,13 @@ Checkapp2::Application.routes.draw do
 
   root :to => 'main#overview'
 
+
+  namespace :api ,defaults: {format: 'json'} do
+    namespace :v1 do
+      resources :sessions, only: [:create,:destroy]
+    end
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
