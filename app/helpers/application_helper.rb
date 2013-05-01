@@ -84,7 +84,14 @@ module ApplicationHelper
 								icon: 		'icon-file',
 								label: 		I18n.t('views.text.edit') + I18n.t('activerecord.models.user'),
 								side_nav:   false
-						}
+						},
+					track:{
+								icon: 		'icon-search',
+								label:      I18n.t('activerecord.models.track_point'),
+								link: 		track_users_path,
+								side_nav:   true
+
+						  }
 				}
 			},
 			organizations:{

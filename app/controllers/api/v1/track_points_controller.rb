@@ -3,7 +3,6 @@ module Api
 		class TrackPointsController < ApiController
 			def create
 				status,data = TrackPoint.build_track_list(current_user,params[:track_points])
-				Rails.logger.debug(status)
 				if status
 					data.each do |t|
 						t.save

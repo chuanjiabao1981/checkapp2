@@ -18,7 +18,12 @@ class TrackPoint < ActiveRecord::Base
 	default_scope { where(tenant_id: Tenant.current_id)  if Tenant.current_id }
 
 
+	scope :between, lambda { |day,start_time,end_time| 
+						     order('generated_time_of_server_version ASC').where('generated_time_of_server_version between ? and ?',TrackPoint.parser_time(day,start_time,Time.now.beginning_of_day),TrackPoint.parser_time(day,end_time,Time.now)) unless start_time.nil? or end_time.nil? }
 
+	scope :by_user, lambda { |user| 
+							 where('user_id = ?' ,user) 
+	}
 
 	def self.build_track_list(current_user,points)
 		k = []
@@ -41,5 +46,14 @@ class TrackPoint < ActiveRecord::Base
 			end
 		end
 		[true,k]
+	end
+
+	 
+	def self.parser_time(day,time,default)
+		begin
+			DateTime.parse(Time.new(*(day.split('-')+time.split(':'))).utc.to_s)
+		rescue
+			default
+		end
 	end
 end

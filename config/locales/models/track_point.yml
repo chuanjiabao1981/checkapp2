@@ -1,0 +1,7 @@
+cn:
+  activerecord:
+    models:
+      track_point: 人员跟踪
+    attributes:
+      track_point:
+        lat: 纬度

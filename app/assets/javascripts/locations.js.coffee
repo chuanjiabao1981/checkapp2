@@ -5,6 +5,8 @@ showLocationList = undefined
 newPosition = undefined
 showLocation = undefined
 showLocationList = undefined
+lushu = undefined
+
 newPosition = (e) ->
   i = undefined
   _all_overlays = undefined
@@ -104,6 +106,53 @@ showLocationList = (map) ->
       _results.push i++
     _results
 
+trackPoint = (map) ->
+  arrPois = undefined
+  i = undefined
+  lushu = undefined
+  points = undefined
+  points = $("div#map-config").data("track-points")
+  arrPois = new Array()
+  if points.length > 0
+    i = 0
+    while i < points.length
+      arrPois[i] = new BMap.Point(points[i].lng, points[i].lat)
+      i++
+    map.addOverlay new BMap.Polyline(arrPois,
+      strokeColor: "#111"
+    )
+    startIcon = new BMap.Icon("/img/start.png", new BMap.Size(30,30))
+    endIcon   = new BMap.Icon("/img/end.png"  , new BMap.Size(30,30))
+    startMarker = new BMap.Marker(arrPois[0])
+    endMarker   = new BMap.Marker(arrPois[points.length-1])
+    startMarker.setIcon startIcon
+    endMarker.setIcon endIcon
+    map.addOverlay startMarker
+    map.addOverlay endMarker
+    map.setViewport arrPois
+    lushu = new BMapLib.LuShu(map, arrPois,
+      defaultContent: $("div#map-config").data("track-user-name").name
+      speed: 450
+      landmarkPois: []
+    )
+    $("button#run").click ->
+      lushu.start()
+
+    $("button#stop").click ->
+      lushu.stop()
+
+    $("button#pause").click ->
+      lushu.pause()
+
+    $("button#hide").click ->
+      lushu.hideInfoWindow()
+
+    $("button#show").click ->
+      lushu.showInfoWindow()
+
+
+
+
 $ ->
   map = undefined
   point = undefined
@@ -120,3 +169,4 @@ $ ->
     map.addEventListener "click", newPosition  if $("div#map-config").data("show-click-postion")
     showLocationList map
     showLocation map, $("div#map-config").data("current-location")
+    trackPoint map

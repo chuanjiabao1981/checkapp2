@@ -4,5 +4,16 @@
 		<div id="map-container" style="height: 360px;">
 		</div>
 	</div>
+	<div class="box-footer">
+	<% if not defined?(control_button).nil? %>
+	<p style="margin:4px">
+    	<button id="run" class="btn btn-mini btn-green" >开始</button> 
+    	<button id="stop" class="btn btn-mini btn-green" >停止</button> 
+    	<button id="pause" class="btn btn-mini btn-green" >暂停</button> 
+    	<!--button id="hide" class="btn btn-mini btn-green" >hide infoWindow</button--> 
+    	<!--button id="show" class="btn btn-mini btn-green" >show infoWindow</button--> 
+	</p>
+	<% end %>
+	</div>
 </div>
 

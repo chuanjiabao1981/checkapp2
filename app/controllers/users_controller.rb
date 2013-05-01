@@ -1,3 +1,4 @@
+#encoding:utf-8
 class UsersController < ApplicationController
 	def index
 		@users = User.includes(:organization).all
@@ -28,6 +29,21 @@ class UsersController < ApplicationController
 		@user = current_resource
 		@user.destroy
 		return redirect_to users_path
+	end
+
+	def track
+		if params[:track] and not params[:track].values.all? {|v| v.length == 0}
+			# user 不能为null
+			@track_points 		= TrackPoint.by_user(params[:track][:user]).between(params[:track][:day],params[:track][:start_time],params[:track][:end_time]).all
+			@track_user_name	= User.find_by_id(params[:track][:user])
+		else
+			@track_points = []
+			params[:track]= {}
+			@track_user_name = ''
+		end
+		if @track_points.size == 0
+			flash.now[:notice] ="没有相关跟踪数据"
+		end
 	end
 	private
 		def current_resource

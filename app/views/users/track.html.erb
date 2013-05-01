@@ -1,0 +1,31 @@
+<%=render partial:"locations/map" ,locals:{control_button:true }%>
+<%= render partial: 'locations/map_config',
+  locals: {
+            track_points: @track_points,
+            track_user_name: @track_user_name
+          }
+%>
+
+<div class="box">
+  <div class="box-header">
+    <span class="title"><%= I18n.t('activerecord.models.track_point')%></span>
+  </div>
+  <div class="box-content">
+    <%= simple_form_for :track,:url => track_users_path  ,method: :get,:html => { :class => 'form-horizontal fill-up' } do |f| %>
+      <div class="padded separate-sections">
+        <%= f.error_notification %>
+        <fieldset>
+          <%= f.input :day, as: :string, :input_html=> {:value => params[:track][:day] }%>
+          <%= f.input :start_time, as: :string, :input_html =>{:value => params[:track][:start_time]} %>
+          <%= f.input :end_time,as: :string, :input_html =>{:value => params[:track][:end_time]} %>
+          <%= f.input :user,collection: User.all,:include_blank => true,:selected=>params[:track][:user] ,:include_blank => false%>
+        </fieldset>
+      </div>
+      <div class="form-actions">
+        <%= button_tag '查询',:class => 'btn btn-primary' %>
+        <%= link_to '取消', users_path, :class => 'btn' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+

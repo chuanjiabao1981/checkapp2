@@ -1,7 +1,7 @@
 module Permissions
   class AdminPermission < BasePermission
     def initialize(user)
-      allow :users, [:index,:new,:create]
+      allow :users, [:index,:new,:create,:track]
       allow :users, [:edit,:update,:destroy] do |u|
       	u && u.tenant == user.tenant
       end

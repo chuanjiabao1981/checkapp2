@@ -6,6 +6,8 @@
 					:"current-location" => (defined?(location).nil? || location.lat.nil? || location.lng.nil? ) ? "null" : {:lat=>location.lat,:lng=>location.lng, :name => location.name},
 					:"center-lng" => (defined?(location) and not location.lng.nil?) ? location.lng : (current_user.tenant.nil? ? 116.404 : current_user.tenant.lng),
 					:"center-lat" => (defined?(location) and not location.lat.nil?) ? location.lat : (current_user.tenant.nil? ? 39.915  : current_user.tenant.lat),
-					:"zoom"       => current_user.tenant.nil? ? 15: current_user.tenant.zoom
+					:"zoom"       => current_user.tenant.nil? ? 15: current_user.tenant.zoom,
+					:"track-points" => (defined?(track_points).nil?) ? [] : track_points,
+					:"track-user-name"=>(defined?(track_user_name).nil?) ? '' : track_user_name
 				} do%>
 <% end %>

@@ -5,7 +5,7 @@ module Permissions
       allow "api/v1/sessions",[:create,:destroy]
       allow "api/v1/track_points",[:create]
 
-      allow :users,[:index]
+      allow :users,[:index,:track]
       allow :main,[:overview]
       #allow :issues,[:index,:new,:create]
       #allow :issues,[:edit,:update,:destroy] do |i|
