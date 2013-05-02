@@ -36,14 +36,17 @@ class UsersController < ApplicationController
 			# user 不能为null
 			@track_points 		= TrackPoint.by_user(params[:track][:user]).between(params[:track][:day],params[:track][:start_time],params[:track][:end_time]).all
 			@track_user_name	= User.find_by_id(params[:track][:user])
+			if @track_points.size == 0
+				flash.now[:notice] ="没有相关跟踪数据"
+			end
 		else
 			@track_points = []
 			params[:track]= {}
+			params[:track][:start_time] = "00:00"
+			params[:track][:end_time]   =  Time.now.strftime '%H:%M'
 			@track_user_name = ''
 		end
-		if @track_points.size == 0
-			flash.now[:notice] ="没有相关跟踪数据"
-		end
+
 	end
 	private
 		def current_resource
