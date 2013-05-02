@@ -28,6 +28,7 @@ class TrackPoint < ActiveRecord::Base
 	def self.build_track_list(current_user,points)
 		k = []
 		points.each_with_index do |point,index|
+			next if point[:coortype] == 'unknown'
 			if point[:generated_time_of_client_version]
 				begin
 					point[:generated_time_of_client_version]=DateTime.strptime(point[:generated_time_of_client_version].to_s,"%s")
