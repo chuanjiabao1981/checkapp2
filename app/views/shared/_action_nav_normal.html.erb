@@ -1,0 +1,55 @@
+<div class="action-nav-normal hidden-desktop">
+
+  <div class="row-fluid">
+    <div class="span6 action-nav-button">
+      <%=link_to new_quick_report_path  do %>
+        <i class="icon-file-alt"></i>
+        <span>新建走动巡查</span>
+      <%end%>
+      <span class="triangle-button red"><i class="icon-plus"></i></span>
+    </div>
+
+    <div class="span6 action-nav-button">
+        <%=link_to search_quick_reports_path({:search=>{:state=>"needed_resolve",:responsible_person=>current_user.id}}) do %>
+          <i class="icon-comments-alt"></i>
+          <span>待解决</span>
+        <% end %>
+      <span class="label label-black"><%= needed_resolve_quick_report_num %></span>
+    </div>
+  </div>
+
+  <!--div class="row-fluid">
+    <div class="span6 action-nav-button">
+      <a href="#" title="Files">
+        <i class="icon-folder-open-alt"></i>
+        <span>Files</span>
+      </a>
+    </div>
+
+    <div class="span6 action-nav-button">
+      <a href="#" title="Users">
+        <i class="icon-user"></i>
+        <span>Users</span>
+      </a>
+      <span class="triangle-button green"><span class="inner">+3</span></span>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span6 action-nav-button">
+      <a href="#" title="Friends">
+        <i class="icon-facebook-sign"></i>
+        <span>Friends</span>
+      </a>
+    </div>
+
+    <div class="span6 action-nav-button">
+      <a href="#" title="Followers">
+        <i class="icon-twitter"></i>
+        <span>Followers</span>
+      </a>
+      <span class="triangle-button blue"><span class="inner">+8</span></span>
+    </div>
+  </div-->
+
+</div>
