@@ -1,8 +1,8 @@
 <%=render partial:"locations/map" ,locals:{control_button:true }%>
 <%= render partial: 'locations/map_config',
   locals: {
-            track_points: @track_points,
-            track_user_name: @track_user_name
+            track_points: @track_points.as_json(:methods=>[:lat,:lng],only:[:name]),
+            track_user_name: @track_user_name.as_json(only:[:name])
           }
 %>
 

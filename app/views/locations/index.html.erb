@@ -1,5 +1,5 @@
 <%=render partial:"map"%>
-<%= content_tag "div", id: "location-list",data:{:"location-list" => @locations} do %>
+<%= content_tag "div", id: "location-list",data:{:"location-list" => @locations.as_json(:methods=>[:lat,:lng],:only=>[:name])} do %>
 <% end %>
 <%= render partial: 'locations/map_config'%>
 <div class="box">

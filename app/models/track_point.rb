@@ -8,8 +8,8 @@ class TrackPoint < ActiveRecord::Base
 	validates_presence_of :interval_time_between_generate_and_submit
 	validates_presence_of :generated_time_of_client_version
 
-	validates_numericality_of :lng
-	validates_numericality_of :lat
+	#validates_numericality_of :lng
+	#validates_numericality_of :lat
 	validates_numericality_of :radius
 
 	validates_numericality_of :interval_time_between_generate_and_submit
@@ -25,6 +25,11 @@ class TrackPoint < ActiveRecord::Base
 							 where('user_id = ?' ,user) 
 	}
 
+	include GeographyPoints
+	extend GeographyPointsNew
+
+	validates_with CoordinateValidator
+
 	def self.build_track_list(current_user,points)
 		k = []
 		points.each_with_index do |point,index|
@@ -36,7 +41,9 @@ class TrackPoint < ActiveRecord::Base
 					return [false,{"generated_time_of_client_version" => ["格式错误"],"index"=>[index]}]
 				end
 			end
-			_p = current_user.track_points.build(point)
+			#_p = current_user.track_points.build(point)
+			_p = TrackPoint.new(point)
+			_p.user_id = current_user.id
 			if _p.valid?
 				_p.generated_time_of_server_version = Time.now - _p.interval_time_between_generate_and_submit
 				k << _p

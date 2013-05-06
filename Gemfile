@@ -8,6 +8,8 @@ gem 'rails', '3.2.1'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
+gem 'rgeo'
+gem 'activerecord-postgis-adapter'
 gem 'validates_timeliness', '~> 3.0'
 gem 'state_machine','~> 1.2.0'
 gem 'will_paginate', '~> 3.0'

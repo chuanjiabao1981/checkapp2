@@ -50,13 +50,13 @@ ActiveRecord::Schema.define(:version => 20130430073959) do
 
   create_table "locations", :force => true do |t|
     t.string   "name"
-    t.float    "lng"
-    t.float    "lat"
+    t.spatial  "coordinate", :limit => {:srid=>4326, :type=>"point", :geographic=>true}
     t.integer  "tenant_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                                                             :null => false
+    t.datetime "updated_at",                                                             :null => false
   end
 
+  add_index "locations", ["coordinate"], :name => "index_locations_on_coordinate", :spatial => true
   add_index "locations", ["tenant_id"], :name => "index_locations_on_tenant_id"
 
   create_table "organizations", :force => true do |t|
@@ -102,27 +102,26 @@ ActiveRecord::Schema.define(:version => 20130430073959) do
   create_table "tenants", :force => true do |t|
     t.string   "name"
     t.date     "term"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-    t.float    "lng",        :default => 116.404
-    t.float    "lat",        :default => 39.915
-    t.integer  "zoom",       :default => 15
+    t.spatial  "coordinate", :limit => {:srid=>4326, :type=>"point", :geographic=>true}
+    t.integer  "zoom",                                                                   :default => 15
+    t.datetime "created_at",                                                                             :null => false
+    t.datetime "updated_at",                                                                             :null => false
   end
 
   create_table "track_points", :force => true do |t|
-    t.float    "lat"
-    t.float    "lng"
     t.float    "radius"
+    t.spatial  "coordinate",                                :limit => {:srid=>4326, :type=>"point", :geographic=>true}
     t.string   "coortype"
     t.integer  "tenant_id"
     t.integer  "user_id"
     t.integer  "interval_time_between_generate_and_submit"
     t.datetime "generated_time_of_client_version"
     t.datetime "generated_time_of_server_version"
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.datetime "created_at",                                                                                            :null => false
+    t.datetime "updated_at",                                                                                            :null => false
   end
 
+  add_index "track_points", ["coordinate"], :name => "index_track_points_on_coordinate", :spatial => true
   add_index "track_points", ["generated_time_of_server_version"], :name => "index_track_points_on_generated_time_of_server_version"
   add_index "track_points", ["tenant_id"], :name => "index_track_points_on_tenant_id"
   add_index "track_points", ["user_id"], :name => "index_track_points_on_user_id"

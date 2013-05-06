@@ -9,7 +9,7 @@ module Overview
 		t      = issues.group_by {|i| i.location }
 		r      = []
 		t.each do |location,issues|
-			_l 					= location.as_json(only:[:name,:lat,:lng,:id])
+			_l 					= location.as_json(:methods=>[:lat,:lng],:only=>[:name])
 			_l[:issue_info]		= "<div style='margin-top:10px;font-weight:bold'>" + 
 								 ActionController::Base.helpers.link_to("有#{issues.size}个问题等待处理!",
 								 Rails.application.routes.url_helpers.search_quick_reports_path(

@@ -1,0 +1,1 @@
+curl -i -H "Content-Type: application/json" -X POST -d "{\"track_points\":[{\"generated_time_of_client_version\":1367313501,\"radius\":10,\"lng\":$1,\"lat\":$2,\"interval_time_between_generate_and_submit\":10,\"coortype\":\"$3\"}]}" -H "Cookie: remember_token=rdi9I_t5qJ066luaUxHgbA" http://localhost:3000/api/v1/track_points
