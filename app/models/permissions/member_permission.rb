@@ -12,6 +12,12 @@ module Permissions
       allow :templates,[:show] do |t|
         t && t.tenant == user.tenant
       end
+      allow :template_reports,[:index,:new,:create]
+      allow :template_reports,[:show] do |t|
+        t && t.tenant_id == user.tenant_id
+      end
+      allow_param :template_report,[:template_id]
+
       allow :main,[:overview]
       #allow :issues,[:index,:new,:create]
       #allow :issues,[:edit,:update,:destroy] do |i|

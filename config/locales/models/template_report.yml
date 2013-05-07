@@ -1,0 +1,10 @@
+cn:
+  activerecord:
+    models:
+      template_report: 例行检查
+    attributes:
+      template_report:
+        submitter: 提交者
+        submitter_id: 提交者
+        template: 模板
+        template_id: 模板

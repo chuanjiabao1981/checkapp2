@@ -8,8 +8,13 @@ module Permissions
 
       allow :templates,[:index,:new,:create]
       allow :templates,[:show,:edit,:update,:destroy] do |t|
-        t && t.tenant == user.tenant
+        t && t.tenant_id == user.tenant_id
       end
+      allow :template_reports,[:index,:new,:create]
+      allow :template_reports,[:show,:destroy] do |t|
+        t && t.tenant_id == user.tenant_id
+      end
+      allow_param :template_report,[:template_id]
       allow_param :template,[:name,:desc]
       allow_param :user ,[:name,:mobile,:account,:password_confirmation,:password,:manager_id]
 
@@ -33,7 +38,10 @@ module Permissions
       allow :check_points,[:new,:create] do |template|
         template && template.tenant_id == user.tenant_id
       end
-
+      allow :check_points,[:edit,:update,:destroy] do |check_point|
+        check_point && check_point.tenant_id == user.tenant_id
+      end
+      allow_param :check_point,[:content]
       allow :quick_reports,[:index,:new,:create,:search]
       allow :quick_reports,[:edit,:update,:destroy,:show]  do |quick_report|
         quick_report && quick_report.tenant_id == user.tenant_id

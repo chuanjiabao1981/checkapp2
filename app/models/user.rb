@@ -41,6 +41,10 @@ class User < ActiveRecord::Base
   belongs_to  :tenant
   has_many    :track_points,:dependent => :destroy
 
+  has_many    :template_reports,:class_name =>"TemplateReport",:foreign_key => "submitter_id",:dependent => :destroy
+  has_many    :template_check_records,:class_name => "TemplateCheckRecord",:foreign_key=>"submitter_id",:dependent => :destroy
+
+
 
   default_scope { where(tenant_id: Tenant.current_id)  if Tenant.current_id }
 

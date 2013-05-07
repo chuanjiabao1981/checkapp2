@@ -1,0 +1,20 @@
+<div class="box">
+	<div class="box-header">
+		<span class="title"><%= get_new_label('template_report')%></span>
+	</div>
+	<div class="box-content">
+		<%= simple_form_for template_report , :html => { :class => 'form-horizontal fill-up'  } do |f| %>
+		<div class="padded separate-sections">
+			<%= f.error_notification %>
+			<%= f.error :base , :error_method => :to_sentence %>
+			<fieldset>
+				<%= f.association :template,collection: ::Template.all %>
+			</fieldset>
+		</div>
+		<div class="form-actions">
+			<%= button_tag "提交" , :class => 'btn btn-blue' %>
+			<%= link_to '取消', template_reports_path, :class => 'btn' %>
+		</div>
+		<% end %>
+	</div>
+</div>

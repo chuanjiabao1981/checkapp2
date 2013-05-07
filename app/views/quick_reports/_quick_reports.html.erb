@@ -1,13 +1,13 @@
-	<div class="box">
-		<div class="box-header">
-			<span class="title"><%= I18n.t('activerecord.models.quick_report') + I18n.t('views.text.index')%></span>
-		</div>
-		<div class="box-content">
-			<% quick_reports.each do |q| %>
-				<%= render partial:'index_item',locals:{q: q,only_time:false} %>
-			<% end %>
-		</div>
-		<div class="box-footer">
+<div class="box">
+	<div class="box-header">
+		<span class="title"><%= I18n.t('activerecord.models.quick_report') + I18n.t('views.text.index')%></span>
+	</div>
+	<div class="box-content">
+		<% quick_reports.each do |q| %>
+		<%= render partial:'index_item',locals:{q: q,only_time:false} %>
+		<% end %>
+	</div>
+	<div class="box-footer">
 		<%= will_paginate quick_reports ,class: "pagination pagination-centered pagination-mini"%>
 	</div>
-	</div>
+</div>

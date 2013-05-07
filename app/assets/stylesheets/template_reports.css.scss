@@ -1,0 +1,22 @@
+// Place all the styles related to the TemplateReports controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.template_report .total {
+	float: left;
+	margin: 0 7px 0 0;
+	padding: 5px 0px 5px 4px;
+	width: 48px;
+	height: 38px;
+	text-align: center;
+}
+
+.mini-counts {
+height: 25px;
+font-size: 160%;
+font-weight: normal;
+}
+
+.problem {
+background: transparent;
+color: #9a4444;
+}

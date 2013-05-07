@@ -244,6 +244,11 @@ module ApplicationHelper
 						link: templates_path,
 						side_nav: true
 					},
+					create:{
+						icon: 'icon-th-list',
+						label: get_new_label('template'),
+						side_nav: false
+					},
 					new: {
 						icon: 'icon-th-list',
 						label: get_new_label('template'),
@@ -275,6 +280,11 @@ module ApplicationHelper
 						label: get_new_label('check_point'),
 						side_nav: false
 					},
+					create:{
+						icon: 'icon-th-list',
+						label: get_new_label('check_point'),
+						side_nav: false
+					},
 					show: {
 						icon: 'icon-th-list',
 						label: get_show_label('check_point'),
@@ -292,7 +302,44 @@ module ApplicationHelper
 					}
 				}
 			},
+			template_reports:{
+				primary:{icon: "icon-map-marker",label:I18n.t('activerecord.models.template_report')},
+				items:{
+					index: {
+						icon: 'icon-th-list',
+						label: get_index_label('template_report'),
+						link: template_reports_path,
+						side_nav: true
+					},
+					create:{
+						icon: 'icon-th-list',
+						label: get_new_label('template_report'),
+						side_nav: false
+					},
+					new: {
+						icon: 'icon-th-list',
+						label: get_new_label('template_report'),
+						link: new_template_report_path,
+						side_nav: true
+					},
+					show: {
+						icon: 'icon-th-list',
+						label: get_show_label('template_report'),
+						side_nav: false
+					},
+					edit:{
+						icon: 'icon-th-list',
+						label: get_edit_label('template_report'),
+						side_nav:  false
+					},
+					update:{
+						icon: 'icon-th-list',
+						label: get_edit_label('template_report'),
+						side_nav:  false
+					}
+				}
 
+			},
 			signout:{
 					primary:{icon: "icon-signout", label: "退出",link: signout_path, method: 'delete'},
 					items: {
@@ -333,7 +380,7 @@ module ApplicationHelper
     	count.times.map{ from + Random.rand(to-from) }
 	end
 
-	private 
+	 
 	def get_index_label(model)
 		I18n.t("activerecord.models.#{model}")+I18n.t('views.text.index')
 	end

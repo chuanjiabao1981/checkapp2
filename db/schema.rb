@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130507090121) do
+ActiveRecord::Schema.define(:version => 20130507125941) do
 
   create_table "check_points", :force => true do |t|
     t.string   "content"
@@ -111,6 +111,18 @@ ActiveRecord::Schema.define(:version => 20130507090121) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "template_reports", :force => true do |t|
+    t.integer  "template_id"
+    t.integer  "submitter_id"
+    t.integer  "tenant_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "template_reports", ["submitter_id"], :name => "index_template_reports_on_submitter_id"
+  add_index "template_reports", ["template_id"], :name => "index_template_reports_on_template_id"
+  add_index "template_reports", ["tenant_id"], :name => "index_template_reports_on_tenant_id"
 
   create_table "templates", :force => true do |t|
     t.string   "name"

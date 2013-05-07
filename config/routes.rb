@@ -25,6 +25,8 @@ Checkapp2::Application.routes.draw do
     resources :check_points,only:[:new,:create,:update,:edit,:destroy]
   end
 
+  resources :template_reports,only:[:index,:new,:create,:destroy]
+
   
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
