@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130430073959) do
+ActiveRecord::Schema.define(:version => 20130507005607) do
 
   create_table "images", :force => true do |t|
     t.string   "image"
@@ -39,11 +39,13 @@ ActiveRecord::Schema.define(:version => 20130430073959) do
     t.integer  "location_id"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
+    t.integer  "organization_id"
   end
 
   add_index "issues", ["deadline"], :name => "index_issues_on_deadline"
   add_index "issues", ["issuable_id"], :name => "index_issues_on_issuable_id"
   add_index "issues", ["location_id"], :name => "index_issues_on_location_id"
+  add_index "issues", ["organization_id"], :name => "index_issues_on_organization_id"
   add_index "issues", ["responsible_person_id"], :name => "index_issues_on_responsible_person_id"
   add_index "issues", ["submitter_id"], :name => "index_issues_on_submitter_id"
   add_index "issues", ["tenant_id"], :name => "index_issues_on_tenant_id"

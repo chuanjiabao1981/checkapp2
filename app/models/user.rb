@@ -85,6 +85,29 @@ class User < ActiveRecord::Base
       '-'
     end
 
+    def self.all_subordinates_of_organization(organization_id)
+      [] if organization_id.nil? 
+      o = Organization.find_by_id(organization_id)
+      if o and o.manager 
+        User.all_subordinates(o.manager_id)
+      else
+        []
+      end
+    end
+
+    def self.all_subordinates(user_id)
+      [] if user_id.nil?
+      User.find_by_sql(%Q{
+        WITH RECURSIVE r AS ( 
+        SELECT * FROM users WHERE id = #{user_id} 
+        union   ALL 
+        SELECT users.* FROM users, r WHERE users.manager_id = r.id  and users.tenant_id =2
+        ) 
+        SELECT * FROM r ORDER BY id; 
+        }
+      )
+    end
+
   	private 
   		def create_remember_token
   			self.remember_token =  SecureRandom.urlsafe_base64

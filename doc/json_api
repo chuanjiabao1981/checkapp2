@@ -49,8 +49,7 @@ curl -i -H "Content-Type: application/json" -X POST -d "{\"track_points\":[{\"ge
 
 
 
-
-
+sudo apt-get install libgdal-dev
 116.38086 39.884556
 116.381291 39.881898
 116.38086 39.880791
@@ -80,6 +79,10 @@ curl -i -H "Content-Type: application/json" -X POST -d "{\"track_points\":[{\"ge
 
 
 
+sudo apt-get install build-essential postgresql-9.1 postgresql-server-dev-9.1 libxml2-dev proj libjson0-dev xsltproc docbook-xsl docbook-mathml gettext postgresql-contrib-9.1 pgadmin3
+
+
+sudo apt-get install build-essential postgresql-9.1 postgresql-server-dev-9.1 libxml2-dev proj libjson0-dev xsltproc docbook-xsl docbook-mathml gettext postgresql-contrib-9.1 pgadmin3
 
 
 
@@ -87,6 +90,13 @@ curl -i -H "Content-Type: application/json" -X POST -d "{\"track_points\":[{\"ge
 
 
 
+
+WITH RECURSIVE r AS ( 
+       SELECT * FROM users WHERE id = 4 and tenant_id =  2
+     union   ALL 
+       SELECT users.* FROM users, r WHERE users.manager_id = r.id  and users.tenant_id =2
+     ) 
+SELECT * FROM r ORDER BY id; 
 
 
 

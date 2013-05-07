@@ -4,6 +4,8 @@ module Permissions
       allow :sessions,[:new,:create,:destroy]
       allow "api/v1/sessions",[:create,:destroy]
       allow "api/v1/track_points",[:create]
+      allow "api/v1/organizations",[:users]
+
 
       allow :users,[:index,:track]
       allow :main,[:overview]
@@ -31,7 +33,7 @@ module Permissions
       #allow_param :issue,[:level,:desc,:reject_reason,:deadline,:responsible_person_id,:state_event]
       allow_param :resolve,[:desc]
       allow_nested_param :resolve, :images_attributes,[:image,:id,:_destroy]
-      allow_nested_param :quick_report,:issue_attributes,[:id,:level,:desc,:reject_reason,:deadline,:responsible_person_id,:location_id,:state_event,:images_attributes=>[:image,:id,:_destroy]]
+      allow_nested_param :quick_report,:issue_attributes,[:id,:level,:desc,:reject_reason,:deadline,:responsible_person_id,:location_id,:state_event,:organization_id,:images_attributes=>[:image,:id,:_destroy]]
     end
   end
 end

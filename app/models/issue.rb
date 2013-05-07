@@ -24,6 +24,7 @@ class Issue < ActiveRecord::Base
 	validates :tenant, :presence => true
 	validates :submitter,:presence => true
 	validates_presence_of :issuable_type
+	belongs_to :organization
 	belongs_to :responsible_person, 	:class_name=>"User",:foreign_key => "responsible_person_id"
 	belongs_to :submitter,	:class_name=>"User",:foreign_key => "submitter_id"
 	belongs_to :issuable,:polymorphic => true

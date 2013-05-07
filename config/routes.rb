@@ -30,6 +30,11 @@ Checkapp2::Application.routes.draw do
     namespace :v1 do
       resources :sessions, only: [:create,:destroy]
       resources :track_points, only: [:create]
+      resources :organizations,only: [] do
+        collection do
+          get 'users',defaults:{format:'html'}
+        end
+      end
     end
   end
 

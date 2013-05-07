@@ -46,6 +46,14 @@
 		</tr>
 		<tr>
 			<td>
+				<%= I18n.t('activerecord.attributes.issue.organization') %>
+			</td>
+			<td>
+				<%= issue.organization.name if issue.organization %>
+			</td>
+		</tr>
+		<tr>
+			<td>
 				<%= I18n.t('activerecord.attributes.issue.responsible_person') %>
 			</td>
 			<td>

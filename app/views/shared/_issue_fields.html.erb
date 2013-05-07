@@ -1,6 +1,7 @@
 <div class="span6">
 <%= f.input :level,collection: Issue::ISSUE_LEVEL_SET,:include_blank => false %>
-<%= f.association :responsible_person, collection: User.all,
+<%= f.association :organization,collection: Organization.all,disabled: !issue.can_change_responsible_person? %>
+<%= f.association :responsible_person, collection: User.all_subordinates_of_organization(f.object.organization_id),
 			disabled:  ! issue.can_change_responsible_person? %>
 <%= f.association :location, collection: Location.all,:include_blank => true %>
 <%= f.input :state,:disabled=>true,:input_html => {:value => f.object.human_state_name} %>

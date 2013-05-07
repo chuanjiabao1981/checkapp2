@@ -17,6 +17,8 @@ cn:
         responsible_person_id: 责任人
         responsible_person: 责任人
         term: 承租期限
+        organization_id: 责任机构
+        organization: 责任机构
     errors:
       messages:
         state_not_match: 问题状态错误
