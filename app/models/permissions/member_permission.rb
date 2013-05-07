@@ -8,6 +8,10 @@ module Permissions
 
 
       allow :users,[:index,:track]
+      allow :templates,[:index]
+      allow :templates,[:show] do |t|
+        t && t.tenant == user.tenant
+      end
       allow :main,[:overview]
       #allow :issues,[:index,:new,:create]
       #allow :issues,[:edit,:update,:destroy] do |i|

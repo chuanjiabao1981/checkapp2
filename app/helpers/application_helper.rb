@@ -235,6 +235,64 @@ module ApplicationHelper
 						}
 				}
 			},
+			templates: {
+				primary:{icon: "icon-map-marker",label:I18n.t('activerecord.models.template')},
+				items:{
+					index: {
+						icon: 'icon-th-list',
+						label: get_index_label('template'),
+						link: templates_path,
+						side_nav: true
+					},
+					new: {
+						icon: 'icon-th-list',
+						label: get_new_label('template'),
+						link: new_template_path,
+						side_nav: true
+					},
+					show: {
+						icon: 'icon-th-list',
+						label: get_show_label('template'),
+						side_nav: false
+					},
+					edit:{
+						icon: 'icon-th-list',
+						label: get_edit_label('template'),
+						side_nav:  false
+					},
+					update:{
+						icon: 'icon-th-list',
+						label: get_edit_label('template'),
+						side_nav:  false
+					}
+				}
+			},
+			check_points: {
+				primary:{icon: "icon-map-marker",label:I18n.t('activerecord.models.check_point')},
+				items:{
+					new: {
+						icon: 'icon-th-list',
+						label: get_new_label('check_point'),
+						side_nav: false
+					},
+					show: {
+						icon: 'icon-th-list',
+						label: get_show_label('check_point'),
+						side_nav: false
+					},
+					edit:{
+						icon: 'icon-th-list',
+						label: get_edit_label('check_point'),
+						side_nav:  false
+					},
+					update:{
+						icon: 'icon-th-list',
+						label: get_edit_label('check_point'),
+						side_nav:  false
+					}
+				}
+			},
+
 			signout:{
 					primary:{icon: "icon-signout", label: "退出",link: signout_path, method: 'delete'},
 					items: {
@@ -273,5 +331,19 @@ module ApplicationHelper
   	end
   	def random_numbers(count, from=3, to=30)
     	count.times.map{ from + Random.rand(to-from) }
+	end
+
+	private 
+	def get_index_label(model)
+		I18n.t("activerecord.models.#{model}")+I18n.t('views.text.index')
+	end
+	def get_new_label(model)
+		I18n.t('views.text.new') + I18n.t("activerecord.models.#{model}")
+	end
+	def get_show_label(model)
+		I18n.t('views.text.show') + I18n.t("activerecord.models.#{model}")
+	end
+	def get_edit_label(model)
+		I18n.t('views.text.edit') + I18n.t("activerecord.models.#{model}")
 	end
 end

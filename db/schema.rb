@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130507005607) do
+ActiveRecord::Schema.define(:version => 20130507090121) do
+
+  create_table "check_points", :force => true do |t|
+    t.string   "content"
+    t.integer  "tenant_id"
+    t.integer  "template_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "check_points", ["template_id"], :name => "index_check_points_on_template_id"
+  add_index "check_points", ["tenant_id"], :name => "index_check_points_on_tenant_id"
 
   create_table "images", :force => true do |t|
     t.string   "image"
@@ -100,6 +111,16 @@ ActiveRecord::Schema.define(:version => 20130507005607) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "templates", :force => true do |t|
+    t.string   "name"
+    t.string   "desc"
+    t.integer  "tenant_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "templates", ["tenant_id"], :name => "index_templates_on_tenant_id"
 
   create_table "tenants", :force => true do |t|
     t.string   "name"

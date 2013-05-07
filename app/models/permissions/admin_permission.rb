@@ -5,6 +5,12 @@ module Permissions
       allow :users, [:edit,:update,:destroy] do |u|
       	u && u.tenant == user.tenant
       end
+
+      allow :templates,[:index,:new,:create]
+      allow :templates,[:show,:edit,:update,:destroy] do |t|
+        t && t.tenant == user.tenant
+      end
+      allow_param :template,[:name,:desc]
       allow_param :user ,[:name,:mobile,:account,:password_confirmation,:password,:manager_id]
 
       allow :sessions,[:new,:create,:destroy]
@@ -22,6 +28,10 @@ module Permissions
       end
       allow :resolves,[:edit,:update] do |resolve|
         resolve && resolve.tenant_id == user.tenant_id 
+      end
+
+      allow :check_points,[:new,:create] do |template|
+        template && template.tenant_id == user.tenant_id
       end
 
       allow :quick_reports,[:index,:new,:create,:search]

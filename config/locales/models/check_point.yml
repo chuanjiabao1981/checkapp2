@@ -1,0 +1,7 @@
+cn:
+  activerecord:
+    models:
+      check_point: 例行检查点
+    attributes:
+      check_point:
+        content: 检查内容

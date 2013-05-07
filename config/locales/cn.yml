@@ -19,6 +19,7 @@ cn:
       index: 列表
       show: 查看
       search: 查询
+      nono: 编号
   simple_form:
     labels:
       search:

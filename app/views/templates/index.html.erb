@@ -1,0 +1,23 @@
+<div class="box">
+	<%= render :partial=> 'shared/index_box_header',:locals=>{:model => 'template'} %>
+	<table id="templates">
+		<thead>
+			<tr>
+				<th><%= I18n.t('activerecord.attributes.template.name')%></th>
+				<th><%= I18n.t('activerecord.attributes.template.desc')%></th>
+				<th><%= I18n.t('views.text.action')%></th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @templates.each do |t| %>
+			<tr>
+				<td><%= link_to t.name,template_path(t) %></td>
+				<td><%= t.desc %></td>
+				<td>
+					<%= render :partial=>'shared/edit_destroy',:locals=>{:model=>'template',:r=>t}%>
+				</td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

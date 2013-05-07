@@ -1,0 +1,8 @@
+cn:
+  activerecord:
+    models:
+      template: 模板
+    attributes:
+      template:
+        name: 名称
+        desc: 描述

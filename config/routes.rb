@@ -19,6 +19,12 @@ Checkapp2::Application.routes.draw do
   resources :locations
   resources :organizations
 
+  resources :templates
+
+  resources :templates,shallow:true,only:[] do
+    resources :check_points,only:[:new,:create,:update,:edit,:destroy]
+  end
+
   
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete

@@ -5,8 +5,14 @@
 			<a href="#" data-toggle="dropdown"><i class="icon-cog"></i></a>
 			<ul class="dropdown-menu">
 				<li>
-					<%=link_to send("new_#{model}_path") do %>
-					<i class="icon-plus-sign"></i> Add
+					<% if defined?(farther_object) %>
+						<%=link_to send("new_#{farther_object.class.to_s.underscore}_#{model}_path",farther_object) do %>
+							<i class="icon-plus-sign"></i> Add
+						<% end %>
+					<% else %>
+						<%=link_to send("new_#{model}_path") do %>
+						<i class="icon-plus-sign"></i> Add
+						<% end %>
 					<% end %>
 				</li> 
 			</ul>

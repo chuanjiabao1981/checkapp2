@@ -1,0 +1,23 @@
+<div class="box">
+	<%= render :partial=> 'shared/index_box_header',:locals=>{:model => 'check_point',:farther_object=> template} %>
+	<table id="check_points">
+		<thead>
+			<tr>
+				<th><%= I18n.t('views.text.nono')%></th>
+				<th><%= I18n.t('activerecord.attributes.check_point.content')%></th>
+				<th><%= I18n.t('views.text.action')%></th>
+			</tr>
+		</thead>
+		<tbody>
+			<% check_points.each_with_index do |c,index| %>
+				<tr>
+					<td><%= index %></td>
+					<td><%= c.content %></td>
+					<td>
+						<%= render :partial=>'shared/edit_destroy',:locals=>{:model=>'check_point',:r=>c}%>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
