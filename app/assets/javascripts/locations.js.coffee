@@ -132,7 +132,7 @@ trackPoint = (map) ->
     map.setViewport arrPois
     lushu = new BMapLib.LuShu(map, arrPois,
       defaultContent: $("div#map-config").data("track-user-name").name
-      speed: 450
+      speed: 4000
       landmarkPois: []
     )
     $("button#run").click ->

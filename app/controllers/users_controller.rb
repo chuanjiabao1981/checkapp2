@@ -34,7 +34,7 @@ class UsersController < ApplicationController
 	def track
 		if params[:track] and not params[:track].values.all? {|v| v.length == 0}
 			# user 不能为null
-			@track_points 		= TrackPoint.by_user(params[:track][:user]).by_radius(params[:track][:radius]).between(params[:track][:day],params[:track][:start_time],params[:track][:end_time]).all
+			@track_points 		= TrackPoint.by_user(params[:track][:user]).between(params[:track][:day],params[:track][:start_time],params[:track][:end_time]).all
 			@track_user_name	= User.find_by_id(params[:track][:user])
 			if @track_points.size == 0
 				flash.now[:notice] ="没有相关跟踪数据"
