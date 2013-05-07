@@ -101,7 +101,7 @@ class User < ActiveRecord::Base
         WITH RECURSIVE r AS ( 
         SELECT * FROM users WHERE id = #{user_id} 
         union   ALL 
-        SELECT users.* FROM users, r WHERE users.manager_id = r.id  and users.tenant_id =2
+        SELECT users.* FROM users, r WHERE users.manager_id = r.id 
         ) 
         SELECT * FROM r ORDER BY id; 
         }
