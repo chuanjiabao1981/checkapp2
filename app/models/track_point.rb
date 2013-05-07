@@ -24,6 +24,13 @@ class TrackPoint < ActiveRecord::Base
 	scope :by_user, lambda { |user| 
 							 where('user_id = ?' ,user) 
 	}
+	scope :by_radius,lambda{|radius| 
+		if radius 
+			where('radius <= ?',radius)
+		else
+			where('radius <= 150')
+		end
+	}
 
 	include GeographyPoints
 	extend GeographyPointsNew
