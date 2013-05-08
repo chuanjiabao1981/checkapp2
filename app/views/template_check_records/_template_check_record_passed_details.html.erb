@@ -1,0 +1,41 @@
+<div class="box-header">		
+	<span class="title"><%= I18n.t('activerecord.models.template_check_record')%></span>
+</div>
+<div class="box-content">
+	<table class="table table-normal">
+		<tr>
+			<td width="25%">
+				<%= I18n.t('activerecord.attributes.template_check_record.desc') %>
+			</td>
+			<td>
+				<%= template_check_record.desc %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= I18n.t('activerecord.attributes.template_check_record.submitter') %>
+			</td>
+			<td>
+				<%= template_check_record.submitter.name %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= I18n.t('activerecord.attributes.template_check_record.location') %>
+			</td>
+			<td>
+				<% if template_check_record.location %>
+				<%= render partial:'shared/location_image',locals:{location_object:template_check_record} %>
+				<% end %>
+			</td>
+		</tr>
+		<% if (not template_check_record.images.nil?) and (template_check_record.images.size != 0)%>
+		<tr>
+			<td colspan="2">
+				<%= render partial:'shared/images',locals:{images:template_check_record.images,
+					thumb_id:"template_check_record_thumbs"} %>
+				</td>
+			</tr>
+			<% end %>
+	</table>
+</div>

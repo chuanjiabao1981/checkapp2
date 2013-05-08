@@ -21,6 +21,13 @@ class TemplateReportsController < ApplicationController
 	end
 	private 
 	def current_resource
-    		@current_resource ||= TemplateReport.find(params[:id]) if params[:id]
+    		@current_resource ||= TemplateReport.includes(
+    			:tenant,
+    			:template_check_records=>[
+    										:issue,
+    										:check_point,
+    										:submitter
+    									],
+    			:template=>[:check_points,:tenant]).find(params[:id]) if params[:id]
     end
 end

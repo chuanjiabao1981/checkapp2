@@ -20,6 +20,7 @@ cn:
       show: 查看
       search: 查询
       nono: 编号
+      goback: 返回
   simple_form:
     labels:
       search:

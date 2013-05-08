@@ -28,7 +28,7 @@ Checkapp2::Application.routes.draw do
   resources :template_reports,only:[:index,:new,:create,:destroy,:show]
 
   resources :template_reports,shallow:true,only:[] do
-    resources :template_check_records,only:[:new,:create,:update,:edit,:destroy]
+    resources :template_check_records,only:[:new,:create,:update,:edit,:destroy,:show]
   end
   
   match '/signin',  to: 'sessions#new'

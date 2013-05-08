@@ -13,7 +13,10 @@
         <div class="row-fluid">
           <div class="span6">
             <%= f.input :state,collection: TemplateCheckRecord.state_collection,:include_blank => false %>
-            <%= f.association :check_point,
+           
+          </div>
+          <div class="span6">
+             <%= f.association :check_point,
             collection: 
             CheckPoint.where('id = ?',f.object.check_point_id.nil? ? -100: f.object.check_point_id ).collect {|cp|[ cp.content,cp.id]} ,
             include_blank: false%>

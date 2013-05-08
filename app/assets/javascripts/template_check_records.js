@@ -10,3 +10,7 @@ $(function(){
 		$('#template_check_record_issue_attributes_responsible_person_id').load('/api/v1/organizations/users?organization_id='+$(event.target).val())
 	})
 })
+
+$(function(){
+	$('#template_check_record_issue_attributes_deadline').datepicker()
+})

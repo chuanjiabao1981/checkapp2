@@ -67,7 +67,7 @@
 			<td>
 
 				<% if issue.location %>
-				<img src="http://api.map.baidu.com/staticimage?center=<%=issue.location.lng%>,<%=issue.location.lat%>&width=480&height=270&zoom=15&labels=<%=issue.location.lng%>,<%=issue.location.lat %>&labelStyles=<%=URI::escape(issue.location.name)%>,1,25,0x990099,0xff00,1&dpiType=ph" />
+				<%= render partial:'shared/location_image',locals:{location_object:issue} %>
 				<% end %>
 			</td>
 		</tr>

@@ -1,3 +1,4 @@
+#encoding:utf-8
 module Permissions
   class AdminPermission < BasePermission
     def initialize(user)
@@ -14,9 +15,16 @@ module Permissions
       allow :template_reports,[:show,:destroy] do |t|
         t && t.tenant_id == user.tenant_id
       end
-
+      #创建例行检查记录的时候,当前人员必须和例行检查报告是同一个人
       allow :template_check_records,[:new,:create] do |tr|
         tr && tr.tenant_id == user.tenant_id && tr.submitter_id = user.id
+      end
+      #编辑利息检查记录的时候,如果是管理员就直接可以编辑，不需要是同一个人；若非管理员则必须是同一个人
+      allow :template_check_records,[:edit,:update] do |tcr|
+        tcr && tcr.tenant_id == user.tenant_id
+      end
+      allow :template_check_records,[:destroy,:show] do |tcr|
+        tcr && tcr.tenant_id == user.tenant_id
       end
       allow_param :template_check_record,[:check_point_id,:location_id,:desc,:state]
       allow_nested_param :template_check_record,:images_attributes,[:image,:id,:_destroy]

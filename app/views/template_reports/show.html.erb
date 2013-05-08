@@ -25,7 +25,7 @@
   <div class="box-content">
     <% @template_report.template_check_records.each do |r| %>
 
-      <%= render partial:'template_check_records/template_check_record',locals:{r:r} %>
+      <%= render partial:'template_check_records/index_item',locals:{r:r} %>
     <% end %>
   <div> 
 </div>

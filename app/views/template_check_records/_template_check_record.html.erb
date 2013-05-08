@@ -1,32 +1,18 @@
-<div class="box-section news with-icons">
-	<% if not r.issue.nil? %>
-	<%= render partial:'shared/issue_state_icon',locals:{issue:r.issue} %>
-	<% else %>
-		<div class="avatar blue">
-			<i class=" icon-thumbs-up icon-2x"></i>
-		</div>
-	<% end %>
-	<div class="news-time">
-		<span><%=r.created_at.day%></span><%=I18n.t("date.month_names")[r.created_at.month]%>
-	</div>
-	<div class="news-content">
-		<div class="news-title"> 
-				<p>
-					<%=link_to r.check_point.content, template_check_record_path(r) %>
-				</p>
-		</div>
-		<div style="float:right">
-			<% if allow? :template_check_record,:destroy ,r %>
-			<%=link_to I18n.t('views.text.destroy'),
-			template_check_record_path(r),
-			method: :delete ,  
-			confirm: I18n.t('views.text.confirm',:model => t('activerecord.models.template_check_record')) ,
-			:class=> "btn  btn-red btn-mini" %>
-			<% end %>
-		</div>
-		<div style="float:left">
-			<span class="label label-purple hidden-phone"> <%= r.submitter.name %></span>
-			<span class="label label-dark-red hidden-phone"><%= time_ago_in_words(r.created_at)%>前</span>
-		</div>
+<%= render partial: 'template_check_records/status',locals:{template_check_record:template_check_record} %>
+
+<div class="box">
+	<% if template_check_record.state == 'unpassed' and template_check_record.issue %>
+		<%= render :partial => "shared/issue", :locals => { :issue => template_check_record.issue } %>
+	<%else %>
+		<%= render :partial => "template_check_record_passed_details",locals:{template_check_record: template_check_record} %>
+	<%end %> 
+	<div class="box-footer">
+		<p style="margin:4px">
+			<%= render partial:'template_reports/operation',locals:{r:template_check_record} %>
+		</p>
 	</div>
 </div>
+
+<% if template_check_record.issue and template_check_record.issue.resolve %>
+	<%= render :partial => "resolves/resolve", :locals => { :resolve => template_check_record.issue.resolve } %>
+<% end %>

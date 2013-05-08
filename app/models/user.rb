@@ -11,6 +11,9 @@ class ManagerValidator < ActiveModel::Validator
     if not record.manager.nil? and record.tenant_id != record.manager.tenant_id
       record.errors.add :manager_id, I18n.t('activerecord.errors.messages.tenant_not_match')
     end
+    if not record.manager_id.nil? and not record.new_record? and record.id == record.manager_id
+      record.errors.add :manager_id,I18n.t('activerecord.errors.messages.manager_cannot_be_self')
+    end
   end
 end
 class User < ActiveRecord::Base

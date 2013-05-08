@@ -1,0 +1,30 @@
+<div class="box">
+	<div class="box-header">
+		<span class="title"><%= I18n.t('activerecord.models.check_point')%></span>
+	</div>
+	<div class="box-content">
+		<table class="table table-normal">
+			<tr>
+				<td width="25%">
+					<%= I18n.t('activerecord.attributes.check_point.content') %>
+				</td>
+				<td> 
+					<%= template_check_record.check_point.content  %> 
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= I18n.t('activerecord.attributes.template_check_record.state') %>
+				</td>
+				<td>
+					<%= TemplateCheckRecord.human_state_name(template_check_record.state) %>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="box-footer">
+		<p style="margin:4px">
+			<%= link_to I18n.t('views.text.goback') ,template_report_path(template_check_record.template_report),:class=>"btn btn-mini btn-blue"%>
+		</p>
+	</div>
+</div>

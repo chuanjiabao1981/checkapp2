@@ -38,18 +38,29 @@ class TemplateCheckRecord < ActiveRecord::Base
 	end	
 
 	def check_passed_action
+		Rails.logger.debug("===================================================")
 		self.issue.destroy unless self.issue.nil?
+		Rails.logger.debug("===================================================")
 	end
 	def check_unpassed_action
 	end
-	def self.build_a_record(attributes,current_user,template_report)
+	def update_attributes(attributes)
+		old_check_point_id 		= self.check_point_id
+		self.attributes    		= attributes
+		self.check_point_id 	= old_check_point_id
+		if not self.issue.nil?
+			self.issue.submitter_id = self.template_report.submitter_id
+		end
+		save
+	end
+	def self.build_a_record(attributes,template_report)
 		a = template_report.template_check_records.build(attributes)
 		if not template_report.template.check_points.index {|cp| cp.id == a.check_point_id.to_i}
 			a.check_point_id     = nil
 		end
-		a.submitter_id       = current_user.id
+		a.submitter_id       = template_report.submitter_id
 		if not a.issue.nil?
-			a.issue.submitter_id = current_user.id
+			a.issue.submitter_id = template_report.submitter_id
 		end
 		a
 	end

@@ -1,0 +1,26 @@
+<div class="box-section news with-icons">
+	<% if not r.issue.nil? and r.state =='unpassed' %>
+		<%= render partial:'shared/issue_state_icon',locals:{issue:r.issue} %>
+	<% else %>
+		<div class="avatar blue">
+			<i class=" icon-thumbs-up icon-2x"></i>
+		</div>
+	<% end %>
+	<div class="news-time">
+		<span><%=r.created_at.day%></span><%=I18n.t("date.month_names")[r.created_at.month]%>
+	</div>
+	<div class="news-content">
+		<div class="news-title"> 
+				<p>
+					<%=link_to r.check_point.content, template_check_record_path(r) %>
+				</p>
+		</div>
+		<div style="float:right">
+			<%= render partial:'operation',locals:{r:r} %>
+		</div>
+		<div style="float:left">
+			<span class="label label-purple hidden-phone"> <%= r.submitter.name %></span>
+			<span class="label label-dark-red hidden-phone"><%= time_ago_in_words(r.created_at)%>前</span>
+		</div>
+	</div>
+</div>
