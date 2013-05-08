@@ -1,0 +1,50 @@
+<div class="box">
+  <div class="box-header">
+    <span class="title"><%= 
+    (record.new_record? ?  I18n.t('views.text.new') : I18n.t('views.text.edit')) +
+    I18n.t('activerecord.models.template_check_record')%></span>
+  </div>
+  <div class="box-content">
+    <%= simple_form_for record,url: post_url ,:html => { :class => ' form-horizontal fill-up' } do |f| %>
+    <div class="padded separate-sections">
+      <%= f.error_notification %>
+      <%= f.error :base ,:error_method => :to_sentence %>
+      <fieldset>
+        <div class="row-fluid">
+          <div class="span6">
+            <%= f.input :state,collection: TemplateCheckRecord.state_collection,:include_blank => false %>
+            <%= f.association :check_point,
+            collection: 
+            CheckPoint.where('id = ?',f.object.check_point_id.nil? ? -100: f.object.check_point_id ).collect {|cp|[ cp.content,cp.id]} ,
+            include_blank: false%>
+          </div>
+          <div class="padded span12"/>
+        </div>
+      </fieldset>
+      <% if f.object.state == 'passed' %>
+        <div class="actvie_template_check_record">
+          <%= render partial:'fieldset',locals:{f:f} %>
+        </div>
+        <% content_for :deactive_template_check_record  do %>
+          <%= render partial:'shared/issue_fieldset', locals:{f: f }%>
+        <% end %>
+      <% elsif f.object.state == 'unpassed'%>
+        <div class="actvie_template_check_record">
+          <%= render partial:'shared/issue_fieldset', locals:{f: f }%>
+        </div>
+        <% content_for :deactive_template_check_record  do %>
+          <%= render partial:'fieldset',locals:{f:f} %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="form-actions">
+      <%= button_tag "提交" , :class => 'btn btn-blue' %>
+      <%= link_to '取消', template_report_path(record.template_report), :class => 'btn' %>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="deactive_template_check_record">
+  <%= content_for :deactive_template_check_record %>
+</div>

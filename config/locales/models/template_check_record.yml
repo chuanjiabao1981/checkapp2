@@ -1,0 +1,32 @@
+cn:
+  activerecord:
+    models:
+      template_check_record: 例行检查记录
+    attributes:
+      template_check_record:
+        check_point: 例行检查点
+        state: 例行检查状态
+        desc: 例行检查描述
+        tenant_id: 域
+        submitter_id: 提交者
+        location: 位置
+        location_id: 位置
+        submitter: 提交者
+        state_event: 是否存在问题 
+    errors:
+      messages:
+        state_not_match: 问题状态错误
+      models:
+        template_check_record:
+          attributes:
+            state_event:
+              invalid_event: 无法更新当前状态
+    state_machines:
+      template_check_record:
+        state:
+          states:
+            passed: 通过
+            unpassed: 未通过
+          events:
+            find_some_defects: 存在问题
+            find_no_defect: 不存在问题

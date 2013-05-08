@@ -340,6 +340,36 @@ module ApplicationHelper
 				}
 
 			},
+			template_check_records:{
+				primary:{icon: "icon-cog",label:I18n.t('activerecord.models.template_check_record')},
+				items:{
+						new:  {
+								icon: 		'icon-magic',
+								label: 		I18n.t('views.text.new') + I18n.t('activerecord.models.template_check_record'),
+								side_nav:   false
+						},
+						create:  {
+								icon: 		'icon-magic',
+								label: 		I18n.t('views.text.new') + I18n.t('activerecord.models.template_check_record'),
+								side_nav:   false
+						},
+						show: {
+								icon: 		'icon-file-alt',
+								label: 		I18n.t('views.text.show') + I18n.t('activerecord.models.template_check_record'),
+								side_nav:   false
+							},
+						edit:{
+								icon: 		'icon-file',
+								label: 		I18n.t('views.text.edit') + I18n.t('activerecord.models.template_check_record'),
+								side_nav: 	false
+							},
+						update:{
+								icon: 		'icon-file',
+								label: 		I18n.t('views.text.edit') + I18n.t('activerecord.models.template_check_record'),
+								side_nav: 	false
+							}
+				}
+			},
 			signout:{
 					primary:{icon: "icon-signout", label: "退出",link: signout_path, method: 'delete'},
 					items: {

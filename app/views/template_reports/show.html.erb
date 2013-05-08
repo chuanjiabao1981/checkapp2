@@ -1,0 +1,30 @@
+<% if @un_check_points.size > 0 %>
+<div class="row-fluid">
+    <div class="box">
+      <div class="box-header relative">
+        <span class="title">未完成例行检查</span>
+        <span class="triangle-button blue"><i class="icon-question-sign"></i></span>
+      </div>
+
+      <div class="box-content padded relative">
+        <% (0..(@un_check_points.size / @per_line)).each do |i|%>
+          <%= render partial: 'six_template_check_records' ,
+          locals: {un_check_points:@un_check_points[i * @per_line ..  (i+1) * @per_line -1 ],
+          	     template_report:@template_report
+          		} %>
+        <% end %>
+      </div>
+    </div>
+</div>
+<% end %>
+
+<div class="box">
+  <div class="box-header">
+    <span class="title"><%=get_index_label('template_check_record')%></span>
+  </div>
+  <div class="box-content">
+    <% @template_report.template_check_records.each do |r| %>
+      <%= r.check_point.content %>
+    <% end %>
+  <div> 
+</div>

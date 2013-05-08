@@ -8,14 +8,8 @@
     <%= simple_form_for @quick_report ,:html => { :class => ' form-horizontal fill-up' } do |f| %>
       <div class="padded separate-sections">
         <%= f.error_notification %>
-        <fieldset>
-          <div class="row-fluid">
-            <%= f.simple_fields_for :issue do |builder| %>
-              <%= render 'shared/issue_fields', f: builder , issue: @quick_report.issue %>
-            <% end %>
-            <%= f.error :base , :error_method => :to_sentence %>
-          </div>
-        </fieldset>
+        <%= f.error :base , :error_method => :to_sentence %>
+        <%= render partial:'shared/issue_fieldset', locals:{f: f }%>
       </div>
       <div class="form-actions">
         <%= button_tag "提交" , :class => 'btn btn-blue' %>

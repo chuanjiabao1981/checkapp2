@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130507125941) do
+ActiveRecord::Schema.define(:version => 20130508030405) do
 
   create_table "check_points", :force => true do |t|
     t.string   "content"
@@ -111,6 +111,24 @@ ActiveRecord::Schema.define(:version => 20130507125941) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "template_check_records", :force => true do |t|
+    t.integer  "template_report_id"
+    t.integer  "check_point_id"
+    t.integer  "submitter_id"
+    t.integer  "tenant_id"
+    t.string   "state"
+    t.text     "desc"
+    t.integer  "location_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "template_check_records", ["check_point_id"], :name => "index_template_check_records_on_check_point_id"
+  add_index "template_check_records", ["location_id"], :name => "index_template_check_records_on_location_id"
+  add_index "template_check_records", ["submitter_id"], :name => "index_template_check_records_on_submitter_id"
+  add_index "template_check_records", ["template_report_id"], :name => "index_template_check_records_on_template_report_id"
+  add_index "template_check_records", ["tenant_id"], :name => "index_template_check_records_on_tenant_id"
 
   create_table "template_reports", :force => true do |t|
     t.integer  "template_id"

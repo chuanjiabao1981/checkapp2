@@ -1,0 +1,11 @@
+<fieldset>
+  <div class="row-fluid">
+    <div class="span6">
+      <%= f.association :location, collection: Location.all,:include_blank => true %>
+      <%= f.input :desc ,:input_html => {:rows=>5 }%>
+    </div>
+    <div class="span6">
+      <%= render partial:'shared/image_fields',locals:{f: f} %>
+    </div>
+  </div>
+</fieldset>

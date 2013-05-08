@@ -9,11 +9,15 @@ class TemplateReportsController < ApplicationController
 	def create
 		@template_report = current_user.template_reports.build(params[:template_report])
 		if @template_report.save
-			#TODO　改成to show
-			return redirect_to template_reports_path
+			return redirect_to template_report_path(@template_report)
 		else
 			render 'new'
 		end
+	end
+	def show
+		@per_line		 = 6
+		@template_report = current_resource
+		@un_check_points = @template_report.un_check_points
 	end
 	private 
 	def current_resource

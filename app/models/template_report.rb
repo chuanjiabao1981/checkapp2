@@ -5,4 +5,15 @@ class TemplateReport < ActiveRecord::Base
   has_many   :template_check_records,:dependent => :destroy
   validates :template,:presence => true
   default_scope { where(tenant_id: Tenant.current_id)  if Tenant.current_id }
+
+
+
+
+  def un_check_points
+  	u = []
+  	self.template.check_points.reverse.each do |c|
+  		u << c unless self.template_check_records.index {|record| record.check_point_id == c.id}
+  	end
+  	u
+  end
 end

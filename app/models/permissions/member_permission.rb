@@ -16,6 +16,15 @@ module Permissions
       allow :template_reports,[:show] do |t|
         t && t.tenant_id == user.tenant_id
       end
+      allow :template_check_records,[:new,:create] do |tr|
+        tr && tr.tenant_id == user.tenant_id && tr.submitter_id = user.id
+      end
+      allow_param :template_check_record,[:check_point_id,:location_id,:desc,:state]
+      allow_nested_param :template_check_record,:images_attributes,[:image,:id,:_destroy]
+      allow_nested_param :template_check_record,:issue_attributes,[:id,:level,:desc,:reject_reason,:deadline,:responsible_person_id,:location_id,:state_event,:organization_id,:images_attributes=>[:image,:id,:_destroy]]
+
+
+
       allow_param :template_report,[:template_id]
 
       allow :main,[:overview]

@@ -1,0 +1,7 @@
+<fieldset>
+	<div class="row-fluid">
+		<%= f.simple_fields_for :issue do |builder| %>
+		<%= render 'shared/issue_fields', f: builder , issue: builder.object %>
+		<% end %>
+	</div>
+</fieldset>

@@ -8,5 +8,6 @@ FactoryGirl.define do
     tenant nil
     state "MyString"
     desc "MyText"
+    location nil
   end
 end

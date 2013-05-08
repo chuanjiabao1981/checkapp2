@@ -1,0 +1,13 @@
+<%=content_tag(:div,:class=>"row-fluid") do %>
+  <% un_check_points.each do |un_check| %>
+    <%= content_tag(:div,:class=>"span2 action-nav-button") do %>
+      <%= content_tag(:div,:class=>"well relative") do %>
+        <span class="triangle-button red"><i class="icon-plus"></i></span>
+        <%= link_to un_check.content[0,10]+"...",new_template_report_template_check_record_path(template_report,{template_check_record:{check_point_id: un_check.id}}) %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+
+
