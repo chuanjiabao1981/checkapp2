@@ -20,10 +20,10 @@
 
 <div class="box">
   <div class="box-header">
-    <span class="title"><%=get_index_label('template_check_record')%></span>
+    <span class="title"><%=@template_report.template.name %>•<%=get_index_label('template_check_record')%></span>
   </div>
   <div class="box-content">
-    <% @template_report.template_check_records.each do |r| %>
+    <% @template_report.template_check_records.sort_by{|x| x.check_point.created_at }.each do |r| %>
 
       <%= render partial:'template_check_records/index_item',locals:{r:r} %>
     <% end %>

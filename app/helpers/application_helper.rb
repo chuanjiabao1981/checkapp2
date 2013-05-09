@@ -128,6 +128,43 @@ module ApplicationHelper
 						}
 				}
 			},
+			templates: {
+				primary:{icon: "icon-table",label:I18n.t('activerecord.models.template')},
+				items:{
+					index: {
+						icon: 'icon-list-alt',
+						label: get_index_label('template'),
+						link: templates_path,
+						side_nav: true
+					},
+					create:{
+						icon: 'icon-plus-sign',
+						label: get_new_label('template'),
+						side_nav: false
+					},
+					new: {
+						icon: 'icon-plus-sign',
+						label: get_new_label('template'),
+						link: new_template_path,
+						side_nav: true
+					},
+					show: {
+						icon: 'icon-th-list',
+						label: get_show_label('template'),
+						side_nav: false
+					},
+					edit:{
+						icon: 'icon-th-list',
+						label: get_edit_label('template'),
+						side_nav:  false
+					},
+					update:{
+						icon: 'icon-th-list',
+						label: get_edit_label('template'),
+						side_nav:  false
+					}
+				}
+			},
 			quick_reports:{
 				primary:{icon: "icon-pinterest",label:I18n.t('activerecord.models.quick_report')},
 				items:{
@@ -172,6 +209,50 @@ module ApplicationHelper
 						}
 				}
 			},
+			template_reports:{
+				primary:{icon: "icon-pencil",label:I18n.t('activerecord.models.template_report')},
+				items:{
+					index: {
+						icon: 'icon-tasks',
+						label: get_index_label('template_report'),
+						link: template_reports_path,
+						side_nav: true
+					},
+					create:{
+						icon: 'icon-th-list',
+						label: get_new_label('template_report'),
+						side_nav: false
+					},
+					new: {
+						icon: ' icon-sitemap',
+						label: get_new_label('template_report'),
+						link: new_template_report_path,
+						side_nav: true
+					},
+					show: {
+						icon: 'icon-th-list',
+						label: get_show_label('template_report'),
+						side_nav: false
+					},
+					edit:{
+						icon: 'icon-th-list',
+						label: get_edit_label('template_report'),
+						side_nav:  false
+					},
+					update:{
+						icon: 'icon-th-list',
+						label: get_edit_label('template_report'),
+						side_nav:  false
+					},
+					search:{
+								icon: 		'icon-search',
+								label: 		I18n.t('views.text.search'),
+								link: 		search_template_reports_path,
+								side_nav:   true
+					}
+				}
+
+			},
 			resolves:{
 				primary:{icon: "icon-cog",label:I18n.t('activerecord.models.resolve')},
 				items:{
@@ -203,7 +284,7 @@ module ApplicationHelper
 				}
 			},
 			locations: {
-				primary:{icon: "icon-map-marker", label: I18n.t('activerecord.models.location')},
+				primary:{icon: "icon-globe", label: I18n.t('activerecord.models.location')},
 				items: {
 						index: {
 								 icon: 		"icon-th-list", 
@@ -235,43 +316,7 @@ module ApplicationHelper
 						}
 				}
 			},
-			templates: {
-				primary:{icon: "icon-map-marker",label:I18n.t('activerecord.models.template')},
-				items:{
-					index: {
-						icon: 'icon-th-list',
-						label: get_index_label('template'),
-						link: templates_path,
-						side_nav: true
-					},
-					create:{
-						icon: 'icon-th-list',
-						label: get_new_label('template'),
-						side_nav: false
-					},
-					new: {
-						icon: 'icon-th-list',
-						label: get_new_label('template'),
-						link: new_template_path,
-						side_nav: true
-					},
-					show: {
-						icon: 'icon-th-list',
-						label: get_show_label('template'),
-						side_nav: false
-					},
-					edit:{
-						icon: 'icon-th-list',
-						label: get_edit_label('template'),
-						side_nav:  false
-					},
-					update:{
-						icon: 'icon-th-list',
-						label: get_edit_label('template'),
-						side_nav:  false
-					}
-				}
-			},
+			
 			check_points: {
 				primary:{icon: "icon-map-marker",label:I18n.t('activerecord.models.check_point')},
 				items:{
@@ -302,44 +347,7 @@ module ApplicationHelper
 					}
 				}
 			},
-			template_reports:{
-				primary:{icon: "icon-map-marker",label:I18n.t('activerecord.models.template_report')},
-				items:{
-					index: {
-						icon: 'icon-th-list',
-						label: get_index_label('template_report'),
-						link: template_reports_path,
-						side_nav: true
-					},
-					create:{
-						icon: 'icon-th-list',
-						label: get_new_label('template_report'),
-						side_nav: false
-					},
-					new: {
-						icon: 'icon-th-list',
-						label: get_new_label('template_report'),
-						link: new_template_report_path,
-						side_nav: true
-					},
-					show: {
-						icon: 'icon-th-list',
-						label: get_show_label('template_report'),
-						side_nav: false
-					},
-					edit:{
-						icon: 'icon-th-list',
-						label: get_edit_label('template_report'),
-						side_nav:  false
-					},
-					update:{
-						icon: 'icon-th-list',
-						label: get_edit_label('template_report'),
-						side_nav:  false
-					}
-				}
-
-			},
+			
 			template_check_records:{
 				primary:{icon: "icon-cog",label:I18n.t('activerecord.models.template_check_record')},
 				items:{

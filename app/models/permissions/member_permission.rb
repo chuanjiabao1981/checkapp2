@@ -12,7 +12,7 @@ module Permissions
       allow :templates,[:show] do |t|
         t && t.tenant == user.tenant
       end
-      allow :template_reports,[:index,:new,:create]
+      allow :template_reports,[:index,:new,:create,:search]
       allow :template_reports,[:show] do |t|
         t && t.tenant_id == user.tenant_id
       end

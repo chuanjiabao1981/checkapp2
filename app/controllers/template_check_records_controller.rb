@@ -38,6 +38,7 @@ class TemplateCheckRecordsController < ApplicationController
 		@template_check_record.destroy
 		return redirect_to template_report_path(@template_check_record.template_report)
 	end
+
 	private 
 	def current_resource
 		if params[:template_report_id]

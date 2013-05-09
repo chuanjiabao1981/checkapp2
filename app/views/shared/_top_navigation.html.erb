@@ -26,7 +26,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <span>
                     <%= image_tag "avatars/avatar1.jpg", class: "menu-avatar" %> <span><%=current_user.name %> <i class="icon-caret-down"></i></span>
-                    <span class="badge badge-dark-red"><%= total_needed_handle_quick_report_num %></span>
+                    <span class="badge badge-dark-red"><%= total_needed_handle_quick_report_num + total_needed_handle_template_check_record_num%></span>
                   </span>
                 </a>
 
@@ -45,11 +45,20 @@
 
                   <li>
                     <%=link_to search_quick_reports_path({:search=>{:state=>"needed_resolve",:responsible_person=>current_user.id}}) do %>
-                     <i class="icon-envelope"></i> <span>待处理</span> <span class="label label-dark-red pull-right"><%=needed_resolve_quick_report_num%></span> 
+                     <i class="icon-envelope"></i> <span>待处理•走动</span> <span class="label label-dark-red pull-right"><%=needed_resolve_quick_report_num%></span> 
                     <% end %>
                   </li>
                   <li><%=link_to search_quick_reports_path({:search=>{:state=>"needed_verify",:submitter=>current_user.id}}) do %>
-                    <i class="icon-envelope"></i> <span>待审核</span> <span class="label label-dark-red pull-right"><%=needed_verify_quick_report_num%></span>
+                    <i class="icon-envelope"></i> <span>待审核•走动</span> <span class="label label-dark-red pull-right"><%=needed_verify_quick_report_num%></span>
+                    <% end %>
+                  </li>
+                  <li>
+                   <%=link_to search_template_reports_path({:search=>{:state=>"needed_resolve",:responsible_person=>current_user.id}}) do %>
+                     <i class="icon-envelope"></i> <span>待处理•例行</span> <span class="label label-dark-red pull-right"><%=needed_resolve_template_check_record_num%></span> 
+                    <% end %>
+                  </li>
+                  <li><%=link_to search_template_reports_path({:search=>{:state=>"needed_verify",:submitter=>current_user.id}}) do %>
+                    <i class="icon-envelope"></i> <span>待审核•例行</span> <span class="label label-dark-red pull-right"><%=needed_verify_template_check_record_num%></span>
                     <% end %>
                   </li>
                   <li><%=link_to signout_path,method: 'delete'  do %><i class="icon-off"></i> <span>Logout</span><% end %></li>

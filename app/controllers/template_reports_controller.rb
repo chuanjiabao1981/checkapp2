@@ -1,7 +1,7 @@
 #encoding:utf-8
 class TemplateReportsController < ApplicationController
 	def index
-		@template_reports = TemplateReport.paginate(:page => params[:page]).order('template_reports.created_at DESC')
+		@template_reports = TemplateReport.includes(:submitter,:template_check_records,:template=>[:check_points]).paginate(:page => params[:page]).order('template_reports.created_at DESC')
 	end
 	def new
 		@template_report = current_user.template_reports.build
@@ -19,15 +19,16 @@ class TemplateReportsController < ApplicationController
 		@template_report = current_resource
 		@un_check_points = @template_report.un_check_points
 	end
+	def search 
+		if params[:search] and not params[:search].values.all? {|v| v.length == 0}
+			@template_check_records = TemplateCheckRecord.search(params["search"]).paginate(:page => params[:page])
+		else
+			params[:search] = {}
+			@template_check_records = []
+		end
+	end
 	private 
 	def current_resource
-    		@current_resource ||= TemplateReport.includes(
-    			:tenant,
-    			:template_check_records=>[
-    										:issue,
-    										:check_point,
-    										:submitter
-    									],
-    			:template=>[:check_points,:tenant]).find(params[:id]) if params[:id]
+    		@current_resource ||= TemplateReport.includes(:template_check_records=>[:issue,:check_point,:submitter]).where('id=?',params[:id]).first if params[:id]
     end
 end

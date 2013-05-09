@@ -9,19 +9,19 @@
 				<i class="icon-lightbulb icon-2x"></i>
 			</div-->			
 			<div class="total">
-				<div class="mini-counts">10 </div>
+				<div class="mini-counts"><%= t.template.check_points.size %></div>
 				<div>总数</div>
 			</div>
 			<div class="total">
-				<div class="mini-counts">8</div>
+				<div class="mini-counts"><%= t.un_check_points.size%></div>
 				<div>待查</div>
 			</div>
 			<div class="total problem">
-				<div class="mini-counts">1</div>
+				<div class="mini-counts"><%= t.template_check_records.find_all {|x| x.state == 'unpassed'}.size %></div>
 				<div>问题</div>
 			</div>
 			<div class="total">
-				<div class="mini-counts">3</div>
+				<div class="mini-counts"><%= t.template_check_records.find_all {|x| x.state == 'passed'}.size %></div>
 				<div>正常</div>
 			</div>
 			<div class="news-time">

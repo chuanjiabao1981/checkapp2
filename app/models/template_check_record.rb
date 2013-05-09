@@ -1,4 +1,6 @@
 class TemplateCheckRecord < ActiveRecord::Base
+		include ScopeLib::Issue
+
 	belongs_to :template_report
 	belongs_to :check_point
 	belongs_to :submitter,	:class_name=>"User",:foreign_key => "submitter_id"
@@ -36,6 +38,16 @@ class TemplateCheckRecord < ActiveRecord::Base
     		transition :to => :unpassed ,:on => :find_some_defects
     	end
 	end	
+	scope :by_unpassed_state ,where(:state => 'unpassed')
+	def self.search(options)
+		TemplateCheckRecord.includes(:issue=>[:submitter,:responsible_person,:resolve]).closed_state(options["is_closed"]).
+					by_unpassed_state.
+					by_location(options[:location]).
+					by_state(options[:state]).
+					by_level(options[:level]).
+					by_responsible_person(options[:responsible_person]).
+					by_submitter(options[:submitter])
+	end
 
 	def check_passed_action
 		Rails.logger.debug("===================================================")

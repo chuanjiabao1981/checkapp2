@@ -11,7 +11,7 @@ module Permissions
       allow :templates,[:show,:edit,:update,:destroy] do |t|
         t && t.tenant_id == user.tenant_id
       end
-      allow :template_reports,[:index,:new,:create]
+      allow :template_reports,[:index,:new,:create,:search]
       allow :template_reports,[:show,:destroy] do |t|
         t && t.tenant_id == user.tenant_id
       end

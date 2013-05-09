@@ -35,6 +35,6 @@ class TemplatesController < ApplicationController
 
 	private 
 	def current_resource
-    		@current_resource ||= Template.find(params[:id]) if params[:id]
+    		@current_resource ||= Template.where('id=?',params[:id]).first if params[:id]
     end
 end

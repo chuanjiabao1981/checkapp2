@@ -25,7 +25,9 @@ Checkapp2::Application.routes.draw do
     resources :check_points,only:[:new,:create,:update,:edit,:destroy]
   end
 
-  resources :template_reports,only:[:index,:new,:create,:destroy,:show]
+  resources :template_reports,only:[:index,:new,:create,:destroy,:show] do
+    get 'search',:on => :collection
+  end
 
   resources :template_reports,shallow:true,only:[] do
     resources :template_check_records,only:[:new,:create,:update,:edit,:destroy,:show]

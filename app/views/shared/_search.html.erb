@@ -1,0 +1,28 @@
+<div class="box">
+  <div class="box-header">
+    <span class="title"><%= I18n.t("activerecord.models.#{model_name}") + I18n.t('views.text.search')%></span>
+  </div>
+  <div class="box-content">
+    <%= simple_form_for :search,:url => search_path  ,method: :get,:html => { :class => 'form-horizontal fill-up' } do |f| %>
+      <div class="padded separate-sections">
+        <%= f.error_notification %>
+        <fieldset>
+          <%= f.input :location, collection: Location.all,:include_blank => true , :selected => params[:search][:location] %>
+          <%= f.input :is_closed, :collection => [["未解决",false],["已解决",true]], :selected => params[:search][:is_closed], :include_blank => true %>
+          <%= f.input :state,:collection=>[['等待处理','needed_resolve'],['等待审核','needed_verify']],:selected => params[:search][:state],:include_blank => true %>
+          <%= f.input :level,collection: Issue.all_level_collection, :selected => params[:search][:level],:include_blank => true %>
+          <%= f.input :submitter,collection: User.all,:include_blank => true,:selected=>params[:search][:submitter] %>
+          <%= f.input :responsible_person,collection: User.all,:include_blank => true,:selected=>params[:search][:responsible_person] %>
+        </fieldset>
+      </div>
+      <div class="form-actions">
+        <%= button_tag '查询',:class => 'btn btn-primary' %>
+        <%= link_to '取消', cancel_path, :class => 'btn' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<% if search_result.size > 0 %>
+<%= render partial: "#{search_result.first.class.to_s.underscore.pluralize}/#{search_result.first.class.to_s.underscore.pluralize}",
+    locals:{"#{search_result.first.class.to_s.underscore.pluralize}".to_sym => search_result} %>
+<% end %>

@@ -1,0 +1,13 @@
+<div class="box">
+	<div class="box-header">
+		<span class="title"><%= I18n.t('activerecord.models.template_check_record') + I18n.t('views.text.index')%></span>
+	</div>
+	<div class="box-content">
+		<% template_check_records.each do |tcr| %>
+		<%= render partial:'template_check_records/index_item',locals:{r: tcr} %>
+		<% end %>
+	</div>
+	<div class="box-footer">
+		<%= will_paginate template_check_records ,class: "pagination pagination-centered pagination-mini"%>
+	</div>
+</div>

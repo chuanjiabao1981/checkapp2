@@ -6,7 +6,6 @@
 #end
 class Issue < ActiveRecord::Base
 
-
 	ISSUE_LEVEL_SET=%W(高 中 低)
 	ISSUE_STAR_NUM = {"高"=> 3,
 					  "中"=>2,
