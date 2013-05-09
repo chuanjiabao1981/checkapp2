@@ -1,0 +1,21 @@
+<table class="table table-normal">
+	<thead>
+		<tr>
+			<td>高</td>
+			<td>中</td>
+			<td>低</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<% [['高','red'],['中','blue'],['低','gray']].each do |level| %>
+			<td style="text-align: center;">
+				<%=link_to send(the_search_path,{:search=>{:level=>level[0],:is_closed=>"false"}} ) do %>
+				<span class="label label-<%=level[1]%>">
+					<%= report_group_by_level[level[0]] %> </span>
+					<% end %>
+				</td>
+				<% end %>
+			</tr>
+		</tbody>
+	</table>

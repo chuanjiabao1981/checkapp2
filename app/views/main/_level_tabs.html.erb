@@ -1,0 +1,33 @@
+<div class="box">
+  <div class="box-header">
+    <ul class="nav nav-tabs nav-tabs-left">
+      <li class="active">
+      	<a href="#quick_report_group_by_level" data-toggle="tab"><i class="icon-home"></i>
+      		<span><%=I18n.t('activerecord.models.quick_report')%></span>
+      	</a>
+      </li>
+      <li>
+      	<a href="#template_report_group_by_level" data-toggle="tab"><i class="icon-comments-alt"></i> 
+      		<span><%=I18n.t('activerecord.models.template_report')%></span>
+      	</a></li>
+      </ul>
+    </div>
+    <div class="box-content">
+      <div class="tab-content">
+        <div class="tab-pane active" id="quick_report_group_by_level">				
+         <%= render partial:'level_summary', 
+         locals:{
+           the_search_path:'search_quick_reports_path',
+           report_group_by_level:@unclosed_quick_reports_group_by_level
+         } %>
+       </div>
+       <div class="tab-pane" id="template_report_group_by_level">
+         <%= render partial:'level_summary', 
+         locals:{
+           the_search_path:'search_template_reports_path',
+           report_group_by_level:@unclosed_template_check_records_group_by_level
+         } %>
+       </div>
+     </div>
+   </div>
+ </div>

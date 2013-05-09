@@ -1,0 +1,43 @@
+<div class="box-section news with-icons template_report">
+	<% if not defined?(only_issue) or only_issue == false %>
+		<div class="total">
+			<div class="mini-counts"><%= t.template.check_points.size %></div>
+			<div>总数</div>
+		</div>
+		<div class="total">
+			<div class="mini-counts"><%= t.un_check_points.size%></div>
+			<div>待查</div>
+		</div>
+	<% end %>
+	<div class="total problem">
+		<div class="mini-counts"><%= t.template_check_records.find_all {|x| x.state == 'unpassed'}.size %></div>
+		<div>问题</div>
+	</div>
+	<div class="total">
+		<div class="mini-counts"><%= t.template_check_records.find_all {|x| x.state == 'passed'}.size %></div>
+		<div>正常</div>
+	</div>
+	<div class="news-time">
+		<span><%=t.created_at.day%></span><%=I18n.t("date.month_names")[t.created_at.month]%>
+	</div>
+	<div class="news-content">
+	<div class="news-title"> 
+		<p>
+			<%=link_to t.template.name ,template_report_path(t)%>
+		</p>
+	</div>
+	<div style="float:right">
+		<% if allow? :template_reports,:destroy ,t %>
+		<%=link_to I18n.t('views.text.destroy'),
+		template_report_path(t),
+		method: :delete ,  
+		confirm: I18n.t('views.text.confirm',:model => I18n.t('activerecord.models.template_report')) ,
+		:class=> "btn  btn-red btn-mini" %>
+		<% end %>
+	</div>
+	<div style="float:left">
+		<span class="label label-green "><%=  t.submitter.name %></span>
+		<span class="label label-dark-red"><%= time_ago_in_words(t.created_at)%>前</span>
+	</div>
+	</div>
+</div>

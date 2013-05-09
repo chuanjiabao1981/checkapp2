@@ -9,53 +9,43 @@
 	<div class="span6">
 		<div class="box">
 			<div class="box-header">
-				<span class="title">过去7天<%= I18n.t('activerecord.models.quick_report') %>的提交情况</span>
+				<ul class="nav nav-tabs nav-tabs-left">
+					<li class="active">
+						<a href="#latest_7_day_quick_reports" data-toggle="tab"><i class="icon-home"></i>
+							<span>过去7天<%= I18n.t('activerecord.models.quick_report') %>的情况</span>
+						</a>
+					</li>
+					<li>
+						<a href="#latest_7_day_template_check_records" data-toggle="tab"><i class="icon-comments-alt"></i> 
+							<span>过去7天<%= I18n.t('activerecord.models.template_report')%>出来的问题</span>
+						</a>
+					</li>
+				</ul>
 			</div>
 			<div class="box-content padded">
-				<div class="xcharts-line-dotted" style="height: 400px">
+				<div class="tab-content">
+					<div class="tab-pane active" id="latest_7_day_quick_reports">	
+						<div class="xcharts-line-dotted" style="height: 400px">
+						</div>
+					</div>
+					<div class="tab-pane" id="latest_7_day_template_check_records">		
+						<div class="xcharts-line-dotted-of-template_check_records" style="height: 400px">
+						</div>
+					</div>
 				</div>
 			</div>
 			<%= content_tag 'div',id: "xcharts-data",data:{"xcharts-data" => @xcharts_data,"y-distinct-value-num" => @y_distinct_value_num} do %>
 			<% end %>
+			<%= content_tag 'div',id: "xhcarts-data-of-template-check-records",
+				data:{
+					  "xcharts-data-of-template-check_records"         => @xcharts_data_of_template_check_records,
+					  "y-distinct-value-num-of-template-check-records" => @y_distinct_value_num_of_template_check_records 
+					} do %>
+			<% end %>
 		</div>
 	</div>
 	<div class="span6">
-		<div class="box">
-			<div class="box-header">
-				<span class="title">截至的目前未关闭的<%= I18n.t('activerecord.models.quick_report') %></span>
-			</div>
-			<div class="box-content">
-				<table class="table table-normal">
-					<thead>
-						<tr>
-							<td>高</td>
-							<td>中</td>
-							<td>低</td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<% [['高','red'],['中','blue'],['低','gray']].each do |level| %>
-								<td style="text-align: center;">
-									<%=link_to search_quick_reports_path({:search=>{:level=>level[0],:is_closed=>"false"}}) do %>
-										<span class="label label-<%=level[1]%>"><%= @unclosed_quick_reports_group_by_level[level[0]] %> </span>
-									<% end %>
-								</td>
-							<% end %>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="box">
-			<div class="box-header">
-				<span class="title">最新提交的<%= I18n.t('activerecord.models.quick_report') %></span>
-			</div>
-			<div class="box-content scrollable" style="height: 305px; overflow-y: auto" %>
-				<% @latest_created_quick_report.each do |q| %>
-					<%= render partial:'quick_reports/index_item',locals:{q: q,only_time: true} %>
-				<% end %>
-			</div>
-		</div>
+		<%= render partial:'level_tabs' %>
+		<%= render partial:'latest_tabs' %>
 	</div>
 </div>

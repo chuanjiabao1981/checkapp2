@@ -22,12 +22,19 @@ module Overview
 	end
 
 	def self.quick_reports_of_last_day(d=7)
+		Overview._issues_of_last_day(QuickReport.last_day(d).group_by_created,d)
+	end
+
+	def self.template_check_records_of_last_day(d=7)
+		Overview._issues_of_last_day(TemplateCheckRecord.by_unpassed_state.last_day(d).group_by_created,d)
+	end
+
+	def self._issues_of_last_day(issues,d=7)
 		chart_data=[]
-		k = QuickReport.last_day(d).group_by_created
 		__s 	  = {}
 		7.downto(1) do |b|
 			t = b.day.ago.strftime('%Y-%m-%d')
-			s = k.find {|s| s.issue_created_at_date == t}
+			s = issues.find {|s| s.issue_created_at_date == t}
 			y = s.nil? ? 0 : s.num.to_i
 			chart_data << {"x"=> t,"y" => y }
 			__s[y]=1
@@ -45,6 +52,18 @@ module Overview
 			]
 	end
 
+	def self.unclosed_template_check_records_group_by_level
+		s = TemplateCheckRecord.group_by_level.by_unpassed_state.closed_state('false')
+		Issue::ISSUE_LEVEL_SET.inject({}) do |result,level|
+			r = s.find {|q| q.level == level}
+			if r.nil?
+				result[level] = 0
+			else
+				result[level] = r.num
+			end
+			result
+		end
+	end
 	def self.unclosed_quick_reports_group_by_level
 		s=QuickReport.group_by_level.closed_state('false')
 		Issue::ISSUE_LEVEL_SET.inject({}) do |result,level|
@@ -59,5 +78,8 @@ module Overview
 	end
 	def self.latest_created_quick_report
 		QuickReport.includes(:issue=>[:resolve,:submitter,:responsible_person]).latest_quick_report
+	end
+	def self.latest_create_template_report
+		TemplateReport.latest_template_reports
 	end
 end
