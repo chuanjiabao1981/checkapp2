@@ -417,6 +417,15 @@ module ApplicationHelper
   	def random_numbers(count, from=3, to=30)
     	count.times.map{ from + Random.rand(to-from) }
 	end
+	def get_all_location_num
+		@_all_location_num ||= Location.count
+	end
+	def get_all_quick_report_num
+		@_all_quick_report_num ||= QuickReport.count
+	end
+	def get_all_organization_num
+		@_all_organization_num ||= Organization.count
+	end
 
 	 
 	def get_index_label(model)
