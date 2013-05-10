@@ -1,0 +1,7 @@
+cn:
+  activerecord:
+    models:
+      image: 现场图像
+    attributes:
+      image:
+        image: 现场图像

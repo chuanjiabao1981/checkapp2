@@ -5,47 +5,11 @@
 	<% end %>
 </div>
 <%= render partial: 'shared/action_nav_normal' %>
+
 <div class="row-fluid">
-	<div class="span6">
-		<div class="box">
-			<div class="box-header">
-				<ul class="nav nav-tabs nav-tabs-left">
-					<li class="active">
-						<a href="#latest_7_day_quick_reports" data-toggle="tab"><i class="icon-home"></i>
-							<span>过去7天<%= I18n.t('activerecord.models.quick_report') %>的情况</span>
-						</a>
-					</li>
-					<li>
-						<a href="#latest_7_day_template_check_records" data-toggle="tab"><i class="icon-comments-alt"></i> 
-							<span>过去7天<%= I18n.t('activerecord.models.template_report')%>出来的问题</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-			<div class="box-content padded">
-				<div class="tab-content">
-					<div class="tab-pane active" id="latest_7_day_quick_reports">	
-						<div class="xcharts-line-dotted" style="height: 400px">
-						</div>
-					</div>
-					<div class="tab-pane" id="latest_7_day_template_check_records">		
-						<div class="xcharts-line-dotted-of-template_check_records" style="height: 400px">
-						</div>
-					</div>
-				</div>
-			</div>
-			<%= content_tag 'div',id: "xcharts-data",data:{"xcharts-data" => @xcharts_data,"y-distinct-value-num" => @y_distinct_value_num} do %>
-			<% end %>
-			<%= content_tag 'div',id: "xhcarts-data-of-template-check-records",
-				data:{
-					  "xcharts-data-of-template-check_records"         => @xcharts_data_of_template_check_records,
-					  "y-distinct-value-num-of-template-check-records" => @y_distinct_value_num_of_template_check_records 
-					} do %>
-			<% end %>
-		</div>
-	</div>
-	<div class="span6">
-		<%= render partial:'level_tabs' %>
+	<%= render partial:'level_tabs' %>
+</div>
+<%= render partial: 'xcharts' %>
+<div class="row-fluid">
 		<%= render partial:'latest_tabs' %>
-	</div>
 </div>

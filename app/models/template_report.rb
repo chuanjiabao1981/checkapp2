@@ -7,7 +7,7 @@ class TemplateReport < ActiveRecord::Base
 
   
   default_scope { where(tenant_id: Tenant.current_id)  if Tenant.current_id }
-  scope :latest_template_reports,lambda { order('created_at DESC').limit(10)}
+  scope :latest_template_reports,lambda { includes(:template_check_records,:submitter,:template).order('created_at DESC').limit(10)}
 
 
 

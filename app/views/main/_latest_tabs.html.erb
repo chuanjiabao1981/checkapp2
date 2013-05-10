@@ -17,12 +17,12 @@
 				<div class="tab-content">
 					<div class="tab-pane active" id="latest_quick_reports">				
 						<% @latest_created_quick_report.each do |q| %>
-							<%= render partial:'quick_reports/index_item',locals:{q: q,only_time: true} %>
+							<%= render partial:'quick_reports/index_item',locals:{q: q,only_time: false} %>
 						<% end %>
 					</div>
 					<div class="tab-pane" id="latest_template_reports">				
 						<% @latest_create_template_report.each do |t| %>
-							<%=render partial:'template_reports/index_item', locals:{t:t,only_issue:true} %>
+							<%=render partial:'template_reports/index_item', locals:{t:t,only_issue:false} %>
 						<% end %>
 					</div>
 				</div>

@@ -1,0 +1,33 @@
+<div class="row-fluid">
+	<div class="span6">
+		<div class="box">
+			<div class="box-header">
+				<span class="title">过去7天<%= I18n.t('activerecord.models.quick_report') %>的情况</span>
+			</div>
+			<div class="box-content padded">
+				<div id="xcharts-line-dotted" style="height: 400px">
+				</div>
+			</div>
+			<%= content_tag 'div',id: "xcharts-data",
+				data:{"xcharts-data" => @xcharts_data,"y-distinct-value-num" => @y_distinct_value_num} do %>
+			<% end %>
+		</div>
+	</div>
+	<div class="span6">
+		<div class="box">
+			<div class="box-header">
+				<span class="title">过去7天<%= I18n.t('activerecord.models.template_report')%>发现的问题</span>
+			</div>
+			<div class="box-content padded">
+				<div id="xcharts-line-dotted-of-template-check-records" style="height: 400px">
+				</div>
+			</div>
+			<%= content_tag 'div',id: "xcharts-data-of-template-check-records",
+				data:{
+					  "xcharts-data"         => @xcharts_data_of_template_check_records,
+					  "y-distinct-value-num" => @y_distinct_value_num_of_template_check_records 
+					} do %>
+			<% end %>
+		</div>
+	</div>
+</div>
