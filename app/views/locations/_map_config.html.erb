@@ -1,7 +1,8 @@
 <%= content_tag "div", 
 				id: "map-config",
 				data:{
-					:"show-click-postion" => (defined?(show_position).nil? || show_position.nil?) ? false : show_position,
+					:"show-click-position" => (defined?(show_position).nil?  		|| show_position.nil?) ? false : show_position,
+					:"delete-old-position" => (defined?(delete_old_position).nil? 	|| delete_old_position.nil?) ? true : delete_old_position, 
 					:"input" => (defined?(input).nil? || input.nil?) ? {} : input,
 					:"current-location" => (defined?(location).nil? || location.lat.nil? || location.lng.nil? ) ? "null" : {:lat=>location.lat,:lng=>location.lng, :name => location.name},
 					:"center-lng" => (defined?(location) and not location.lng.nil?) ? location.lng : (current_user.tenant.nil? ? 116.404 : current_user.tenant.lng),

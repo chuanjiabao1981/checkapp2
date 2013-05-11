@@ -48,8 +48,16 @@ class UsersController < ApplicationController
 		end
 
 	end
+	def checkin
+		if have_param?(:checkin)
+		else
+		end
+	end
 	private
 		def current_resource
     		@current_resource ||= User.find(params[:id]) if params[:id]
+  		end
+  		def have_param?(name)
+  			params[name] and not params[name].values.all? {|v| v.length == 0}
   		end
 end

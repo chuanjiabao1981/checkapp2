@@ -7,7 +7,7 @@ module Permissions
       allow "api/v1/organizations",[:users]
 
 
-      allow :users,[:index,:track]
+      allow :users,[:index,:track,:checkin]
       allow :templates,[:index]
       allow :templates,[:show] do |t|
         t && t.tenant == user.tenant

@@ -91,7 +91,18 @@ module ApplicationHelper
 								link: 		track_users_path,
 								side_nav:   true
 
-						  }
+						  },
+					checkin:{
+							   icon: 		'icon-search',
+							   label: 		I18n.t('views.text.checkin'),
+							   link: 		checkin_users_path,
+							   side_nav: 	true
+					},
+					add_track_point:{
+								icon: 		'icon-search',
+								label: 		I18n.t('views.text.add_track_point'),
+								side_nav:   false
+					}
 				}
 			},
 			organizations:{

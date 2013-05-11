@@ -8,7 +8,9 @@ Checkapp2::Application.routes.draw do
   
   resources :sessions, only: [:new, :create, :destroy]
   resources :users do
-    get 'track', :on => :collection
+    get 'track',    :on => :collection
+    get 'checkin',  :on => :collection
+    get 'add_track_point',:on => :collection
   end
   resources :quick_reports do
     get 'search' , :on => :collection

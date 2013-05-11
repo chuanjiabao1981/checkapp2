@@ -102,9 +102,21 @@ SELECT * FROM r ORDER BY id;
 
 
 
+113.589385 37.862176 gsm 泰和数码
+113.592457 37.862305 gsm 阳泉市仁济医院
+
+
+SELECT ST_Distance(ST_GeographyFromText('SRID=4326;POINT(113.589385 37.862176)') , ST_GeographyFromText('SRID=4326;POINT(113.592457 37.862305)') ) As spheroid_dist;
 
 
 
+
+
+select ST_AsText(coordinate) ,ST_Distance(ST_GeographyFromText('SRID=4326;POINT(113.589385 37.862176)'),coordinate) as dist from track_points order by dist;
+select ST_AsText(coordinate) from track_points where ST_DWithin(ST_GeographyFromText('SRID=4326;POINT(113.589385 37.862176)'),coordinate,300);
+select DISTINCT(to_char(generated_time_of_server_version,'YYYY-MM-DD')) from track_points;
+
+http://workshops.opengeo.org/postgis-intro/geography.html
 
 
 

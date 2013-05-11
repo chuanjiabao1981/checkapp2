@@ -32,6 +32,11 @@ class TrackPoint < ActiveRecord::Base
 		end
 	}
 
+	scope :by_distance,lambda { |center,radius|
+		where("ST_DWithin(ST_GeographyFromText('SRID=4326;#{center.to_s}'),coordinate,#{radius})");
+	}
+	scope :group_by_check_in_time ,group("checkin_time,user_id")
+	scope :by_users, lambda { |users| where(:user_id => users) }
 	include GeographyPoints
 	extend GeographyPointsNew
 
@@ -70,5 +75,24 @@ class TrackPoint < ActiveRecord::Base
 		rescue
 			default
 		end
+	end
+	def self.test2()
+		_center 		=  'POINT(113.589385 37.862176)'
+		_distance		=  100
+		_users 			=  [1,2,3]
+		TrackPoint.select(%Q{min(generated_time_of_server_version) , user_id ,to_char(generated_time_of_server_version,'YYYY-MM-DD') as checkin_time})
+		.by_distance(_center,_distance)
+	    .group_by_check_in_time
+	    .by_users(_users)
+
+	end
+	def self.test(organization_id)
+		_organization_users = 'organization_users'
+		TrackPoint.find_by_sql(
+			%Q{
+				#{User.all_subordinates_sql(_organization_users,organization_id)}
+				select * from #{_organization_users}
+			}
+		)
 	end
 end

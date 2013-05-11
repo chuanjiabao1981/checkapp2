@@ -21,6 +21,8 @@ cn:
       search: 查询
       nono: 编号
       goback: 返回
+      checkin: 到岗统计
+      add_track_point: 模拟轨迹
   simple_form:
     labels:
       search:
