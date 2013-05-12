@@ -4,9 +4,9 @@
 					:"show-click-position" => (defined?(show_position).nil?  		|| show_position.nil?) ? false : show_position,
 					:"add-track-point" => (defined?(add_track_point).nil? 	|| add_track_point.nil?) ? false : add_track_point, 
 					:"input" => (defined?(input).nil? || input.nil?) ? {} : input,
-					:"current-location" => (defined?(location).nil? || location.lat.nil? || location.lng.nil? ) ? "null" : {:lat=>location.lat,:lng=>location.lng, :name => location.name},
-					:"center-lng" => (defined?(location) and not location.lng.nil?) ? location.lng : (current_user.tenant.nil? ? 116.404 : current_user.tenant.lng),
-					:"center-lat" => (defined?(location) and not location.lat.nil?) ? location.lat : (current_user.tenant.nil? ? 39.915  : current_user.tenant.lat),
+					:"current-location" => (defined?(location).nil? || location.nil? ||location.lat.nil? || location.lng.nil? ) ? "null" : {:lat=>location.lat,:lng=>location.lng, :name => location.name},
+					:"center-lng" => (defined?(location) and not location.nil? and not location.lng.nil?) ? location.lng : (current_user.tenant.nil? ? 116.404 : current_user.tenant.lng),
+					:"center-lat" => (defined?(location) and not location.nil? and not location.lat.nil?) ? location.lat : (current_user.tenant.nil? ? 39.915  : current_user.tenant.lat),
 					:"zoom"       => current_user.tenant.nil? ? 15: current_user.tenant.zoom,
 					:"track-points" => (defined?(track_points).nil?) ? [] : track_points,
 					:"track-user-name"=>(defined?(track_user_name).nil?) ? '' : track_user_name

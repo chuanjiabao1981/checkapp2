@@ -3,21 +3,74 @@
 
 <div class="box">
 	<div class="box-header">
-		<span class="title"><%= I18n.t('views.text.new') + I18n.t('activerecord.models.location')%></span>
+		<span class="title"><%= I18n.t('views.text.checkin')%></span>
 	</div>
 	<div class="box-content">
-		<%= simple_form_for :checkin , :url => checkin_users_path ,:html => { :class => 'form-horizontal'  } do |f| %>
+		<%= simple_form_for :checkin , :url => checkin_users_path ,:method => :get ,:html => { :class => 'form-horizontal fill-up'  } do |f| %>
 			<div class="padded separate-sections">
 				<%= f.error_notification %>
 				<%= f.error :base , :error_method => :to_sentence %>
 				<fieldset>
-          			<%= f.input :location, collection: Location.all,:include_blank => false , :selected => params[:checkin][:location] %>
+          			<%= f.input :location,      collection: Location.all.collect { |l| [l.name,l.coordinate.to_s]  },:include_blank => false , :selected => params[:checkin][:location] %>
+          			<%= f.input :distance,  as: :integer, :input_html=>{:value => params[:checkin][:distance],:step => 300} %>
+          			<%= f.input :organization , collection: Organization.all,:include_blank => true, :selected => params[:checkin][:organization] %>
+          			<%= f.input :user,collection: User.all_subordinates_of_organization(params[:checkin][:organization]),:selected=>params[:checkin][:user] %>
+          			<%= f.input :start_day, as: :string, :input_html =>{:value => params[:checkin][:start_day]} %>
+          			<%= f.input :end_day,   as: :string, :input_html =>{:value => params[:checkin][:end_day]} %>
+
 				</fieldset>
 			</div>
 			<div class="form-actions">
-				<%= f.button :submit , :class => 'btn btn-primary' %>
+				<%=  button_tag "提交"  , :class => 'btn btn-primary' %>
 				<%= link_to '取消', users_path, :class => 'btn' %>
 			</div>
+		<% end %>
+	</div>
+</div>
+
+<div class="box">
+	<div class="box-header">
+		<span class="title"><%= I18n.t('views.text.checkin') %></span>
+	</div>
+	<div class="box-content">
+		<% if @checkin_info.size > 0 %>
+			<table id="user-checkin-info" class="table-bordered table">
+				<thead>
+					<tr>
+						<th><%= I18n.t('views.text.date') %></th>
+						<th><%= I18n.t('views.text.is_checkin') %></th>
+						<th><%= I18n.t('views.text.first_checkin_time')%></th>
+						<th><%= I18n.t('views.text.track_back') %> </th>
+					</tr>
+				</thead>
+				<tbody>
+						<% @checkin_info.each do |day,info| %>
+
+					<tr class="<% if info.nil? %>error<%else%>success<% end %>">
+							<td> <%= day %> </td>
+							<% if info.nil? %>
+								<td> <span class="label label-dark-red"><i class="icon-remove-sign"></i>未到岗</span></td>
+								<td>N/A</td>
+								<th>N/A</td>
+							<% else %>
+								<td><span class="label label-dark-red"><i class="icon-ok-sign"></i> 到岗</span></td>
+								<td><%= info.first_checkin_time.to_time.localtime%></td>
+								<td><%= link_to track_users_path(
+											track:{
+													day: info.first_checkin_time.to_time.localtime.strftime('%Y-%m-%d') ,
+													start_time: (info.first_checkin_time.to_time.localtime - 1.hour).strftime('%H:%M'),
+													end_time: (info.first_checkin_time.to_time.localtime + 1.hour).strftime('%H:%M'),
+													user:params[:checkin][:user],location: @location.id}
+										)  do
+										%>
+										<span><%= I18n.t('views.text.track_back')%></span>
+										<% end %>
+								</td>
+							<% end %>
+						</tr>
+						<% end %>
+				</tbody>
+			</table>
 		<% end %>
 	</div>
 </div>

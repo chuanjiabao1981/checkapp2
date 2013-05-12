@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
     end
 
     def self.all_subordinates_of_organization(organization_id)
-      return [] if (organization_id.nil? or organization_id.length == 0)
+      return [] if (organization_id.nil? or organization_id.to_s.length == 0)
       User.find_by_sql(
         %Q{
           #{User.all_subordinates_sql("rr",organization_id)}

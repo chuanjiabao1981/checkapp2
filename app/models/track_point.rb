@@ -35,7 +35,7 @@ class TrackPoint < ActiveRecord::Base
 	scope :by_distance,lambda { |center,radius|
 		where("ST_DWithin(ST_GeographyFromText('SRID=4326;#{center.to_s}'),coordinate,#{radius})");
 	}
-	scope :group_by_check_in_time ,group("checkin_time,user_id")
+	scope :group_by_check_in_time ,group("checkin_day,user_id")
 	scope :by_users, lambda { |users| where(:user_id => users) }
 	scope :between_day,lambda {|start_day,end_day| 
 		where('generated_time_of_server_version between ? and ?',
@@ -82,17 +82,24 @@ class TrackPoint < ActiveRecord::Base
 			default
 		end
 	end
-	def self.worker_checkin_info()
-		_center 		=  'POINT(113.589385 37.862176)'
-		_distance		=  100
-		_user 			=  2
-		_start_day      =  '2013-04-11' 
-		_end_day		=  '2013-05-11'
-		TrackPoint.select(%Q{min(generated_time_of_server_version) as first_checkin , user_id ,to_char(generated_time_of_server_version,'YYYY-MM-DD') as checkin_time})
-		.by_distance(_center,_distance)
-	    .group_by_check_in_time
-	    .by_user(_user)
-	    .between_day(_start_day,_end_day)
+	def self.worker_checkin_info(query_info)
+		return [] if query_info.nil? or query_info[:user].nil? or query_info[:location].nil?
+		_center 		=  query_info[:location]
+		_distance		=  query_info[:distance]
+		_user 			=  query_info[:user]
+		_start_day      =  query_info[:start_day]
+		_end_day		=  query_info[:end_day]
+		_r 				=  TrackPoint.select(%Q{min(generated_time_of_server_version)::timestamp as first_checkin_time , user_id ,to_char(generated_time_of_server_version,'YYYY-MM-DD') as checkin_day})
+							.by_distance(_center,_distance)
+	    					.group_by_check_in_time
+	    					.by_user(_user)
+	    					.between_day(_start_day,_end_day).all
+	    __final_result  = {}
+	    (query_info[:start_day].to_datetime.to_i .. query_info[:end_day].to_datetime.to_i).step(1.day) do |d|
+	    	dd 				  = Time.at(d).to_datetime.strftime("%Y-%m-%d")
+	    	__final_result[dd] = _r.find {|r| r.checkin_day == dd}
+ 	    end
+ 	    __final_result
 	end
 	def self.test(organization_id)
 		_organization_users = 'organization_users'

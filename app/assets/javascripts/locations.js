@@ -1,4 +1,5 @@
 var getLocationIssueInfoWindow, lushu, newPosition, showLocation, showLocationList, trackPoint;
+var checkAppMap;
 
 getLocationIssueInfoWindow = void 0;
 
@@ -24,35 +25,16 @@ newPosition = function(e) {
   i = void 0;
   _all_overlays = void 0;
   _old_point = void 0;
-  _all_overlays = this.getOverlays();
-  _old_point = $("div#map-config").data("current-location");
-  i = 0;
-  while (i < _all_overlays.length) {
-    if ((_all_overlays[i] != null) && _all_overlays[i] instanceof BMap.Marker && (_old_point != null) && _all_overlays[i].getPosition().equals(new BMap.Point(_old_point.lng, _old_point.lat))) {
-      this.removeOverlay(_all_overlays[i]);
-    }
-    i++;
-  }
+  _old_point = getOldLocation();
+  removeLocation(this,_old_point);
   if ((_old_point != null) && (_old_point.name != null)) {
-    showLocation(this, {
-      lng: e.point.lng,
-      lat: e.point.lat,
-      name: _old_point.name
-    });
-    $("div#map-config").data("current-location", {
-      lng: e.point.lng,
-      lat: e.point.lat,
-      name: _old_point.name
-    });
+    l = {lng: e.point.lng, lat: e.point.lat, name: _old_point.name };
+    showLocation(this,l);
+    setOldLocation(l);
   } else {
-    showLocation(this, {
-      lng: e.point.lng,
-      lat: e.point.lat
-    });
-    $("div#map-config").data("current-location", {
-      lng: e.point.lng,
-      lat: e.point.lat
-    });
+    l = {lng: e.point.lng, lat: e.point.lat }
+    showLocation(this, l);
+    setOldLocation(l)
   }
   $($("div#map-config").data("input")["lng"]).val(e.point.lng);
   $($("div#map-config").data("input")["lat"]).val(e.point.lat);
@@ -61,7 +43,14 @@ newPosition = function(e) {
     return $(s).val(this.getZoom());
   }
 };
-
+getOldLocation = function()
+{
+  return $("div#map-config").data("current-location");
+}
+setOldLocation = function(location)
+{
+  $("div#map-config").data("current-location",location)
+}
 addTrackPoint = function(e)
 {
   showLocation(this, {
@@ -106,7 +95,17 @@ getLocationIssueInfoWindow = function(location) {
   }
   return null;
 };
-
+removeLocation = function(map, location)
+{
+  _all_overlays = map.getOverlays();
+  i = 0;
+  while (i < _all_overlays.length) {
+    if ((_all_overlays[i] != null) && _all_overlays[i] instanceof BMap.Marker && (location != null) && _all_overlays[i].getPosition().equals(new BMap.Point(location.lng, location.lat))) {
+      map.removeOverlay(_all_overlays[i]);
+    }
+  i++;
+  }
+}
 showLocation = function(map, location) {
   var label, marker;
   label = void 0;
@@ -216,6 +215,10 @@ trackPoint = function(map) {
   }
 };
 
+getCheckAppMap = function()
+{
+  return checkAppMap;
+}
 $(function() {
   var map, point;
   map = void 0;
@@ -238,6 +241,7 @@ $(function() {
     }
     showLocationList(map);
     showLocation(map, $("div#map-config").data("current-location"));
+    checkAppMap = map;
     return trackPoint(map);
   }
 });

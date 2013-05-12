@@ -2,7 +2,9 @@
 <%= render partial: 'locations/map_config',
   locals: {
             track_points: @track_points.as_json(:methods=>[:lat,:lng],only:[:name]),
-            track_user_name: @track_user_name.as_json(only:[:name])
+            track_user_name: @track_user_name.as_json(only:[:name]),
+            location: @location,
+            show_position: true
           }
 %>
 

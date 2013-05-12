@@ -23,6 +23,11 @@ cn:
       goback: 返回
       checkin: 到岗统计
       add_track_point: 模拟轨迹
+      date: 日期
+      first_checkin_time: 到岗时间
+      is_checkin: 是否到岗
+      track: 轨迹
+      track_back: 轨迹回放
   simple_form:
     labels:
       search:
@@ -41,3 +46,11 @@ cn:
         user: 人员
       checkin:
         location: 到岗位置
+        distance: 到岗范围
+        organization: 机构
+        user: 人员
+        start_day: 开始日期
+        end_day: 结束日期
+    hints:
+      checkin:
+        distance: 进入此范围均属到岗(单位:米)
