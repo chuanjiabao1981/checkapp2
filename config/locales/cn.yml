@@ -39,3 +39,5 @@ cn:
         start_time: 开始时间
         end_time: 结束时间
         user: 人员
+      checkin:
+        location: 到岗位置

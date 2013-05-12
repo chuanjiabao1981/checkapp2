@@ -37,6 +37,12 @@ class TrackPoint < ActiveRecord::Base
 	}
 	scope :group_by_check_in_time ,group("checkin_time,user_id")
 	scope :by_users, lambda { |users| where(:user_id => users) }
+	scope :between_day,lambda {|start_day,end_day| 
+		where('generated_time_of_server_version between ? and ?',
+			TrackPoint.parser_time(start_day,"00:00", DateTime.now.beginning_of_day.utc),
+			TrackPoint.parser_time(end_day,"23:59",DateTime.now.end_of_day.utc)
+		)
+	}
 	include GeographyPoints
 	extend GeographyPointsNew
 
@@ -76,15 +82,17 @@ class TrackPoint < ActiveRecord::Base
 			default
 		end
 	end
-	def self.test2()
+	def self.worker_checkin_info()
 		_center 		=  'POINT(113.589385 37.862176)'
 		_distance		=  100
-		_users 			=  [1,2,3]
-		TrackPoint.select(%Q{min(generated_time_of_server_version) , user_id ,to_char(generated_time_of_server_version,'YYYY-MM-DD') as checkin_time})
+		_user 			=  2
+		_start_day      =  '2013-04-11' 
+		_end_day		=  '2013-05-11'
+		TrackPoint.select(%Q{min(generated_time_of_server_version) as first_checkin , user_id ,to_char(generated_time_of_server_version,'YYYY-MM-DD') as checkin_time})
 		.by_distance(_center,_distance)
 	    .group_by_check_in_time
-	    .by_users(_users)
-
+	    .by_user(_user)
+	    .between_day(_start_day,_end_day)
 	end
 	def self.test(organization_id)
 		_organization_users = 'organization_users'

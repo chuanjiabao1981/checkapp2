@@ -1,0 +1,23 @@
+<%=render partial:"locations/map"%>
+<%= render partial: 'locations/map_config' %>
+
+<div class="box">
+	<div class="box-header">
+		<span class="title"><%= I18n.t('views.text.new') + I18n.t('activerecord.models.location')%></span>
+	</div>
+	<div class="box-content">
+		<%= simple_form_for :checkin , :url => checkin_users_path ,:html => { :class => 'form-horizontal'  } do |f| %>
+			<div class="padded separate-sections">
+				<%= f.error_notification %>
+				<%= f.error :base , :error_method => :to_sentence %>
+				<fieldset>
+          			<%= f.input :location, collection: Location.all,:include_blank => false , :selected => params[:checkin][:location] %>
+				</fieldset>
+			</div>
+			<div class="form-actions">
+				<%= f.button :submit , :class => 'btn btn-primary' %>
+				<%= link_to '取消', users_path, :class => 'btn' %>
+			</div>
+		<% end %>
+	</div>
+</div>

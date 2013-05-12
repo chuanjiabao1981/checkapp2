@@ -51,6 +51,7 @@ class UsersController < ApplicationController
 	def checkin
 		if have_param?(:checkin)
 		else
+			params[:checkin] = {}
 		end
 	end
 	private

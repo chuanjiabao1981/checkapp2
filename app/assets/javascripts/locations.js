@@ -231,7 +231,9 @@ $(function() {
     map.addControl(new BMap.MapTypeControl());
     map.centerAndZoom(point, $("div#map-config").data("zoom"));
     if ($("div#map-config").data("show-click-position")) {
-      //map.addEventListener("click", newPosition);
+      map.addEventListener("click", newPosition);
+    }
+    if ($("div#map-config").data("add-track-point")){
       map.addEventListener("click", addTrackPoint);
     }
     showLocationList(map);
