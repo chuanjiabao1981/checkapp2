@@ -51,11 +51,12 @@
 							<% if info.nil? %>
 								<td> <span class="label label-dark-red"><i class="icon-remove-sign"></i>未到岗</span></td>
 								<td>N/A</td>
-								<th>N/A</td>
+								<td>N/A</td>
 							<% else %>
 								<td><span class="label label-dark-red"><i class="icon-ok-sign"></i> 到岗</span></td>
 								<td><%= info.first_checkin_time.to_time.localtime%></td>
-								<td><%= link_to track_users_path(
+								<td>
+										<%= link_to track_users_path(
 											track:{
 													day: info.first_checkin_time.to_time.localtime.strftime('%Y-%m-%d') ,
 													start_time: (info.first_checkin_time.to_time.localtime - 1.hour).strftime('%H:%M'),
