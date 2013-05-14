@@ -1,10 +1,10 @@
 <div class="box-section news with-icons template_report">
 	<% if not defined?(only_issue) or only_issue == false %>
-		<div class="total">
+		<div class="total hidden-phone">
 			<div class="mini-counts"><%= t.template.check_points.size %></div>
 			<div>总数</div>
 		</div>
-		<div class="total">
+		<div class="total hidden-phone">
 			<div class="mini-counts"><%= t.un_check_points.size%></div>
 			<div>待查</div>
 		</div>
