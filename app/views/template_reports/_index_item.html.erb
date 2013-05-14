@@ -35,11 +35,9 @@
 		:class=> "btn  btn-red btn-mini" %>
 		<% end %>
 	</div>
-	<% if not defined?(only_issue) or only_issue == false %>
-	<div style="float:left">
+	<div  class="hidden-phone" style="float:left">
 		<span class="label label-green "><%=  t.submitter.name %></span>
 		<span class="label label-dark-red"><%= time_ago_in_words(t.created_at)%>前</span>
 	</div>
-	<% end %>
 	</div>
 </div>

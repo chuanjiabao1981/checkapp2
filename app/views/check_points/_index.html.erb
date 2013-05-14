@@ -11,7 +11,7 @@
 		<tbody>
 			<% check_points.each_with_index do |c,index| %>
 				<tr>
-					<td><%= index %></td>
+					<td><%= index + 1 %></td>
 					<td><%= c.content %></td>
 					<td>
 						<%= render :partial=>'shared/edit_destroy',:locals=>{:model=>'check_point',:r=>c}%>

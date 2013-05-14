@@ -25,4 +25,4 @@
 	</div>
 </div>
 
-<%= render partial: 'check_points/index',locals: {check_points: @template.check_points,template: @template} %>
+<%= render partial: 'check_points/index',locals: {check_points: @template.check_points.order(:created_at),template: @template} %>
