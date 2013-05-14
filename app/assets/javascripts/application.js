@@ -21,4 +21,4 @@
 //= require core-admin/custom_actions
 //= require jquery-ui-timepicker-addon
 //= require jquery-ui-timepicker-zh-CN.js
-//= require_tree "." exclude "test.js"
+//= require_tree .
