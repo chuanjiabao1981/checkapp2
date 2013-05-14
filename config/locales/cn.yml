@@ -28,6 +28,7 @@ cn:
       is_checkin: 是否到岗
       track: 轨迹
       track_back: 轨迹回放
+      create: 创建
   simple_form:
     labels:
       search:
