@@ -22,7 +22,7 @@
 					</div>
 					<div class="tab-pane" id="latest_template_reports">				
 						<% @latest_create_template_report.each do |t| %>
-							<%=render partial:'template_reports/index_item', locals:{t:t,only_issue:false} %>
+							<%=render partial:'template_reports/index_item', locals:{t:t,only_issue:true} %>
 						<% end %>
 					</div>
 				</div>

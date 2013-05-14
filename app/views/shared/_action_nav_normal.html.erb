@@ -8,7 +8,13 @@
       <%end%>
       <span class="triangle-button red"><i class="icon-plus"></i></span>
     </div>
-
+    <div class="span6 action-nav-button">
+      <%=link_to new_template_report_path  do %>
+        <i class="icon-file-alt"></i>
+        <span><%= get_new_label('template_report') %></span>
+      <%end%>
+      <span class="triangle-button red"><i class="icon-plus"></i></span>
+    </div>
     <div class="span6 action-nav-button">
         <%=link_to search_quick_reports_path({:search=>{:state=>"needed_resolve",:responsible_person=>current_user.id}}) do %>
           <i class="icon-comments-alt"></i>
