@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130508030405) do
+ActiveRecord::Schema.define(:version => 20130514152119) do
 
   create_table "check_points", :force => true do |t|
     t.string   "content"
@@ -157,8 +157,10 @@ ActiveRecord::Schema.define(:version => 20130508030405) do
     t.date     "term"
     t.spatial  "coordinate", :limit => {:srid=>4326, :type=>"point", :geographic=>true}
     t.integer  "zoom",                                                                   :default => 15
-    t.datetime "created_at",                                                                             :null => false
-    t.datetime "updated_at",                                                                             :null => false
+    t.datetime "created_at",                                                                                :null => false
+    t.datetime "updated_at",                                                                                :null => false
+    t.string   "prefix"
+    t.boolean  "tile",                                                                   :default => false
   end
 
   create_table "track_points", :force => true do |t|

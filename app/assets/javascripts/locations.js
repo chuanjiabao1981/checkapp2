@@ -214,7 +214,20 @@ trackPoint = function(map) {
     });
   }
 };
-
+addTileLayer = function(map)
+{
+  if ($("div#map-config").data("add-tile"))
+  {
+    var prefix    = $("div#map-config").data("tile-prefix");
+    var tileLayer = new BMap.TileLayer({isTransparentPng: true});
+    tileLayer.getTilesUrl = function(tileCoord, zoom) {
+    var x = tileCoord.x;
+    var y = tileCoord.y;
+    return prefix+'/tiles/' + zoom + '/tile' + x + '_' + y + '.png';
+    }
+    map.addTileLayer(tileLayer);
+  }
+}
 getCheckAppMap = function()
 {
   return checkAppMap;
@@ -241,6 +254,7 @@ $(function() {
     }
     showLocationList(map);
     showLocation(map, $("div#map-config").data("current-location"));
+    addTileLayer(map)
     checkAppMap = map;
     return trackPoint(map);
   }

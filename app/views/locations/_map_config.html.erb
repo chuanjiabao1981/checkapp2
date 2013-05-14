@@ -9,6 +9,8 @@
 					:"center-lat" => (defined?(location) and not location.nil? and not location.lat.nil?) ? location.lat : (current_user.tenant.nil? ? 39.915  : current_user.tenant.lat),
 					:"zoom"       => current_user.tenant.nil? ? 15: current_user.tenant.zoom,
 					:"track-points" => (defined?(track_points).nil?) ? [] : track_points,
-					:"track-user-name"=>(defined?(track_user_name).nil?) ? '' : track_user_name
+					:"track-user-name"=>(defined?(track_user_name).nil?) ? '' : track_user_name,
+					:"add-tile" 		=> (not current_user.tenant.nil? and current_user.tenant.tile)  ? true : false ,
+					:"tile-prefix"		=> current_user.tenant.nil? ? '' : current_user.tenant.prefix
 				} do%>
 <% end %>

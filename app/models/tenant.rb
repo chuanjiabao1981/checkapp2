@@ -4,6 +4,7 @@ class Tenant < ActiveRecord::Base
 
 	validates :name,:length=>{:maximum => 50},:presence => true,:uniqueness => true
 	validates_date :term
+	validates :prefix,:uniqueness => true
 
 	has_many :users,:dependent => :destroy
 
