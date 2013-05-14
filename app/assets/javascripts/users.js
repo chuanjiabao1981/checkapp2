@@ -36,10 +36,12 @@ getSelectLocationPoint = function(location)
   return {lng:point[0],lat:point[1],name: name}
 }
 $(function(){
- l = getSelectLocationPoint('#checkin_location');
- setOldLocation(l);
- showLocation(getCheckAppMap(), l);
- getCheckAppMap().panTo(new BMap.Point(l.lng,l.lat));
+ if( $("#checkin_location")[0]){
+  l = getSelectLocationPoint('#checkin_location');
+  setOldLocation(l);
+  showLocation(getCheckAppMap(), l);
+  getCheckAppMap().panTo(new BMap.Point(l.lng,l.lat));
+  }
 
 })
 $(function(){
