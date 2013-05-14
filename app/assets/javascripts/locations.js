@@ -223,7 +223,7 @@ addTileLayer = function(map)
     tileLayer.getTilesUrl = function(tileCoord, zoom) {
     var x = tileCoord.x;
     var y = tileCoord.y;
-    return prefix+'/tiles/' + zoom + '/tile' + x + '_' + y + '.png';
+    return "/tiles/"+prefix+'/tiles/' + zoom + '/tile' + x + '_' + y + '.png';
     }
     map.addTileLayer(tileLayer);
   }
