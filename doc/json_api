@@ -119,6 +119,9 @@ select DISTINCT(to_char(generated_time_of_server_version,'YYYY-MM-DD')) from tra
 http://workshops.opengeo.org/postgis-intro/geography.html
 
 
+set search_path = public, postgis;
+
+
 
 
 
