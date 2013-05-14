@@ -1,3 +1,4 @@
+
 //= require jquery
 //= require jquery-migrate-min
 //= require jquery_ujs
@@ -20,4 +21,4 @@
 //= require core-admin/custom_actions
 //= require jquery-ui-timepicker-addon
 //= require jquery-ui-timepicker-zh-CN.js
-//= require_tree .
+//= require_tree "." exclude "test.js"
