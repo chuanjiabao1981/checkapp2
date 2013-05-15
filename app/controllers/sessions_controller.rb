@@ -5,7 +5,10 @@ class SessionsController < ApplicationController
 	
 	def create
 		@user = User.find_by_account(params[:session][:account])
+		Rails.logger.info("account: |#{params[:session][:account]}|")
+		Rails.logger.info("account: #{params[:session][:password]}")
 		if @user && @user.authenticate(params[:session][:password])
+			Rails.logger.debug("okokokoko")
 			sign_in(@user)
 			return redirect_to root_path
 		else
