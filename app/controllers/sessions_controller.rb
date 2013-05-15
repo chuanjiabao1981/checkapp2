@@ -1,14 +1,12 @@
 class SessionsController < ApplicationController
+	before_filter :already_signin , :only => [:new]
 	def new
 		render layout:'only_topbar'
 	end
 	
 	def create
 		@user = User.find_by_account(params[:session][:account])
-		Rails.logger.info("account: |#{params[:session][:account]}|")
-		Rails.logger.info("account: #{params[:session][:password]}")
 		if @user && @user.authenticate(params[:session][:password])
-			Rails.logger.debug("okokokoko")
 			sign_in(@user)
 			return redirect_to root_path
 		else
@@ -20,4 +18,8 @@ class SessionsController < ApplicationController
 		sign_out
 		return redirect_to root_path
 	end
+	private 
+		def already_signin
+			return redirect_to root_path if current_user
+		end
 end
