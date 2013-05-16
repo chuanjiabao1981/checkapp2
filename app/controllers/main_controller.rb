@@ -10,6 +10,8 @@ class MainController < ApplicationController
 		@latest_created_quick_report 								= Overview.latest_created_quick_report
 		@latest_create_template_report 								= Overview.latest_create_template_report
 	end
+	def test
+	end
 	private
 		def not_signin
 			return redirect_to signin_path unless current_user

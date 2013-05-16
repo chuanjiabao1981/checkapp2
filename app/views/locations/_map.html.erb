@@ -1,19 +1,28 @@
 <div class="box hidden-phone">
-	<div class="box-header"><span class="title">地图</span></div>
+	<div class="box-header"><span class="title">地图</span>
+		<ul class="box-toolbar">
+          <li>
+              <label class="input-with-submit">
+                <input type="text" placeholder="Search...">
+                <button type="submit" class="submit-icon" onclick="return mapLocationSearch();">
+                  <i class="icon-search"></i>
+                </button>
+              </label>
+          </li>
+        </ul>
+	</div>
 	<div class="box-content">
-		<div id="map-container" style="height: 360px;">
+		<div id="map-container" style="height: 450px">
 		</div>
 	</div>
 	<div class="box-footer">
-	<% if not defined?(control_button).nil? %>
-	<p style="margin:4px">
-    	<button id="run" class="btn btn-mini btn-green" >开始</button> 
-    	<button id="stop" class="btn btn-mini btn-green" >停止</button> 
-    	<button id="pause" class="btn btn-mini btn-green" >暂停</button> 
-    	<!--button id="hide" class="btn btn-mini btn-green" >hide infoWindow</button--> 
-    	<!--button id="show" class="btn btn-mini btn-green" >show infoWindow</button--> 
-	</p>
-	<% end %>
+		<% if not defined?(control_button).nil? %>
+			<p style="margin:4px">
+    			<button id="run" class="btn btn-mini btn-green" >开始</button> 
+    			<button id="stop" class="btn btn-mini btn-green" >停止</button> 
+    			<button id="pause" class="btn btn-mini btn-green" >暂停</button> 
+			</p>
+		<% end %>
 	</div>
 </div>
 

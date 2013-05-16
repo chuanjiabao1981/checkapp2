@@ -37,6 +37,7 @@ Checkapp2::Application.routes.draw do
   
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+  match '/test',    to: 'main#test',via: :get
 
   root :to => 'main#overview'
 

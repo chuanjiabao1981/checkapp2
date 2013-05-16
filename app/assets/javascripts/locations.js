@@ -232,6 +232,13 @@ getCheckAppMap = function()
 {
   return checkAppMap;
 }
+mapLocationSearch = function()
+{
+  var local = new BMap.LocalSearch(getCheckAppMap(), {
+  renderOptions: {map: getCheckAppMap()}}
+  );
+  local.search("阳泉市第一中学");
+}
 $(function() {
   var map, point;
   map = void 0;

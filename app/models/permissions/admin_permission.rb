@@ -40,7 +40,7 @@ module Permissions
       allow "api/v1/track_points",[:create]
       allow "api/v1/organizations",[:users]
 
-      allow :main,[:overview]
+      allow :main,[:overview,:test]
       #allow :issues,[:index,:new,:create]
       #allow :issues, [:show,:edit,:update,:destroy,] do |u|
       #  u && u.tenant == user.tenant

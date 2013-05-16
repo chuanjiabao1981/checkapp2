@@ -12,7 +12,12 @@ module ApplicationHelper
 								label: 		"概况", 
 								link: 		root_path, 
 								side_nav: 	true
-							  }
+							  },
+						test:{
+							icon: 'icon-bar-chart',
+							label: '测试',
+							side_nav: false
+						}
 					}
 			},
 			tenants:{
