@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130514152119) do
+ActiveRecord::Schema.define(:version => 20130516071829) do
 
   create_table "check_points", :force => true do |t|
     t.string   "content"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(:version => 20130514152119) do
   add_index "template_check_records", ["check_point_id"], :name => "index_template_check_records_on_check_point_id"
   add_index "template_check_records", ["location_id"], :name => "index_template_check_records_on_location_id"
   add_index "template_check_records", ["submitter_id"], :name => "index_template_check_records_on_submitter_id"
+  add_index "template_check_records", ["template_report_id", "check_point_id"], :name => "template_report_id_and_check_point_id", :unique => true
   add_index "template_check_records", ["template_report_id"], :name => "index_template_check_records_on_template_report_id"
   add_index "template_check_records", ["tenant_id"], :name => "index_template_check_records_on_tenant_id"
 
