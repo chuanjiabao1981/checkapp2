@@ -1,4 +1,5 @@
 class TemplateCheckRecordsController < ApplicationController
+	before_filter :check_point_already_done,:only=>[:create,:new]
 	def new
 		@template_report 						=current_resource
 		@template_check_record 					= 
@@ -53,5 +54,12 @@ class TemplateCheckRecordsController < ApplicationController
 			@template_check_record.build_issue
 		end
 		build_images_for_object(@template_check_record.issue)
+  	end
+  	def check_point_already_done
+  		if current_resource
+  			if current_resource.template_check_records.find{|tcr| tcr.check_point_id == params[:template_check_record][:check_point_id].try(:to_i)}
+  				return redirect_to template_report_path(current_resource)
+  			end
+  		end	
   	end
 end
