@@ -443,7 +443,10 @@ module ApplicationHelper
 		@_all_organization_num ||= Organization.count
 	end
 
-	 
+	def get_edit_or_new_label(record)
+		return I18n.t('views.text.new')  + I18n.t("activerecord.models.#{record.class.to_s.underscore}")if record.new_record? 
+		return I18n.t('views.text.edit') + I18n.t("activerecord.models.#{record.class.to_s.underscore}")
+	end
 	def get_index_label(model)
 		I18n.t("activerecord.models.#{model}")+I18n.t('views.text.index')
 	end

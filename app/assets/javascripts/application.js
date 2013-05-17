@@ -4,7 +4,7 @@
 //= require jquery_ujs
 //= require jquery.ui.slider
 //= require jquery.ui.datepicker-zh-CN
-//= require bootstrap
+//= require core-admin/vendor/bootstrap/bootstrap
 //= require core-admin/vendor/sparkline
 //= require core-admin/vendor/tags_input
 //= require core-admin/vendor/jquery_uniform

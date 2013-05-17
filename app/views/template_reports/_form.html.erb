@@ -1,6 +1,6 @@
 <div class="box">
 	<div class="box-header">
-		<span class="title"><%= get_new_label('template_report')%></span>
+		<span class="title"><%= get_edit_or_new_label(template_report)%></span>
 	</div>
 	<div class="box-content">
 		<%= simple_form_for template_report , :html => { :class => 'form-horizontal fill-up'  } do |f| %>

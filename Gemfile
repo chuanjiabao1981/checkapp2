@@ -25,7 +25,7 @@ group :assets do
   #gem 'therubyracer'
 
   gem 'uglifier', '>= 1.0.3'
-  gem 'bootstrap-sass', '~> 2.3.1.0'
+  #gem 'bootstrap-sass', '~> 2.3.1.0'
   gem 'compass-rails'
   gem 'jquery-ui-rails'
   gem 'jquery-migrate-rails'

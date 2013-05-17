@@ -1,0 +1,13 @@
+//= require core-admin/vendor/bootstrap/bootstrap-transition
+//= require core-admin/vendor/bootstrap/bootstrap-affix
+//= require core-admin/vendor/bootstrap/bootstrap-alert
+//= require core-admin/vendor/bootstrap/bootstrap-button
+//= require core-admin/vendor/bootstrap/bootstrap-carousel
+//= require core-admin/vendor/bootstrap/bootstrap-collapse
+//= require core-admin/vendor/bootstrap/bootstrap-dropdown
+//= require core-admin/vendor/bootstrap/bootstrap-modal
+//= require core-admin/vendor/bootstrap/bootstrap-scrollspy
+//= require core-admin/vendor/bootstrap/bootstrap-tab
+//= require core-admin/vendor/bootstrap/bootstrap-tooltip
+//= require core-admin/vendor/bootstrap/bootstrap-popover
+//= require core-admin/vendor/bootstrap/bootstrap-typeahead

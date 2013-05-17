@@ -1,3 +1,9 @@
 // Place all the styles related to the Locations controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+//bootstrap的 img max-width:100%
+//导致 baidu api的 sprit有问题，所以把这个在这里抵消调
+#map-container img{
+	max-width: none
+}

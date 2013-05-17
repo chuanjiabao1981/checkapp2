@@ -1,15 +1,18 @@
 <div class="box hidden-phone">
-	<div class="box-header"><span class="title">地图</span>
+	<div class="box-header">
+		<span class="title">地图</span>
+		<% if (controller_name == 'tenants' or controller_name == 'locations') and (action_name =='edit' or action_name == 'new') %>
 		<ul class="box-toolbar">
           <li>
               <label class="input-with-submit">
-                <input type="text" placeholder="Search...">
+                <input id="search_place" type="text" placeholder="....">
                 <button type="submit" class="submit-icon" onclick="return mapLocationSearch();">
                   <i class="icon-search"></i>
                 </button>
               </label>
           </li>
         </ul>
+        <% end %>
 	</div>
 	<div class="box-content">
 		<div id="map-container" style="height: 450px">

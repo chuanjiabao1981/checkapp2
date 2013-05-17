@@ -8,7 +8,7 @@ class TemplatesController < ApplicationController
 	def create
 		@template = Template.new(params[:template])
 		if @template.save
-			return redirect_to templates_path
+			return redirect_to template_path(@template)
 		else
 			render 'new'
 		end

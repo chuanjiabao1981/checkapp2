@@ -11,7 +11,9 @@
 		<tbody>
 			<% @templates.each do |t| %>
 			<tr>
-				<td><%= link_to t.name,template_path(t) %></td>
+				<td><%= link_to template_path(t) do%>
+					<span style="margin-right: 10px" class="label label-blue"><%= t.name %></span>
+					<%end%></td>
 				<td><%= t.desc %></td>
 				<td>
 					<%= render :partial=>'shared/edit_destroy',:locals=>{:model=>'template',:r=>t}%>

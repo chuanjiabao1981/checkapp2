@@ -9,55 +9,55 @@
  */
 
 // Core variables and mixins
-@import "bootstrap/variables"; // Modify this for custom colors, font-sizes, etc
-@import "bootstrap/mixins";
+@import "core-admin/bootstrap/variables"; // Modify this for custom colors, font-sizes, etc
+@import "core-admin/bootstrap/mixins";
 
 // CSS Reset
-@import "bootstrap/reset";
+@import "core-admin/bootstrap/reset";
 
 // Grid system and page structure
-@import "bootstrap/scaffolding";
-@import "bootstrap/grid";
-@import "bootstrap/layouts";
+@import "core-admin/bootstrap/scaffolding";
+@import "core-admin/bootstrap/grid";
+@import "core-admin/bootstrap/layouts";
 
 // Base CSS
-@import "bootstrap/type";
-@import "bootstrap/code";
-@import "bootstrap/forms";
-@import "bootstrap/tables";
+@import "core-admin/bootstrap/type";
+@import "core-admin/bootstrap/code";
+@import "core-admin/bootstrap/forms";
+@import "core-admin/bootstrap/tables";
 
 // Components: common
-//@import "bootstrap/sprites";
-@import "bootstrap/dropdowns";
-@import "bootstrap/wells";
-@import "bootstrap/component-animations";
-@import "bootstrap/close";
+//@import "core-admin/bootstrap/sprites";
+@import "core-admin/bootstrap/dropdowns";
+@import "core-admin/bootstrap/wells";
+@import "core-admin/bootstrap/component-animations";
+@import "core-admin/bootstrap/close";
 
 // Components: Buttons & Alerts
-@import "bootstrap/buttons";
-@import "bootstrap/button-groups";
-@import "bootstrap/alerts"; // Note: alerts share common CSS with buttons and thus have styles in buttons
+@import "core-admin/bootstrap/buttons";
+@import "core-admin/bootstrap/button-groups";
+@import "core-admin/bootstrap/alerts"; // Note: alerts share common CSS with buttons and thus have styles in buttons
 
 // Components: Nav
-@import "bootstrap/navs";
-@import "bootstrap/navbar";
-@import "bootstrap/breadcrumbs";
-@import "bootstrap/pagination";
-@import "bootstrap/pager";
+@import "core-admin/bootstrap/navs";
+@import "core-admin/bootstrap/navbar";
+@import "core-admin/bootstrap/breadcrumbs";
+@import "core-admin/bootstrap/pagination";
+@import "core-admin/bootstrap/pager";
 
 // Components: Popovers
-@import "bootstrap/modals";
-@import "bootstrap/tooltip";
-@import "bootstrap/popovers";
+@import "core-admin/bootstrap/modals";
+@import "core-admin/bootstrap/tooltip";
+@import "core-admin/bootstrap/popovers";
 
 // Components: Misc
-@import "bootstrap/thumbnails";
-@import "bootstrap/media";
-@import "bootstrap/labels-badges";
-@import "bootstrap/progress-bars";
-@import "bootstrap/accordion";
-@import "bootstrap/carousel";
-@import "bootstrap/hero-unit";
+@import "core-admin/bootstrap/thumbnails";
+@import "core-admin/bootstrap/media";
+@import "core-admin/bootstrap/labels-badges";
+@import "core-admin/bootstrap/progress-bars";
+@import "core-admin/bootstrap/accordion";
+@import "core-admin/bootstrap/carousel";
+@import "core-admin/bootstrap/hero-unit";
 
 // Utility classes
-@import "bootstrap/utilities"; // Has to be last to override when necessary
+@import "core-admin/bootstrap/utilities"; // Has to be last to override when necessary

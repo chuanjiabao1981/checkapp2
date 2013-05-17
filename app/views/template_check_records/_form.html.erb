@@ -1,8 +1,6 @@
 <div class="box">
   <div class="box-header">
-    <span class="title"><%= 
-    (record.new_record? ?  I18n.t('views.text.new') : I18n.t('views.text.edit')) +
-    I18n.t('activerecord.models.template_check_record')%></span>
+    <span class="title"><%= get_edit_or_new_label(record) %></span>
   </div>
   <div class="box-content">
     <%= simple_form_for record,url: post_url ,:html => { :class => ' form-horizontal fill-up' } do |f| %>
