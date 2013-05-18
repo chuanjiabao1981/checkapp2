@@ -12,6 +12,78 @@
 <%= f.input :desc ,:input_html => {:rows=>5 }%>
 </div>
 <div class="span6">
-<%= render partial:'shared/image_fields',locals:{f: f} %>
+<div id="file-uploader">
+  <noscript>
+    <p>Please enable JavaScript to use file uploader.</p>
+    <!-- or put a simple form for upload here -->
+  </noscript>
+
 </div>
+<div id="image-show" class="qq-upload">
+  <div class="progress progress-striped" id="upload_progress">
+  <div class="bar" style="width: 0;" id="upload_progress_bar"></div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var uploader = new qq.FineUploader({
+      element: $('div#file-uploader')[0],
+      request: {
+            endpoint: '<%= images_path%>',
+            params:{
+              image_attachment_type: "<%= f.object.class %>"
+            },
+      },
+      validation:{
+      	    allowedExtensions: ['jpg', 'jpeg', 'png', 'gif','tiff'],
+            sizeLimit: 20485760, // max size: 2MB,
+            itemLimit: 3
+      },
+      deleteFile: {
+        enabled: false,
+        forceConfirm: true,
+        endpoint: '/images'
+      },
+      chunking: {
+        enabled: true,
+        partSize:100000,
+        paramNames:{
+          filename: "back.jpg"
+        }
+      },
+      callbacks: {
+        onComplete: function(id, name, response) {
+          $('div#image-show').append(response.src);
+          $('div#upload_progress').hide();
+
+        	/*var text;
+        	for (var key in response.src) {
+        		text += key+"---"+response.src[key]+"\n"; 
+        	}
+        	alert(text);*/
+
+        	//alert(response.src.id);
+        },
+        onProgress: function( id,  name,  uploadedBytes,  totalBytes)
+        {
+          $('#upload_progress_bar').width((uploadedBytes/totalBytes)*100+"%");
+        },
+        onUpload: function(id,name)
+        {
+          $('#upload_progress_bar').width("0%");
+          $('div#upload_progress').show();
+
+        }
+      }
+    });
+
+});
+</script>
+</div>
+<div id="images-info"></div>
 <%= f.error :base ,:error_method => :to_sentence %>
+
+
+<br/><br/>

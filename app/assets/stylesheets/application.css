@@ -1,6 +1,7 @@
 /*
 *= require_self
 *= require_tree .
+*= require fineuploader-3.5.0
 *= require jquery.ui.datepicker
 *= require core-admin/bootstrap_include
 *= require core-admin/uniform_default

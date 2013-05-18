@@ -41,6 +41,7 @@ group :development,:test do
   gem 'guard-livereload'
   gem 'launchy'
   gem 'faker'
+  gem 'thin'
 end
 
 gem 'jquery-rails'

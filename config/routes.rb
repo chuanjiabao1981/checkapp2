@@ -20,6 +20,7 @@ Checkapp2::Application.routes.draw do
   end
   resources :locations
   resources :organizations
+  resources :images,only:[:create,:destroy]
 
   resources :templates
 

@@ -21,4 +21,5 @@
 //= require core-admin/custom_actions
 //= require jquery-ui-timepicker-addon
 //= require jquery-ui-timepicker-zh-CN.js
+//= require jquery.fineuploader-3.5.0/jquery.fineuploader-3.5.0.js
 //= require_tree .
