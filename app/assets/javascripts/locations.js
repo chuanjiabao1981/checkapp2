@@ -272,4 +272,12 @@ $(function(){
   s.type = "text/javascript";
   s.src = "http://api.map.baidu.com/api?v=1.5&ak=96fae1b51460b6910217e1b09658fb40&callback=mapInit";
   $("head").append(s);
+
+  points = $("div#map-config").data("track-points");
+  if (points.length > 0) {
+    var s2 =  document.createElement("script");
+    s2.type = "text/javascript";
+    s2.src = "http://api.map.baidu.com/library/LuShu/1.2/src/LuShu.js";
+    $("head").append(s2);
+  }
 });
