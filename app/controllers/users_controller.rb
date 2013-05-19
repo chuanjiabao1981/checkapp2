@@ -34,7 +34,9 @@ class UsersController < ApplicationController
 	def track
 		if params[:track] and not params[:track].values.all? {|v| v.length == 0}
 			# user 不能为null
-			@track_points 		= TrackPoint.by_user(params[:track][:user]).between(params[:track][:day],params[:track][:start_time],params[:track][:end_time]).all
+			@track_points 		= TrackPoint.by_user(params[:track][:user])
+											.between(params[:track][:day],params[:track][:start_time],params[:track][:end_time])
+											.by_radius(500).all
 			@track_user_name	= User.find_by_id(params[:track][:user])
 			@location           = Location.find_by_id(params[:track][:location]) unless params[:track][:location].nil?
 			if @track_points.size == 0
