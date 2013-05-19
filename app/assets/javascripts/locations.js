@@ -239,7 +239,7 @@ mapLocationSearch = function()
   );
   local.search($('input#search_place').val());
 }
-$(function() {
+mapInit = function() {
   var map, point;
   map = void 0;
   point = void 0;
@@ -265,4 +265,11 @@ $(function() {
     checkAppMap = map;
     return trackPoint(map);
   }
+}
+
+$(function(){
+  var s = document.createElement("script");
+  s.type = "text/javascript";
+  s.src = "http://api.map.baidu.com/api?v=1.5&ak=96fae1b51460b6910217e1b09658fb40&callback=mapInit";
+  $("head").append(s);
 });
