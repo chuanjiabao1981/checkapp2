@@ -22,3 +22,4 @@
 //= require jquery-ui-timepicker-addon
 //= require jquery-ui-timepicker-zh-CN.js
 //= require_tree .
+//= require LuShu.js
