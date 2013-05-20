@@ -36,7 +36,10 @@ Checkapp2::Application.configure do
   config.assets.debug =  false
   config.assets.logger = false
 
+
   config.serve_static_assets = true
 
+  config.logger = Logger.new(STDOUT)
+  #config.logger.level = Logger.const_get('INFO')
 
 end
