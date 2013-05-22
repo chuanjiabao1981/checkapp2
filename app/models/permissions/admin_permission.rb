@@ -28,9 +28,8 @@ module Permissions
       end
 
 
-      allow_param :template_check_record,[:check_point_id,:location_id,:desc,:state]
-      allow_nested_param :template_check_record,:images_attributes,[:image,:id,:_destroy]
-      allow_nested_param :template_check_record,:issue_attributes,[:id,:level,:desc,:reject_reason,:deadline,:responsible_person_id,:location_id,:state_event,:organization_id,:images_attributes=>[:image,:id,:_destroy]]
+      allow_param :template_check_record,[:check_point_id,:location_id,:desc,:state,:image_ids=>[]]
+      allow_nested_param :template_check_record,:issue_attributes,[:id,:level,:desc,:reject_reason,:deadline,:responsible_person_id,:location_id,:state_event,:organization_id,:image_ids=>[]]
 
 
       allow_param :template_report,[:template_id]
@@ -81,9 +80,9 @@ module Permissions
       allow_param :organization ,[:name,:address,:manager_id]
 
 
-      allow_param :resolve,[:desc]
+      allow_param :resolve,[:desc,:image_ids=>[]]
       allow_nested_param :resolve, :images_attributes,[:image,:id,:_destroy]
-      allow_nested_param :quick_report,:issue_attributes,[:id,:level,:desc,:reject_reason,:deadline,:responsible_person_id,:location_id,:state_event,:organization_id,:images_attributes=>[:image,:id,:_destroy]]
+      allow_nested_param :quick_report,:issue_attributes,[:id,:level,:desc,:reject_reason,:deadline,:responsible_person_id,:location_id,:state_event,:organization_id,:image_ids=>[],:images_attributes=>[:image,:id,:_destroy]]
     end
   end
 end

@@ -1,0 +1,7 @@
+cn:
+  errors:
+    messages:
+      carrierwave_processing_error:  无法缩放图片
+      carrierwave_integrity_error: 图片格式错误
+      carrierwave_download_error: 无法下载图片
+      extension_white_list_error: 仅可以上传jpg jpeg gif png 类型的图片

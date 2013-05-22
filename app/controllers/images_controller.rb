@@ -1,16 +1,24 @@
 class ImagesController < ApplicationController
 	def create
-		file = params[:qqfile].is_a?(ActionDispatch::Http::UploadedFile) ? params[:qqfile] : params[:file]
 		@image = Image.new
 		@image.image_attachment_type = params[:image_attachment_type]
-		@image.image = file
+		@image.uuid = params["X-Progress-ID"]
+		@image.image = ActionDispatch::Http::UploadedFile.new({
+        :filename => params[:original_name],
+        :type => params[:content_type],
+        :head => nil,
+        :tempfile => File.open(params[:filepath])
+      	})
 		if @image.save
 			render json: { 
 							success: true, 
-							src: render_to_string(partial: 'thumb.html.erb', locals: { image: @image })
+							src: render_to_string(partial: 'thumb.html.erb', locals: { image: @image,image_check_box_name:params[:image_check_box_name] }),
+						    id: @image.id
+
  }
 		else
-			render json: @image.errors.to_json
+			Rails.logger.debug(@image.errors.full_messages.to_sentence)
+			render json: {error: @image.errors.full_messages.to_sentence}
 		end
 	end
 	def destroy
@@ -19,6 +27,13 @@ class ImagesController < ApplicationController
 	end
 	private 
 	def current_resource
-		@current_resource ||= Image.find_by_id(params[:id]) if params[:id]
+		if params[:id] 
+			if params[:id].include?("-")
+				@current_resource ||= Image.find_by_uuid(params[:id])
+			else
+				@current_resource ||= Image.find_by_id(params[:id]) 
+			end
+			@current_resource
+		end
 	end
 end

@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
 	include SessionsHelper
   include QuickReportsHelper
   include MainHelper
+  include UtilsHelper
+  include ImagesHelper
 
   protect_from_forgery
   before_filter :authorize

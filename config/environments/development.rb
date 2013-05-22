@@ -37,6 +37,8 @@ Checkapp2::Application.configure do
   config.assets.logger = false
 
   config.serve_static_assets = true
+  
+  config.logger = Logger.new(STDOUT) 
 
 
 end
