@@ -22,3 +22,4 @@
 //= require jquery.fineuploader-3.5.0/jquery.fineuploader-3.5.0.js
 //= require_tree .
 //= require bootstrap-timepicker
+//= require LuShu
