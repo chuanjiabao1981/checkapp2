@@ -12,11 +12,12 @@ $(function() {
 });
 
 $(function() {
-  return $("#track_start_time").timepicker();
+  return $("#track_start_time").timepicker({showMeridian:false});
 });
 
 $(function() {
-  return $("#track_end_time").timepicker();
+
+  return $("#track_end_time").timepicker({showMeridian:false});
 });
 
 $(function(){
