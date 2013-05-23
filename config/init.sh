@@ -1,6 +1,6 @@
 #!/bin/sh
 _FILE_DIR=`dirname $0`
-_FILE_ABS_DIR=`pwd $_FILE_DIR`
+_FILE_ABS_DIR=`cd $_FILE_DIR;pwd`
 APP_ROOT=$_FILE_ABS_DIR/../
 set -e
 # Example init script, this can be used with nginx, too,
