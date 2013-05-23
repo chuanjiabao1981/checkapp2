@@ -58,6 +58,11 @@
           }
           clearInterval(tid[id]);
         },
+        onCancel: function(id,name)
+        {
+          $('#upload_progress_bar').width("0%");
+          $('#upload_progress_bar').hide();
+        },
         onProgress: function( id,  name,  uploadedBytes,  totalBytes)
         {
           $('#upload_progress_bar').width((uploadedBytes/totalBytes)*100+"%");
