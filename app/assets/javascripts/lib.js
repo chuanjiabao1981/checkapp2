@@ -4,3 +4,4 @@ jQuery.fn.getPersonOnChange = function (person) {
   })
   return this;
 };
+

@@ -4,7 +4,7 @@ class TemplateCheckRecordsController < ApplicationController
 		@template_report 						=current_resource
 		@template_check_record 					= 
 		TemplateCheckRecord.build_a_record(params[:template_check_record],@template_report)
-		build_images
+		build_issue
 	end
 	def create
 		@template_report    		= current_resource
@@ -12,13 +12,13 @@ class TemplateCheckRecordsController < ApplicationController
 		if @template_check_record.save
 			return redirect_to template_check_record_path(@template_check_record)
 		else
-			build_images
+			build_issue
 			render 'new'
 		end
 	end
 	def edit
 		@template_check_record = current_resource
-		build_images
+		build_issue
 	end
 
 	def update
@@ -26,7 +26,7 @@ class TemplateCheckRecordsController < ApplicationController
 		if @template_check_record.update_attributes(params[:template_check_record])
 			return redirect_to template_check_record_path(@template_check_record)
 		else
-			build_images
+			build_issue
 			render 'edit'
 		end
 	end
@@ -48,12 +48,10 @@ class TemplateCheckRecordsController < ApplicationController
 			@current_resource ||= TemplateCheckRecord.find(params[:id])
 		end
   	end
-  	def build_images
-  		build_images_for_object(@template_check_record)
+  	def build_issue
   		if @template_check_record.issue.nil?
 			@template_check_record.build_issue
 		end
-		build_images_for_object(@template_check_record.issue)
   	end
   	def check_point_already_done
   		if current_resource

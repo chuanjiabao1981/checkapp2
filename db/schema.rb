@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130516071829) do
+ActiveRecord::Schema.define(:version => 20130521134138) do
 
   create_table "check_points", :force => true do |t|
     t.string   "content"
@@ -31,10 +31,12 @@ ActiveRecord::Schema.define(:version => 20130516071829) do
     t.integer  "tenant_id"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
+    t.string   "uuid"
   end
 
   add_index "images", ["image_attachment_id"], :name => "index_images_on_image_attachment_id"
   add_index "images", ["tenant_id"], :name => "index_images_on_tenant_id"
+  add_index "images", ["uuid"], :name => "index_images_on_uuid"
 
   create_table "issues", :force => true do |t|
     t.string   "state"

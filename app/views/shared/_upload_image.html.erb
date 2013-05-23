@@ -1,0 +1,82 @@
+<div id="file-uploader-<%=f.object.class.to_s%>">
+  <noscript>
+    <p>Please enable JavaScript to use file uploader.</p>
+  </noscript>
+
+</div>
+<div id="image-show-<%=f.object.class.to_s%>" class="qq-upload">
+  <div class="progress progress-striped" id="upload_progress" style="display:none">
+  <div class="bar" style="width: 0;" id="upload_progress_bar"></div>
+  </div>
+  <%f.object.images.each do |i| %>
+    <%= render partial:"images/thumb" ,locals:{image:i,image_check_box_name: image_check_box_name}%>
+  <%end%>
+</div>
+
+
+<script type="text/javascript">
+
+  $(document).ready(function(){
+    var tid=[] ;
+    var uploader = new qq.FineUploader({
+      element: $('div#file-uploader-<%=f.object.class.to_s%>')[0],
+      request: {
+            endpoint: '/images',
+            paramsInBody: false,
+            params:{
+              image_attachment_type: "<%= f.object.class %>",
+              image_check_box_name: "<%=image_check_box_name%>"
+            },
+            uuidName:"X-Progress-ID"
+      },
+      text:{
+        uploadButton: '上传图像'
+      },
+      messages:{
+        typeError: "{file} 扩展名错误. 合法的扩展名: {extensions}.",
+        sizeError: "{file} 太大, 文件最大为 {sizeLimit}.",
+        onLeave:"文件正在上传，如果离开将会丢失此文件."
+      },
+      validation:{
+      	   //allowedExtensions: ['jpg', 'jpeg', 'png', 'gif',''],
+            sizeLimit: 3048576, // max size: 2MB,
+      },
+      callbacks: {
+        onComplete: function(id, name, response) {
+          $('div#upload_progress').hide();
+          if (response.success){
+            $('div#image-show-<%=f.object.class.to_s%>').append(response.src);
+            $('.qq-upload-success').remove();
+          }else{
+            if (response.error){
+              alert(response.error);
+            }
+            else{
+              alert("上传错误，请重试！");
+            }
+            $('.qq-upload-fail').remove();
+          }
+          clearInterval(tid[id]);
+        },
+        onProgress: function( id,  name,  uploadedBytes,  totalBytes)
+        {
+          $('#upload_progress_bar').width((uploadedBytes/totalBytes)*100+"%");
+        },
+        onSubmit: function(id, name){
+          $('#upload_progress_bar').width("0%");
+
+          $('div#upload_progress').show();
+
+        tid[id]= setInterval(function() {
+          $.get("/progress?X-Progress-ID="+uploader.getUuid(id),
+            function(data) {
+              $('#upload_progress_bar').width(data.received/data.size *100+"%");
+            } 
+          );
+          }, 1000);
+        }
+      }
+    });
+
+});
+</script>

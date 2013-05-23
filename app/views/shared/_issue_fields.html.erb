@@ -11,7 +11,9 @@
 <% end %>
 <%= f.input :desc ,:input_html => {:rows=>5 }%>
 </div>
+
 <div class="span6">
-<%= render partial:'shared/image_fields',locals:{f: f} %>
+	<%= render partial:'shared/upload_image',locals:{f:f,image_check_box_name:check_box_name_of_issue_images(f.object)} %>
 </div>
 <%= f.error :base ,:error_method => :to_sentence %>
+<br/><br/>

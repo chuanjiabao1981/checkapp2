@@ -16,5 +16,5 @@
 /public/uploads
 /shared/log/*
 /shared/unicorn.sock
-/shared/.unicorn.sock
 /shared/pids/*
+/shared/log/*

@@ -14,7 +14,11 @@
 /log/*.log
 /tmp
 /public/uploads
+<<<<<<< HEAD
 /shared/log/*
 /shared/unicorn.sock
-/shared/.unicorn.sock
 /shared/pids/*
+/shared/log/*
+=======
+/shared/log/*
+>>>>>>> fileupload

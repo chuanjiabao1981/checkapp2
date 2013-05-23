@@ -5,7 +5,12 @@ module Permissions
       allow "api/v1/sessions",[:create,:destroy]
       allow "api/v1/track_points",[:create]
       allow "api/v1/organizations",[:users]
-
+      
+      allow :images,[:create]
+      
+      allow :images,[:destroy] do |image|
+        image && image.tenant_id == user.tenant_id
+      end
 
       allow :users,[:index,:track,:checkin]
       allow :templates,[:index]
@@ -26,9 +31,10 @@ module Permissions
       allow :template_check_records,[:show] do |tcr|
         tcr && tcr.tenant_id == user.tenant_id
       end
-      allow_param :template_check_record,[:check_point_id,:location_id,:desc,:state]
-      allow_nested_param :template_check_record,:images_attributes,[:image,:id,:_destroy]
-      allow_nested_param :template_check_record,:issue_attributes,[:id,:level,:desc,:reject_reason,:deadline,:responsible_person_id,:location_id,:state_event,:organization_id,:images_attributes=>[:image,:id,:_destroy]]
+
+      allow_param :template_check_record,[:check_point_id,:location_id,:desc,:state,:image_ids=>[]]
+      allow_nested_param :template_check_record,:issue_attributes,[:id,:level,:desc,:reject_reason,:deadline,:responsible_person_id,:location_id,:state_event,:organization_id,:image_ids=>[]]
+
 
 
 
@@ -57,9 +63,9 @@ module Permissions
       allow_param :location,[:search]
 
       #allow_param :issue,[:level,:desc,:reject_reason,:deadline,:responsible_person_id,:state_event]
-      allow_param :resolve,[:desc]
+      allow_param :resolve,[:desc,:image_ids=>[]]
       allow_nested_param :resolve, :images_attributes,[:image,:id,:_destroy]
-      allow_nested_param :quick_report,:issue_attributes,[:id,:level,:desc,:reject_reason,:deadline,:responsible_person_id,:location_id,:state_event,:organization_id,:images_attributes=>[:image,:id,:_destroy]]
+      allow_nested_param :quick_report,:issue_attributes,[:id,:level,:desc,:reject_reason,:deadline,:responsible_person_id,:location_id,:state_event,:organization_id,:image_ids=>[],:images_attributes=>[:image,:id,:_destroy]]
     end
   end
 end

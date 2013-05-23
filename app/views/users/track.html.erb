@@ -17,8 +17,8 @@
         <%= f.error_notification %>
         <fieldset>
           <%= f.input :day, as: :string, :input_html=> {:value => params[:track][:day] }%>
-          <%= f.input :start_time, as: :string, :input_html =>{:value => params[:track][:start_time]} %>
-          <%= f.input :end_time,as: :string, :input_html =>{:value => params[:track][:end_time]} %>
+          <%= f.input :start_time, as: :string, :wrapper => :bootstrap_timerpicker,:input_html =>{:value => params[:track][:start_time] }%>
+          <%= f.input :end_time,as: :string, :wrapper => :bootstrap_timerpicker,:input_html =>{:value => params[:track][:end_time]} %>
           <%= f.input :user,collection: User.all,:include_blank => true,:selected=>params[:track][:user] ,:include_blank => false%>
         </fieldset>
       </div>
