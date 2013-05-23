@@ -1,5 +1,6 @@
 ##这个千万注意路径是否正确 
-##这个是worker的
+##注意脚本中这个目录是否正确
+## source "/home/work/.rvm/scripts/rvm"
 ##crontab rubish_image_cleanup_crontab
 */5 * * * * /home/work/application_checkapp2/checkapp2/script/rubish_image_cleanup.sh 1>>/tmp/rubish_image_cleanup.log 2>&1
 
