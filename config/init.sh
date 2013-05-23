@@ -10,7 +10,7 @@ set -e
 TIMEOUT=${TIMEOUT-60}
 PID=$APP_ROOT/shared/pids/unicorn.pid
 #bundle install --binstubs 
-CMD="$APP_ROOT/bin/unicorn -D -c $APP_ROOT/config/unicorn.rb"
+CMD="$APP_ROOT/bin/unicorn -D -c $APP_ROOT/config/unicorn.rb -E production"
 #INIT_CONF=$APP_ROOT/config/init.conf
 action="$1"
 set -u
