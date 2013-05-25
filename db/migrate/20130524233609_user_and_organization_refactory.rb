@@ -33,11 +33,9 @@ class UserAndOrganizationRefactory < ActiveRecord::Migration
   end
   def super_organization(o)
   	if o.manager
-  		if o.manager.try(:manager).try(:organization)
-  			o.manager.manager.organization
-  		else
-  			nil
-  		end
+  		user_organization(o.manager)
+  	else
+  		nil
   	end
   end
 end
