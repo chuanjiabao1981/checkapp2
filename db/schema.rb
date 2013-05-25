@@ -79,11 +79,13 @@ ActiveRecord::Schema.define(:version => 20130524233609) do
     t.string   "address"
     t.integer  "tenant_id"
     t.integer  "manager_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.integer  "super_organization_id"
   end
 
   add_index "organizations", ["manager_id"], :name => "index_organizations_on_manager_id"
+  add_index "organizations", ["super_organization_id"], :name => "index_organizations_on_super_organization_id"
   add_index "organizations", ["tenant_id"], :name => "index_organizations_on_tenant_id"
 
   create_table "quick_reports", :force => true do |t|
@@ -195,8 +197,10 @@ ActiveRecord::Schema.define(:version => 20130524233609) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.integer  "role_id"
+    t.integer  "organization_id"
   end
 
+  add_index "users", ["organization_id"], :name => "index_users_on_organization_id"
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
   add_index "users", ["tenant_id"], :name => "index_users_on_tenant_id"
 
