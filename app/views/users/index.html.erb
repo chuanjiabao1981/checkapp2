@@ -6,8 +6,7 @@
 				<th><%= I18n.t('activerecord.attributes.user.name')%></th>
 				<th><%= I18n.t('activerecord.attributes.user.account')%></th>
 				<th><%= I18n.t('activerecord.attributes.user.mobile')%></th>
-				<th><%= "直接上级"+ I18n.t('activerecord.attributes.user.manager')%></th>
-				<th><%= "所属或负责的"+I18n.t('activerecord.models.organization')%></th>
+				<th><%= "所属"+I18n.t('activerecord.models.organization')%></th>
 				<th><%= I18n.t('views.text.action')%></th>
 			</tr>
 		</thead>
@@ -17,8 +16,7 @@
 				<td><%= u.name %></td>
 				<td><%= u.account %></td>
 				<td><%= u.mobile.nil?  ? '-' : u.mobile %></td>
-				<td><%= u.manager.nil? ? '-' : (u.manager.name.nil? ? '-' :  u.manager.name )  %></td>
-				<td><%= u.organization_name %></td>
+				<td><%= u.organization.try(:name) %></td>
 				<td>
 					<%= render :partial=>'shared/edit_destroy',:locals=>{:model=>'user',:r=>u}%>
 				</td>

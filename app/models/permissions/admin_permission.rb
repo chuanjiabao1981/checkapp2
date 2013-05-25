@@ -34,7 +34,7 @@ module Permissions
 
       allow_param :template_report,[:template_id]
       allow_param :template,[:name,:desc]
-      allow_param :user ,[:name,:mobile,:account,:password_confirmation,:password,:manager_id]
+      allow_param :user ,[:name,:mobile,:account,:password_confirmation,:password,:organization_id]
 
       allow :sessions,[:new,:create,:destroy]
       allow "api/v1/sessions",[:create,:destroy]
@@ -77,7 +77,7 @@ module Permissions
       allow :organizations,[:edit,:update,:destroy] do |organization|
         organization && organization.tenant_id == user.tenant_id
       end
-      allow_param :organization ,[:name,:address,:manager_id]
+      allow_param :organization ,[:name,:address,:manager_id,:super_organization_id]
 
 
       allow_param :resolve,[:desc,:image_ids=>[]]

@@ -101,13 +101,13 @@ class TrackPoint < ActiveRecord::Base
  	    end
  	    __final_result
 	end
-	def self.test(organization_id)
-		_organization_users = 'organization_users'
-		TrackPoint.find_by_sql(
-			%Q{
-				#{User.all_subordinates_sql(_organization_users,organization_id)}
-				select * from #{_organization_users}
-			}
-		)
-	end
+	#def self.test(organization_id)
+	#	_organization_users = 'organization_users'
+	#	TrackPoint.find_by_sql(
+	#		%Q{
+	#			#{User.all_subordinates_sql(_organization_users,organization_id)}
+	#			select * from #{_organization_users}
+	#		}
+	#	)
+	#end
 end

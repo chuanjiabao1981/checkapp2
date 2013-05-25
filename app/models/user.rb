@@ -8,11 +8,8 @@ class TenantValidator < ActiveModel::Validator
 end
 class ManagerValidator < ActiveModel::Validator
   def validate(record)
-    if not record.manager.nil? and record.tenant_id != record.manager.tenant_id
-      record.errors.add :manager_id, I18n.t('activerecord.errors.messages.tenant_not_match')
-    end
-    if not record.manager_id.nil? and not record.new_record? and record.id == record.manager_id
-      record.errors.add :manager_id,I18n.t('activerecord.errors.messages.manager_cannot_be_self')
+    if not record.organization.nil? and record.tenant_id != record.organization.tenant_id
+      record.errors.add :organization_id, I18n.t('activerecord.errors.messages.tenant_not_match')
     end
   end
 end
@@ -20,27 +17,28 @@ class User < ActiveRecord::Base
 	VALID_NAME_REGEX = /\A[a-zA-Z\d_]+\z/i
 	VALID_MOBILE_REGEX = /\A[\d]+\z/
 
-	#attr_accessible :account,:password,:password_confirmation,:mobile,:name,:role,:manager,:tenant
 
 	before_save :create_remember_token
 
 	has_secure_password
 
-  validates :name    ,:length => {:maximum => 50} ,presence: true
-  validates :mobile  ,:length => {:is => 11 },format: {with:VALID_MOBILE_REGEX} , :unless => "mobile.nil? || mobile.length == 0"
-  validates :account ,:length => {:maximum => 50},:presence => true,:uniqueness => true,format:{with:VALID_NAME_REGEX}
-  validates :password,presence:true,:on => :create
-  validates :role    ,presence: true
-	validates :tenant  ,presence: true, :unless => Proc.new {|u| u.role && u.role.name == Role::SuperAdmin}
+  validates :name           ,:length => {:maximum => 50} ,presence: true
+  validates :mobile         ,:length => {:is => 11 },format: {with:VALID_MOBILE_REGEX} , :unless => "mobile.nil? || mobile.length == 0"
+  validates :account        ,:length => {:maximum => 50},:presence => true,:uniqueness => true,format:{with:VALID_NAME_REGEX}
+  validates :password       ,presence:true,:on => :create
+  validates :role           ,presence: true
+	validates :tenant         ,presence: true, :unless => Proc.new {|u| u.role && u.role.name == Role::SuperAdmin}
+  validates :organization   ,presence: true, :unless => Proc.new {|u| u.role && (u.role.name == Role::SuperAdmin or u.role.name == Role::Admin)}
 
   
 	validates_with TenantValidator
   validates_with ManagerValidator
 
   belongs_to  :role
-	has_many 	  :subordinates, :class_name => "User", :foreign_key => "manager_id",:dependent => :destroy
-	belongs_to  :manager,:class_name =>"User"
-  has_one     :organization, :class_name => "Organization",:foreign_key => "manager_id",:dependent => :destroy,:inverse_of=> :manager
+	#has_many 	  :subordinates, :class_name => "User", :foreign_key => "manager_id",:dependent => :destroy
+  #has_many
+	#belongs_to  :manager,:class_name =>"User"
+  belongs_to  :organization
   belongs_to  :tenant
   has_many    :track_points,:dependent => :destroy
 
@@ -83,34 +81,34 @@ class User < ActiveRecord::Base
     def super_admin?
     	is_role?(Role::SuperAdmin)
     end
-    def organization_name
-      if self.organization
-        return self.organization.name
-      elsif self.manager
-        return self.manager.organization_name
-      end
-      '-'
-    end
+    #def organization_name
+    #  if self.organization
+    #    return self.organization.name
+    #  elsif self.manager
+    #    return self.manager.organization_name
+    #  end
+    #  '-'
+    #end
 
-    def self.all_subordinates_of_organization(organization_id)
-      return [] if (organization_id.nil? or organization_id.to_s.length == 0)
-      User.find_by_sql(
-        %Q{
-          #{User.all_subordinates_sql("rr",organization_id)}
-          select * from rr ORDER by id;
-        }
-      )
-    end
+    #def self.all_subordinates_of_organization(organization_id)
+    #  return [] if (organization_id.nil? or organization_id.to_s.length == 0)
+    #  User.find_by_sql(
+    #    %Q{
+    #      #{User.all_subordinates_sql("rr",organization_id)}
+    #      select * from rr ORDER by id;
+    #    }
+    #  )
+    #end
 
-    def self.all_subordinates_sql(new_table_name,organization_id)
-      %Q{
-        WITH RECURSIVE #{new_table_name} AS ( 
-        SELECT users.* FROM users,organizations WHERE users.id = organizations.manager_id and organizations.id = #{organization_id}
-        union   ALL 
-        SELECT users.* FROM users, #{new_table_name} WHERE users.manager_id = #{new_table_name}.id 
-        ) 
-      }
-    end
+    #def self.all_subordinates_sql(new_table_name,organization_id)
+    #  %Q{
+    #    WITH RECURSIVE #{new_table_name} AS ( 
+    #    SELECT users.* FROM users,organizations WHERE users.id = organizations.manager_id and organizations.id = #{organization_id}
+    #    union   ALL 
+    #    SELECT users.* FROM users, #{new_table_name} WHERE users.manager_id = #{new_table_name}.id 
+    #    ) 
+    #  }
+    #end
 
 
   	private 

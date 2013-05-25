@@ -15,7 +15,8 @@ cn:
         role: 角色
         manager_id: 主管
         manager: 主管
+        organization: 所属机构
     errors:
       messages:
-        tenant_not_match: 上级主管和成员所属域不匹配
+        tenant_not_match: 所属机构和成员所属域不匹配
         manager_cannot_be_self: 员工不能成为自己的主管

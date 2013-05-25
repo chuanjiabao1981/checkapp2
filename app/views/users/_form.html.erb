@@ -12,9 +12,7 @@
 				<%= f.input :mobile %>
 				<%= f.input :password %>
 				<%= f.input :password_confirmation %>
-				<% if allow_param?(:user,:manager_id) %>
-				<%= f.association :manager, collection: User.all.collect {|t| [t.name,t.id]} ,:include_blank => true %>
-				<% end %>
+				<%= f.association :organization,collection: Organization.all.collect {|t| [t.name,t.id]},:include_blank => true %>
 				<% if  allow_param?(:user,:tenant_id) %>
 				<%= f.association :tenant, collection: Tenant.all.collect {|t| [t.name,t.id]} %>
 				<% end %>

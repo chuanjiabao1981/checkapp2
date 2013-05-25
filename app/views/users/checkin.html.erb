@@ -14,7 +14,7 @@
           			<%= f.input :location,      collection: Location.all.collect { |l| [l.name,l.coordinate.to_s]  },:include_blank => false , :selected => params[:checkin][:location] %>
           			<%= f.input :distance,  as: :integer, :input_html=>{:value => params[:checkin][:distance],:step => 300} %>
           			<%= f.input :organization , collection: Organization.all,:include_blank => true, :selected => params[:checkin][:organization] %>
-          			<%= f.input :user,collection: User.all_subordinates_of_organization(params[:checkin][:organization]),:selected=>params[:checkin][:user] %>
+          			<%= f.input :user,collection: Organization.all_organization_users(params[:checkin][:organization]),:selected=>params[:checkin][:user] %>
           			<%= f.input :start_day, as: :string, :input_html =>{:value => params[:checkin][:start_day]} %>
           			<%= f.input :end_day,   as: :string, :input_html =>{:value => params[:checkin][:end_day]} %>
 
