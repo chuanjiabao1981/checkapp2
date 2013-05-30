@@ -13,7 +13,7 @@
 			<% @organizations.each do |o| %>
 			<tr>
 				<td><%= o.name %></td>
-				<td><%= o.manager.name %></td>
+				<td><%= o.manager.try(:name) %></td>
 				<td><%= o.address %></td>
 				<td>
 					<%= render :partial=>'shared/edit_destroy',:locals=>{:model=>'organization',:r=>o}%>
